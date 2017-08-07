@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.team180.tables.EmployerListingEntity" table="employer_listing" schema="oneeighty">
+        <id name="jobId">
+            <column name="jobID" sql-type="int(11)"/>
+        </id>
+        <property name="company">
+            <column name="company" sql-type="varchar(255)"/>
+        </property>
+        <property name="jobTitle">
+            <column name="job_title" sql-type="varchar(255)"/>
+        </property>
+        <property name="contactName">
+            <column name="contact_name" sql-type="varchar(45)" length="45"/>
+        </property>
+        <property name="contactPhone">
+            <column name="contact_phone" sql-type="varchar(15)" length="15"/>
+        </property>
+        <property name="contactEmail">
+            <column name="contact_email" sql-type="varchar(45)" length="45"/>
+        </property>
+        <property name="jobDescription">
+            <column name="job_description" sql-type="blob"/>
+        </property>
+    </class>
+</hibernate-mapping>
