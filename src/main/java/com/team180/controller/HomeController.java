@@ -6,6 +6,7 @@ package com.team180.controller;
 
 
 
+import com.team180.tables.EmployerListingEntity;
 import com.team180.tables.UsersEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,13 +30,27 @@ public class HomeController {
     public ModelAndView helloWorld()
     {
         return new
-                ModelAndView("userregistration","message","Hello World");
+                ModelAndView("welcome","message","welcome to 180");
 
+    }
+
+    @RequestMapping("/registerUser")
+
+    public String registerUser(){
+
+        return "userregistration";
+    }
+
+    @RequestMapping("/registerJob")
+
+    public String registerJob(){
+
+        return "registerjob";
     }
 
 
 
-    @RequestMapping("/registerUser")
+    @RequestMapping("/insertUser")
 
     public ModelAndView registerUser(Model model, @RequestParam("firstName") String fname, @RequestParam("lastName") String lname,
                                      @RequestParam("middleName") String midName, @RequestParam("birthday") Date bday,
@@ -76,13 +91,38 @@ public class HomeController {
         return new
                 ModelAndView("userprofile", "message", "Hello World");
 
+
+
+    }
+
+    @RequestMapping("/insertJob")
+
+    public String registerJob(@RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
+                              @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
+                              @RequestParam("email") String email, @RequestParam("jobDescription") byte[] jDescription){
+
+        Session s = getSession();
+        EmployerListingEntity jobListing = new EmployerListingEntity();
+
+        jobListing.setCompany(company);
+        jobListing.setJobTitle(jTitle);
+        jobListing.setContactName(cName);
+        jobListing.setContactPhone(cPhone);
+        jobListing.setContactEmail(email);
+        jobListing.setJobDescription(jDescription);
+
+        s.save(jobListing);
+        s.beginTransaction().commit();
+        s.close();
+
+        return "success";
     }
 
     private Session getSession() {
         Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
         SessionFactory sessionFact = cfg.buildSessionFactory();
         Session s = sessionFact.openSession();
-        s.beginTransaction();
+        //s.beginTransaction();
         return s;
     }
 
