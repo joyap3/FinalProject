@@ -61,7 +61,7 @@ public class HomeController {
         Session s = getSession();
 
         UsersEntity newUser = new UsersEntity();
-        //add values to the jsp using the model and add Attribute method
+
         newUser.setFirstName(fname);
         newUser.setMiddleName(midName);
         newUser.setLastName(lname);
