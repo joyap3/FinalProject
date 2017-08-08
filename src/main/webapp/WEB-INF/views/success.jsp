@@ -11,6 +11,9 @@
     <title>Success</title>
 </head>
 <body>
-Success!
+Success! Your job has been posted
+<p>
+    <a href="/registerJob">Click here</a> to register another job
+</p>
 </body>
 </html>
