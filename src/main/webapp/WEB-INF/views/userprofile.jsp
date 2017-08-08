@@ -11,6 +11,6 @@
     <title>User Profile</title>
 </head>
 <body>
-Hello, ${}
+Hello, ${firstName}
 </body>
 </html>

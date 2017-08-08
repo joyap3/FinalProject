@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <td>Date of Birth:</td>
-            <td><input type="date" name="birthDate"></td>
+            <td><input type="date" name="birthday"></td>
         </tr>
         <tr>
             <td>Address:</td>
@@ -39,7 +39,7 @@
         </tr>
         <tr>
             <td>Phone Number:</td>
-            <td><input type="tel" name="phoneNum"></td>
+            <td><input type="tel" name="phoneNumber"></td>
         </tr>
         <tr>
             <td>Email:</td>
