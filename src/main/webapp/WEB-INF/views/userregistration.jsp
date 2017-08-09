@@ -11,7 +11,7 @@
     <title>User Registration</title>
 </head>
 <body>
-<a href="registerjob">register job</a>
+<%--<a href="registerjob">register job</a>--%>
 
 <form name="registerUser" action="/insertUser" method="post">
     <table>
