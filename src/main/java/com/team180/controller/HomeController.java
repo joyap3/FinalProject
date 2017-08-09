@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 @Controller
 public class HomeController {
@@ -70,6 +71,10 @@ public class HomeController {
         newUser.setAddress(address);
         newUser.setZip(zip);
         newUser.setPhoneNumber(phoneNum);
+
+        ModelAndView alert = validateEmail(email);
+        if (alert != null) return alert;
+        
         newUser.setEmail(email);
         newUser.setPassword(PasswordMD5Encrypt.PasswordMD5Encrypt(password));
         newUser.setSkillset(skillSet);
@@ -91,9 +96,19 @@ public class HomeController {
 
         return new
                 ModelAndView("userprofile", "message", "Hello World");
+    }
 
+    private ModelAndView validateEmail(@RequestParam("email") String email) {
+        UserController uc = new UserController();
+        ArrayList<UsersEntity> userList = uc.displayUserList();
 
-
+        for (int i = 0; i < userList.size(); i++) {
+            if(userList.get(i).getEmail().equalsIgnoreCase(email)) {
+                String alert = "Email already taken, please enter alternate email.";
+                return new ModelAndView("userregistration","invalid",alert);
+            }
+        }
+        return null;
     }
 
     @RequestMapping("/insertJob")

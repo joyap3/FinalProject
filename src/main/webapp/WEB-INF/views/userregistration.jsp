@@ -46,6 +46,7 @@
         <tr>
             <td>Email:</td>
             <td><input type="email" name="email"></td>
+            <td>${invalid}</td>
         </tr>
         <tr>
             <td>Password:</td>

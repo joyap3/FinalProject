@@ -53,7 +53,7 @@ public class UserController {
         return s;
     }
 
-    private ArrayList<UsersEntity> displayUserList() {
+    public ArrayList<UsersEntity> displayUserList() {
         Session s = getSession();
         Criteria c = s.createCriteria(UsersEntity.class);
         return (ArrayList<UsersEntity>) c.list();
