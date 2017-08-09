@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.team180.tables.UsersEntity" table="users" schema="oneeighty">
+        <id name="idUsers">
+            <column name="idUsers" sql-type="int(11)"/>
+        </id>
+        <property name="firstName">
+            <column name="first_name" sql-type="varchar(45)" length="45"/>
+        </property>
+        <property name="middleName">
+            <column name="middle_name" sql-type="varchar(45)" length="45"/>
+        </property>
+        <property name="lastName">
+            <column name="last_name" sql-type="varchar(45)" length="45"/>
+        </property>
+        <property name="birthday">
+            <column name="birthday" sql-type="date"/>
+        </property>
+        <property name="address">
+            <column name="address" sql-type="varchar(255)"/>
+        </property>
+        <property name="zip">
+            <column name="zip" sql-type="int(11)"/>
+        </property>
+        <property name="phoneNumber">
+            <column name="phone_number" sql-type="varchar(10)" length="10" not-null="true"/>
+        </property>
+        <property name="email">
+            <column name="email" sql-type="varchar(45)" length="45"/>
+        </property>
+        <property name="password">
+            <column name="password" sql-type="varchar(45)" length="45"/>
+        </property>
+        <property name="skillset">
+            <column name="skillset" sql-type="varchar(255)"/>
+        </property>
+        <property name="crimetype">
+            <column name="crimetype" sql-type="tinyint(4)" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

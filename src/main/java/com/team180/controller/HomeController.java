@@ -6,6 +6,7 @@ package com.team180.controller;
 
 
 
+import com.team180.Encryption.PasswordMD5Encrypt;
 import com.team180.tables.EmployerListingEntity;
 import com.team180.tables.UsersEntity;
 import org.hibernate.Session;
@@ -70,7 +71,7 @@ public class HomeController {
         newUser.setZip(zip);
         newUser.setPhoneNumber(phoneNum);
         newUser.setEmail(email);
-        newUser.setPassword(password);
+        newUser.setPassword(PasswordMD5Encrypt.PasswordMD5Encrypt(password));
         newUser.setSkillset(skillSet);
 
         s.save(newUser);
