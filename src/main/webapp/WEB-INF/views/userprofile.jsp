@@ -14,42 +14,53 @@
 <body>
 <a href="login">go to login</a>
 
+<h1>Welcome, ${userProfile.firstName} ${firstName}</h1>
+
 <table>
 
     <tr>
         <td>First Name:</td>
-        <td>${userProfile.firstName}</td>
+        <td>${userProfile.firstName} ${firstName}</td>
     </tr>
     <tr>
         <td>Middle Name:</td>
-        <td>${userProfile.middleName}</td>
+        <td>${userProfile.middleName} ${middleName}</td>
     </tr>
     <tr>
         <td>Last Name:</td>
-        <td>${userProfile.lastName}</td>
+        <td>${userProfile.lastName} ${lastName}</td>
     </tr>
     <tr>
         <td>Birthday:</td>
-        <td>${userProfile.birthday}</td>
+        <td>${userProfile.birthday} ${birthday}</td>
     </tr>
     <tr>
         <td>Address:</td>
-        <td>${userProfile.address}</td>
+        <td>${userProfile.address} ${address}</td>
     </tr>
     <tr>
         <td>Zip:</td>
-        <td>${userProfile.zip}</td>
+        <td>${userProfile.zip} ${zip}</td>
     </tr>
     <tr>
         <td>Phone Number:</td>
-        <td>${userProfile.phoneNumber}</td>
+        <td>${userProfile.phoneNumber} ${phoneNumber}</td>
     </tr>
     <tr>
         <td>email:</td>
-        <td>${userProfile.email}</td>
+        <td>${userProfile.email} ${email}</td>
     </tr>
-
-
+    <tr>
+        <td>skillset:</td>
+        <td>${userProfile.skillset} ${skillSet}</td>
+    </tr>
+    <tr>
+        <td>
+            <a href="updateUserInfo?id=${userProfile.idUsers}">
+                <button value="Edit Item">Edit</button>
+            </a>
+        </td>
+    </tr>
 </table>
 </body>
 </html>

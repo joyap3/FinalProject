@@ -74,7 +74,7 @@ public class HomeController {
 
         ModelAndView alert = validateEmail(email);
         if (alert != null) return alert;
-        
+
         newUser.setEmail(email);
         newUser.setPassword(PasswordMD5Encrypt.PasswordMD5Encrypt(password));
         newUser.setSkillset(skillSet);
