@@ -59,8 +59,8 @@
         <div class="container">
             <div class="col-sm-10 col-sm-offset-1">
                 <h1 class="display-3">Welcome to 180</h1>
-                <p>Just like the old 180, but better. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio
-                    quibusdam quis, repudiandae reprehenderit doloremque fugiat molestias, corporis voluptas.</p>
+                <p>180 provides a digital space find work, offer work and connect with groups and organizations that foster
+                    life skills. Seeking to improve the lives of people affected by a felony conviction.</p>
                 <a href="#" data-toggle="modal" data-target="#login-modal"><h1><strong>Login</strong></h1></a>
                 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                      aria-hidden="true" style="display: none;">
@@ -159,10 +159,8 @@
     <div class="section-content">
         <div class="container">
             <h2>What we do</h2>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui accusantium commodi non quod
-                mollitia animi, totam quia labore ex est ut delectus consectetur explicabo eveniet maiores, cumque aut
-                repudiandae. Natus!</p>
-
+            <p class="lead">180 provides a network in partnership with Companies, Foundations and Out Reach Programs to
+                create lasting change in the lives of convicted felons.</p>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-group">

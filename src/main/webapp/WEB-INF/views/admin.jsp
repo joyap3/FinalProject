@@ -16,6 +16,7 @@
 ${message}
 <a href="/listusers">View Users</a>
 <a href="/listjobs">View Jobs</a>
+<a href="/showAPI">API</a>
 
 <form action="searchForUser" method="get">
     <input type="text" name="firstName">
