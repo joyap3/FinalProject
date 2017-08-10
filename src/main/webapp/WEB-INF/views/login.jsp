@@ -82,13 +82,13 @@
                 <font color="gray"><strong>${invalid}</strong></font>
                 <label class="control-label col-sm-3"  for="user email"><font color="gray">username</font></label>
                 <div class="col-sm-8 col-xs-12">
-                    <input type="text" color="black" name="username" id="user email" placeholder="user email" required="true" class="form-control"/>
+                    <input type="text" color="black" name="user" id="user email" placeholder="user email" required="true" class="form-control"/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-3" for="password"><font color="gray">password</font></label>
                 <div class="col-sm-8 col-xs-12">
-                    <input type="password" name="password" id="password" placeholder="password" required="true" class="form-control"/>
+                    <input type="password" name="pass" id="password" placeholder="password" required="true" class="form-control"/>
                 </div>
             </div>
             <div class="form-group">
