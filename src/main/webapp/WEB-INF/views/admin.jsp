@@ -41,12 +41,11 @@ ${message}
             <td>${myvar.lastName}</td>
             <td>${myvar.birthday}</td>
             <td>${myvar.crimetype}</td>
-            <td><a href="/deleteuser?id=${myvar.idUsers}"> Delete </a> </td>
-
-            <td><form action="crimetype" name="crime" method="post">
-                <input type="checkbox" name="crime" value="V" >V
-                <input type="submit" value="Submit">
-
+            <td><a href="deleteuser?id=${myvar.idUsers}"> Delete </a> </td>
+            <td>
+                <a href="updatecrimetype?id=${myvar.idUsers}">
+                    <button value="Edit Item">Edit</button>
+                </a>
             </form> </td>
         </tr>
     </c:forEach>
@@ -57,7 +56,7 @@ ${message}
             <td>${myvar.company}</td>
             <td>${myvar.jobTitle}</td>
             <td>${myvar.jobDescription}</td>
-            <td><a href="/deletejob?id=${myvar.jobId}"> Delete </a> </td>
+            <td><a href="deletejob?id=${myvar.jobId}"> Delete </a> </td>
         </tr>
     </c:forEach>
 

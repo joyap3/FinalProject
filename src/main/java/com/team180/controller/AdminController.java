@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,6 +23,8 @@ import java.util.ArrayList;
 
 @Controller
 public class AdminController {
+
+    private int id;
 
     @RequestMapping("/admin")
     public ModelAndView helloWorld() {
@@ -84,19 +87,57 @@ public class AdminController {
         return (ArrayList<EmployerListingEntity>) j.list();
     }
 
-    @RequestMapping("/crimetype")
-    public ModelAndView editCrimetype(@RequestParam("crime") Byte crime) {
-        //temp object will store infor for the object we want to delete.
-        UsersEntity temp = new UsersEntity();
-        temp.setCrimetype(crime);
 
-        Configuration config = new Configuration().configure("hibernate.cfg.xml");
-        SessionFactory sessionFact = config.buildSessionFactory();
-        Session editCrimetype = sessionFact.openSession();
-        editCrimetype.beginTransaction();
+
+    @RequestMapping("/updatecrimetype")
+    public ModelAndView updateUserAdmin(Model model, @RequestParam("id")int id){
+
+        this.id = id;
+
+        Session s = UserController.getSession();
+
+        UsersEntity temp = (UsersEntity) s.get(UsersEntity.class,id);
+
+        model.addAttribute("firstName",temp.getFirstName());
+        model.addAttribute("middleName", temp.getMiddleName());
+        model.addAttribute("lastName",temp.getLastName());
+        model.addAttribute("birthday",temp.getBirthday());
+        model.addAttribute("address", temp.getAddress());
+        model.addAttribute("phoneNumber", temp.getPhoneNumber());
+        model.addAttribute("zip", temp.getZip());
+        model.addAttribute("email", temp.getEmail());
+        model.addAttribute("password",temp.getPassword());
+        model.addAttribute("skillSet", temp.getSkillset());
+
+        return new ModelAndView("viewapi","","");
+    }
+
+    @RequestMapping("/crimetype")
+    public ModelAndView editCrimetype(@RequestParam("firstName") String fname, @RequestParam("lastName") String lname,
+                                      @RequestParam("middleName") String midName, @RequestParam("birthday") Date bday,
+                                      @RequestParam("address") String address, @RequestParam("zip") int zip, @RequestParam("phoneNumber") String phoneNum,
+                                      @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("skillSet") String skillSet, @RequestParam("crimetype") Byte crime) {
+
+        Session editCrimetype = UserController.getSession();
+
+        //temp object will store infor for the object we want to delete.
+        UsersEntity temp = editCrimetype.get(UsersEntity.class,id);
+        
+        temp.setFirstName(fname);
+        temp.setMiddleName(midName);
+        temp.setLastName(lname);
+        temp.setBirthday(bday);
+        temp.setAddress(address);
+        temp.setZip(zip);
+        temp.setPhoneNumber(phoneNum);
+        temp.setEmail(email);
+        temp.setPassword(password);
+        temp.setSkillset(skillSet);
+        temp.setCrimetype(crime);
 
         editCrimetype.save(temp);
         editCrimetype.getTransaction().commit();
+        editCrimetype.close();
 
         ArrayList<EmployerListingEntity> userList = getAllJobs();
 

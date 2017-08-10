@@ -59,7 +59,7 @@ public class UserController {
         return (List<UsersEntity>) getUserInfo.getResultList();
     }
 
-    private Session getSession() {
+    public static Session getSession() {
         Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
         SessionFactory sessionFact = cfg.buildSessionFactory();
         Session s = sessionFact.openSession();
