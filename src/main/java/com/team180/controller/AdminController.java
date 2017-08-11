@@ -122,7 +122,7 @@ public class AdminController {
 
         //temp object will store infor for the object we want to delete.
         UsersEntity temp = editCrimetype.get(UsersEntity.class,id);
-        
+
         temp.setFirstName(fname);
         temp.setMiddleName(midName);
         temp.setLastName(lname);

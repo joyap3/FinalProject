@@ -9,52 +9,62 @@
 <html>
 <head>
     <title>User Registration</title>
+
 </head>
 <body>
 <%--<a href="registerjob">register job</a>--%>
 
-<form name="registerUser" action="/insertUser" method="post">
+<form name="registerUser" action="/insertUser" onsubmit="return validateForm()" method="post">
     <table>
         <tr>
             <td>First Name:</td>
             <td><input type="text" name="firstName"></td>
+            <td><span class="invalid"></span></td>
         </tr>
         <tr>
             <td>Middle Name:</td>
             <td><input type="text" name="middleName"></td>
+            <td><span class="invalid"></span></td>
         </tr>
         <tr>
             <td>Last Name:</td>
             <td><input type="text" name="lastName"></td>
+            <td><span class="invalid"></span></td>
         </tr>
         <tr>
             <td>Date of Birth:</td>
             <td><input type="date" name="birthday"></td>
+            <td><span class="invalid"></span></td>
         </tr>
         <tr>
             <td>Address:</td>
             <td><input type="text" name="address"></td>
+            <td><span class="invalid"></span></td>
         </tr>
         <tr>
             <td>Zip Code:</td>
-            <td><input type="number" name="zip" minlength="5" maxlength="5"></td>
+            <td><input type="text" name="zip"></td>
+            <td><span class="invalid"></span></td>
         </tr>
         <tr>
             <td>Phone Number:</td>
             <td><input type="tel" name="phoneNumber"></td>
+            <td><span class="invalid"></span></td>
         </tr>
         <tr>
             <td>Email:</td>
             <td><input type="email" name="email"></td>
-            <td>${invalid}</td>
+            <td>${invalid}<span class="invalid"></span></td>
         </tr>
         <tr>
             <td>Password:</td>
             <td><input type="password" name="password"></td>
+            <td><span class="invalid"></span></td>
         </tr>
         <tr>
             <td>Confirm Password:</td>
-            <td><input type="password" name="confPassword"></td>
+            <td><input type="password" name="cfPassword"></td>
+            <td><span class="invalid"></span></td>
         </tr>
         <tr>
             <td>Skill-set:</td>
@@ -75,5 +85,8 @@
         </tr>
     </table>
 </form>
+
+<script src="/resource/registervalidation.js"></script>
+
 </body>
 </html>
