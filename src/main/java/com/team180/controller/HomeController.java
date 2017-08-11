@@ -75,11 +75,11 @@ public class HomeController {
         newUser.setSkillset(skillSet);
 
         s.save(newUser);
-        s.beginTransaction().commit();
+        s.getTransaction().commit();
         s.close();
 
         List<UsersEntity> userList = HibernateDao.getUsersEntities(email);
-
+        UserController.loggedInUser = userList.get(0);
         return new
                 ModelAndView("userprofile", "userProfile", userList.get(0));
     }
@@ -103,7 +103,7 @@ public class HomeController {
         jobListing.setCrimetype(cType);
 
         s.save(jobListing);
-        s.beginTransaction().commit();
+        s.getTransaction().commit();
         s.close();
 
         return "success";

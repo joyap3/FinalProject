@@ -43,7 +43,7 @@ ${allthejson}
             <td>${myvar.address}</td>
             <td>${myvar.zip}</td>
             <td>${myvar.phoneNumber}</td>
-            <td>${myvar.crimetype}</td>
+            <td>--${myvar.crimetype}--</td>
             <td><a href="deleteuser?id=${myvar.idUsers}"> Delete </a> </td>
             <td>
                 <a href="updatecrimetype?id=${myvar.idUsers}">
@@ -59,6 +59,7 @@ ${allthejson}
             <td>${myvar.company}</td>
             <td>${myvar.jobTitle}</td>
             <td>${myvar.jobDescription}</td>
+            <td>--${myvar.crimetype}--</td>
             <td><a href="deletejob?id=${myvar.jobId}"> Delete </a> </td>
         </tr>
     </c:forEach>

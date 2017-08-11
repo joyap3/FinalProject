@@ -69,17 +69,6 @@ public class AdminController {
 
         List<UsersEntity> userList = HibernateDao.getUsersEntities(temp.getEmail());
 
-//        model.addAttribute("firstName",temp.getFirstName());
-//        model.addAttribute("middleName", temp.getMiddleName());
-//        model.addAttribute("lastName",temp.getLastName());
-//        model.addAttribute("birthday",temp.getBirthday());
-//        model.addAttribute("address", temp.getAddress());
-//        model.addAttribute("phoneNumber", temp.getPhoneNumber());
-//        model.addAttribute("zip", temp.getZip());
-//        model.addAttribute("email", temp.getEmail());
-//        model.addAttribute("password",temp.getPassword());
-//        model.addAttribute("skillSet", temp.getSkillset());
-
         return new ModelAndView("viewapi","userProfile",userList.get(0));
     }
 

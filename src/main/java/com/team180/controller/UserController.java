@@ -3,6 +3,7 @@ package com.team180.controller;
 
 import com.team180.DAO.HibernateDao;
 import com.team180.Encryption.PasswordMD5Encrypt;
+import com.team180.tables.EmployerListingEntity;
 import com.team180.tables.UsersEntity;
 import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
@@ -11,12 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class UserController {
 
-
+    public static UsersEntity loggedInUser;
     private int id;
 
     @RequestMapping("/login")
@@ -35,6 +37,7 @@ public class UserController {
 
         if (listResult.get(0).getEmail().equalsIgnoreCase(userName)) {
             if (listResult.get(0).getPassword().equals(PasswordMD5Encrypt.PasswordMD5Encrypt(password))) {
+                loggedInUser = listResult.get(0);
                 return new ModelAndView("userprofile", "userProfile", listResult.get(0));
             } else {
                 String alert = "Invalid password";
@@ -86,5 +89,27 @@ public class UserController {
         return new ModelAndView("userprofile","userProfile",listResult.get(0));
     }
 
+    @RequestMapping("/viewJobBoard")
+    public ModelAndView viewJobBoard(){
+
+        if(loggedInUser != null){
+            if (loggedInUser.getCrimetype() == null){
+                String message = "Your profile is under review, please check back in 24-48 hours";
+                return new ModelAndView("viewjobboard","message",message);
+            }
+            if(loggedInUser.getCrimetype() == 0){
+                List<EmployerListingEntity> restrictedJobs = HibernateDao.displayRestrictedList();
+                return new ModelAndView("viewjobboard","restricted",restrictedJobs);
+            }
+            else{
+                List<EmployerListingEntity> unrestrictedJobs = HibernateDao.displayJobList();
+                return new ModelAndView("viewjobboard","unrestricted",unrestrictedJobs);
+            }
+        }else{
+
+            return new ModelAndView("login","","");
+        }
+
+    }
 
 }

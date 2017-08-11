@@ -50,6 +50,13 @@ public class HibernateDao {
         return (List<UsersEntity>) getUserInfo.getResultList();
     }
 
+    public static List<EmployerListingEntity> displayRestrictedList(){
+
+        String hql = "FROM EmployerListingEntity WHERE crimetype = 0";
+        Query getListing = getSession().createQuery(hql);
+        return (List<EmployerListingEntity>) getListing.getResultList();
+    }
+
     public static ModelAndView validateEmail(@RequestParam("email") String email) {
 
         ArrayList<UsersEntity> userList = HibernateDao.displayUserList();

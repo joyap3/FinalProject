@@ -100,7 +100,7 @@
             <a class="nav-link" href="#what-we-do">Users</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#news">Jobs</a>
+            <a class="nav-link" href="/viewJobBoard">Jobs</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#about">About</a>

@@ -15,6 +15,10 @@
 <a href="login">go to login</a>
 
 <h1>Welcome, ${userProfile.firstName} ${firstName}</h1>
+<p>
+    <a href="/viewJobBoard">Find a Job</a>
+    <a href="/">Homepage</a>
+</p>
 
 <table>
 
