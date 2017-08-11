@@ -36,10 +36,13 @@ ${message}
 <table border="1">
     <c:forEach var = "myvar" items = "${uList}">
         <tr>
-            <td>${myvar.idUsers}</td>
             <td>${myvar.firstName}</td>
             <td>${myvar.lastName}</td>
             <td>${myvar.birthday}</td>
+            <td>${myvar.email}</td>
+            <td>${myvar.address}</td>
+            <td>${myvar.zip}</td>
+            <td>${myvar.phoneNumber}</td>
             <td>${myvar.crimetype}</td>
             <td><a href="deleteuser?id=${myvar.idUsers}"> Delete </a> </td>
             <td>

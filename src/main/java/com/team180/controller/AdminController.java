@@ -139,7 +139,7 @@ public class AdminController {
         editCrimetype.getTransaction().commit();
         editCrimetype.close();
 
-        ArrayList<EmployerListingEntity> userList = getAllJobs();
+        ArrayList<UsersEntity> userList = getAllUsers();
 
 
         return new ModelAndView("admin", "uList", userList);
