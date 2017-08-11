@@ -13,6 +13,7 @@ public class EmployerListingEntity {
     private String contactPhone;
     private String contactEmail;
     private byte[] jobDescription;
+    private Byte crimetype;
 
     @Id
     @Column(name = "jobID", nullable = false)
@@ -84,6 +85,15 @@ public class EmployerListingEntity {
         this.jobDescription = jobDescription;
     }
 
+    @Basic
+    @Column(name = "crimetype", nullable = true)
+    public byte getCrimetype() {return crimetype;
+    }
+
+    public void setCrimetype(byte crimetype) {
+        this.crimetype = crimetype;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -113,4 +123,6 @@ public class EmployerListingEntity {
         result = 31 * result + Arrays.hashCode(jobDescription);
         return result;
     }
+
+
 }

@@ -23,13 +23,16 @@
             padding-top: 50px;
             background-color: #c8b897;
         }
+
         .spacer {
             margin-top: 2%;
             margin-bottom: 2%;
         }
+
         .text-nowrap {
             white-space: nowrap;
         }
+
         .block {
             height: 370px;
             padding-top: 5px;
@@ -37,11 +40,13 @@
             /*background-color: darkorange;*/
             box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
         }
+
         .block2 {
             min-height: 160px;
             padding-top: 15px;
             background: rgba(225, 245, 255, 0.8)
         }
+
         .center {
             position: absolute;
             /*  top: 0;
@@ -50,6 +55,7 @@
             right: 0;
             margin: auto;
         }
+        input[type=checkbox] {width:15px; height:15px;}
     </style>
 
 </head>
@@ -59,7 +65,8 @@
 <nav class="navbar navbar-inverse navbar-fixed-top ">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -80,55 +87,67 @@
 <div class="container col-lg-12 spacer"></div>
 
 
-
 <div class="container col-lg-12 block">
 
     <div class="row col-xs-6 block2 bg-primary center">
 
-        <form method="post" action="/signin"  class="form-horizontal" role="form" align="center">
-            <div class="form-group" >
-                <label class="control-label col-sm-3"  for="companyname"><font color="gray">company name</font></label>
+        <form method="post" action="/insertJob" class="form-horizontal" role="form" align="center">
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="companyname"><font color="gray">company name</font></label>
                 <div class="col-sm-8 col-xs-12">
-                    <input type="text" name="username" id="companyname" placeholder="company name" required="true" class="form-control"/>
+                    <input type="text" name="company" id="companyname" placeholder="company name" required="true"
+                           class="form-control"/>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-3"  for="jobtitle"><font color="gray">job title</font></label>
+                <label class="control-label col-sm-3" for="jobtitle"><font color="gray">job title</font></label>
                 <div class="col-sm-8 col-xs-12">
-                    <input type="text" name="username" id="jobtitle" placeholder="job title" required="true" class="form-control"/>
+                    <input type="text" name="jobTitle" id="jobtitle" placeholder="job title" required="true"
+                           class="form-control"/>
                 </div>
             </div>
-            <div class="form-group" >
-                <label class="control-label col-sm-3"  for="contactname"><font color="gray">contact name</font></label>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="contactname"><font color="gray">contact name</font></label>
                 <div class="col-sm-8 col-xs-12">
-                    <input type="text" name="username" id="contactname" placeholder="contact name" required="true" class="form-control"/>
+                    <input type="text" name="contactName" id="contactname" placeholder="contact name" required="true"
+                           class="form-control"/>
                 </div>
             </div>
-            <div class="form-group" >
-                <label class="control-label col-sm-3"  for="contactphone"><font color="gray">contact phone</font></label>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="contactphone"><font color="gray">contact phone</font></label>
                 <div class="col-sm-8 col-xs-12">
-                    <input type="tel" name="username" id="contactphone" placeholder="contact phone" required="true" class="form-control"/>
+                    <input type="tel" name="contactPhone" id="contactphone" placeholder="contact phone" required="true"
+                           class="form-control"/>
                 </div>
             </div>
-            <div class="form-group" >
-                <label class="control-label col-sm-3"  for="email"><font color="gray">email</font></label>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="email"><font color="gray">email</font></label>
                 <div class="col-sm-8 col-xs-12">
-                    <input type="email" name="username" id="email" placeholder="email" required="true" class="form-control"/>
+                    <input type="email" name="email" id="email" placeholder="email" required="true"
+                           class="form-control"/>
                 </div>
             </div>
-            <div class="form-group" >
-                <label class="control-label col-sm-3"  for="jobdescript"><font color="gray">job description</font></label>
+            <div class="form-group">
+                <label class="control-label col-sm-3" for="jobdescript"><font color="gray">job
+                    description</font></label>
                 <div class="col-sm-8 col-xs-12">
-                    <input type="text" name="username" id="jobdescript" placeholder="job description" required="true" class="form-control"/>
+                    <input type="text" name="jobDescription" id="jobdescript" placeholder="job description" required="true"
+                           class="form-control"/>
                 </div>
+            </div>
+            <div>
+                <strong><font color="gray" size="2">Jobseeker with violent conviction history can apply.</font></strong>
+                <input type="checkbox" name="crimetype" value="0" ><strong><font color="gray" size="2">Y</font></strong>
+                <input type="checkbox" name="crimetype" value="1" ><strong><font color="gray" size="2">N</font></strong>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-8">
-                    <input type="submit" name="submit" id="submit" value="Register" class="btn btn-default"/>
+                    <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-default"/>
                 </div>
             </div>
         </form>
     </div>
+
 
 </div><!-- /.container -->
 
