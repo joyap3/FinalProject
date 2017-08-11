@@ -1,19 +1,16 @@
 package com.team180.controller;
 
+
+import com.team180.DAO.HibernateDao;
 import com.team180.Encryption.PasswordMD5Encrypt;
 import com.team180.tables.UsersEntity;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,7 +27,7 @@ public class UserController {
     @RequestMapping("/loginUser")
     public ModelAndView loginUser(@RequestParam("user") String userName, @RequestParam("pass") String password) {
 
-        List<UsersEntity> listResult = getUsersEntities(userName);
+        List<UsersEntity> listResult = HibernateDao.getUsersEntities(userName);
 
         if(listResult.isEmpty()){
             return new ModelAndView("login","invalid","User does not exist, please register");
@@ -48,50 +45,17 @@ public class UserController {
         return new ModelAndView("login", "invalid", alert);
     }
 
-    public List<UsersEntity> getUsersEntities(@RequestParam("user") String userName) {
-        Session session = getSession();
-
-        String hql = "FROM UsersEntity WHERE email= :username";
-
-        Query getUserInfo = session.createQuery(hql);
-        getUserInfo.setParameter("username",userName);
-
-        return (List<UsersEntity>) getUserInfo.getResultList();
-    }
-
-    public static Session getSession() {
-        Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
-        SessionFactory sessionFact = cfg.buildSessionFactory();
-        Session s = sessionFact.openSession();
-        s.beginTransaction();
-        return s;
-    }
-
-    public ArrayList<UsersEntity> displayUserList() {
-        Session s = getSession();
-        Criteria c = s.createCriteria(UsersEntity.class);
-        return (ArrayList<UsersEntity>) c.list();
-    }
-
     @RequestMapping("/updateUserInfo")
-    public String update(Model model, @RequestParam ("id")int id){
+    public ModelAndView update(Model model, @RequestParam ("id")int id){
         this.id = id;
 
-        Session s = getSession();
+        Session s = HibernateDao.getSession();
 
         UsersEntity temp = (UsersEntity) s.get(UsersEntity.class,id);
 
-        model.addAttribute("firstName",temp.getFirstName());
-        model.addAttribute("middleName", temp.getMiddleName());
-        model.addAttribute("lastName",temp.getLastName());
-        model.addAttribute("birthday",temp.getBirthday());
-        model.addAttribute("address", temp.getAddress());
-        model.addAttribute("phoneNumber", temp.getPhoneNumber());
-        model.addAttribute("zip", temp.getZip());
-        model.addAttribute("email", temp.getEmail());
-        model.addAttribute("skillSet", temp.getSkillset());
+        List<UsersEntity> userList = HibernateDao.getUsersEntities(temp.getEmail());
 
-        return "updateuserinfo";
+        return new ModelAndView("updateuserinfo","userProfile",userList.get(0));
     }
     @RequestMapping("/update")
     public ModelAndView updateItem(@RequestParam("firstName") String fname, @RequestParam("lastName") String lname,
@@ -99,7 +63,7 @@ public class UserController {
                                    @RequestParam("address") String address, @RequestParam("zip") int zip, @RequestParam("phoneNumber") String phoneNum,
                                    @RequestParam("email") String email, @RequestParam("skillSet") String skillSet){
 
-        Session s = getSession();
+        Session s = HibernateDao.getSession();
 
         UsersEntity temp = (UsersEntity) s.get(UsersEntity.class,id);
         temp.setFirstName(fname);
@@ -116,7 +80,7 @@ public class UserController {
         s.getTransaction().commit();
         s.close();
 
-        List<UsersEntity> listResult = getUsersEntities(email);
+        List<UsersEntity> listResult = HibernateDao.getUsersEntities(email);
 
 
         return new ModelAndView("userprofile","userProfile",listResult.get(0));

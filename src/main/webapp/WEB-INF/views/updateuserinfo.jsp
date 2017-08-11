@@ -17,40 +17,40 @@
 
         <tr>
             <td>First Name:</td>
-            <td><input name="firstName" value="${firstName}"></td>
+            <td><input name="firstName" value="${userProfile.firstName}"></td>
         </tr>
         <tr>
             <td>Middle Name:</td>
-            <td><input name="middleName" value="${middleName}"></td>
+            <td><input name="middleName" value="${userProfile.middleName}"></td>
         </tr>
         <tr>
             <td>Last Name:</td>
-            <td><input name="lastName" value="${lastName}"></td>
+            <td><input name="lastName" value="${userProfile.lastName}"></td>
         </tr>
         <tr>
             <td>Birthday:</td>
-            <td><input name="birthday" value="${birthday}"></td>
+            <td><input name="birthday" value="${userProfile.birthday}"></td>
         </tr>
         <tr>
             <td>Address:</td>
-            <td><input name="address" value="${address}"></td>
+            <td><input name="address" value="${userProfile.address}"></td>
         </tr>
         <tr>
             <td>Zip:</td>
-            <td><input name="zip" value="${zip}"></td>
+            <td><input name="zip" value="${userProfile.zip}"></td>
         </tr>
         <tr>
             <td>Phone Number:</td>
-            <td><input name="phoneNumber" value="${phoneNumber}"></td>
+            <td><input name="phoneNumber" value="${userProfile.phoneNumber}"></td>
         </tr>
         <tr>
             <td>email:</td>
-            <td><input name="email" value="${email}"></td>
+            <td><input name="email" value="${userProfile.email}"></td>
         </tr>
         <tr>
             <td>Skill-set:</td>
             <td>
-                <select name="skillSet" value="${skillSet}">
+                <select name="skillSet" value="${userProfile.skillset}">
                     <option value="trades">Trade Worker</option>
                     <option value="administration">Administration</option>
                     <option value="technology">Technology</option>

@@ -1,5 +1,6 @@
 package com.team180.controller;
 
+import com.team180.DAO.HibernateDao;
 import com.team180.tables.EmployerListingEntity;
 import com.team180.tables.UsersEntity;
 import org.hibernate.Criteria;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by joyapuryear on 8/9/17.
@@ -35,8 +37,7 @@ public class AdminController {
 
     @RequestMapping("/listusers")
     public ModelAndView listusers() {
-        ArrayList<UsersEntity> userList = getAllUsers();
-
+        ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
 
         return new ModelAndView("admin", "uList", userList);
     }
@@ -44,25 +45,9 @@ public class AdminController {
     //this method was extracted to be used again
     //this is a regular method and not a controller method
 
-    private ArrayList<UsersEntity> getAllUsers() {
-        //Configuration allows app to specify properties & mapping documents
-        //to use when creating the SessionFactory
-
-        Configuration config = new Configuration().configure("hibernate.cfg.xml");
-
-        SessionFactory sessionFact = config.buildSessionFactory();
-
-        Session selectUsers = sessionFact.openSession();
-
-        selectUsers.beginTransaction();
-
-        Criteria u = selectUsers.createCriteria(UsersEntity.class);
-        return (ArrayList<UsersEntity>) u.list();
-    }
-
     @RequestMapping("/listjobs")
     public ModelAndView listjobs() {
-        ArrayList<EmployerListingEntity> jobList = getAllJobs();
+        ArrayList<EmployerListingEntity> jobList = HibernateDao.displayJobList();
 
 
         return new ModelAndView("admin", "jList", jobList);
@@ -71,22 +56,6 @@ public class AdminController {
     //this method was extracted to be used again
     //this is a regular method and not a controller method
 
-    private ArrayList<EmployerListingEntity> getAllJobs() {
-        //Configuration allows app to specify properties & mapping documents
-        //to use when creating the SessionFactory
-
-        Configuration config = new Configuration().configure("hibernate.cfg.xml");
-
-        SessionFactory sessionFact = config.buildSessionFactory();
-
-        Session selectUsers = sessionFact.openSession();
-
-        selectUsers.beginTransaction();
-
-        Criteria j = selectUsers.createCriteria(EmployerListingEntity.class);
-        return (ArrayList<EmployerListingEntity>) j.list();
-    }
-
 
 
     @RequestMapping("/updatecrimetype")
@@ -94,31 +63,33 @@ public class AdminController {
 
         this.id = id;
 
-        Session s = UserController.getSession();
+        Session s = HibernateDao.getSession();
 
         UsersEntity temp = (UsersEntity) s.get(UsersEntity.class,id);
 
-        model.addAttribute("firstName",temp.getFirstName());
-        model.addAttribute("middleName", temp.getMiddleName());
-        model.addAttribute("lastName",temp.getLastName());
-        model.addAttribute("birthday",temp.getBirthday());
-        model.addAttribute("address", temp.getAddress());
-        model.addAttribute("phoneNumber", temp.getPhoneNumber());
-        model.addAttribute("zip", temp.getZip());
-        model.addAttribute("email", temp.getEmail());
-        model.addAttribute("password",temp.getPassword());
-        model.addAttribute("skillSet", temp.getSkillset());
+        List<UsersEntity> userList = HibernateDao.getUsersEntities(temp.getEmail());
 
-        return new ModelAndView("viewapi","","");
+//        model.addAttribute("firstName",temp.getFirstName());
+//        model.addAttribute("middleName", temp.getMiddleName());
+//        model.addAttribute("lastName",temp.getLastName());
+//        model.addAttribute("birthday",temp.getBirthday());
+//        model.addAttribute("address", temp.getAddress());
+//        model.addAttribute("phoneNumber", temp.getPhoneNumber());
+//        model.addAttribute("zip", temp.getZip());
+//        model.addAttribute("email", temp.getEmail());
+//        model.addAttribute("password",temp.getPassword());
+//        model.addAttribute("skillSet", temp.getSkillset());
+
+        return new ModelAndView("viewapi","userProfile",userList.get(0));
     }
 
     @RequestMapping("/crimetype")
     public ModelAndView editCrimetype(@RequestParam("firstName") String fname, @RequestParam("lastName") String lname,
                                       @RequestParam("middleName") String midName, @RequestParam("birthday") Date bday,
                                       @RequestParam("address") String address, @RequestParam("zip") int zip, @RequestParam("phoneNumber") String phoneNum,
-                                      @RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("skillSet") String skillSet, @RequestParam("crimetype") Byte crime) {
+                                      @RequestParam("email") String email, @RequestParam("skillSet") String skillSet, @RequestParam("crimetype") Byte crime) {
 
-        Session editCrimetype = UserController.getSession();
+        Session editCrimetype = HibernateDao.getSession();
 
         //temp object will store infor for the object we want to delete.
         UsersEntity temp = editCrimetype.get(UsersEntity.class,id);
@@ -131,7 +102,6 @@ public class AdminController {
         temp.setZip(zip);
         temp.setPhoneNumber(phoneNum);
         temp.setEmail(email);
-        temp.setPassword(password);
         temp.setSkillset(skillSet);
         temp.setCrimetype(crime);
 
@@ -139,7 +109,7 @@ public class AdminController {
         editCrimetype.getTransaction().commit();
         editCrimetype.close();
 
-        ArrayList<UsersEntity> userList = getAllUsers();
+        ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
 
 
         return new ModelAndView("admin", "uList", userList);
@@ -150,10 +120,7 @@ public class AdminController {
 //                                   @RequestParam("email") String email,
 //                                   @RequestParam("lastName") String lastName)
 
-        Configuration config = new Configuration().configure("hibernate.cfg.xml");
-        SessionFactory sessionFact = config.buildSessionFactory();
-        Session selectUsers = sessionFact.openSession();
-        selectUsers.beginTransaction();
+        Session selectUsers = HibernateDao.getSession();
 
         Criteria c = selectUsers.createCriteria(UsersEntity.class);
 
@@ -172,15 +139,12 @@ public class AdminController {
         UsersEntity temp = new UsersEntity();
         temp.setIdUsers(id);
 
-        Configuration config = new Configuration().configure("hibernate.cfg.xml");
-        SessionFactory sessionFact = config.buildSessionFactory();
-        Session deleteUsers = sessionFact.openSession();
-        deleteUsers.beginTransaction();
+        Session deleteUsers = HibernateDao.getSession();
 
         deleteUsers.delete(temp);//delete the object from the list
         deleteUsers.getTransaction().commit();//deletes the row from the database table
 
-        ArrayList<UsersEntity> userList = getAllUsers();
+        ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
 
 
         return new ModelAndView("admin", "uList", userList);
@@ -194,15 +158,12 @@ public class AdminController {
         EmployerListingEntity temp = new EmployerListingEntity();
         temp.setJobId(id);
 
-        Configuration config = new Configuration().configure("hibernate.cfg.xml");
-        SessionFactory sessionFact = config.buildSessionFactory();
-        Session deleteJob = sessionFact.openSession();
-        deleteJob.beginTransaction();
+        Session deleteJob = HibernateDao.getSession();
 
         deleteJob.delete(temp);//delete the object from the list
         deleteJob.getTransaction().commit();//deletes the row from the database table
 
-        ArrayList<EmployerListingEntity> jobList = getAllJobs();
+        ArrayList<EmployerListingEntity> jobList = HibernateDao.displayJobList();
 
 
         return new ModelAndView("admin", "jList", jobList);
