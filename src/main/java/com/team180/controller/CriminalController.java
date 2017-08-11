@@ -7,8 +7,12 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.*;
@@ -22,18 +26,33 @@ import java.net.URL;
 public class CriminalController {
 
   @RequestMapping("/showAPI")
-  public ModelAndView CriminalDB() {
+  public ModelAndView CriminalDB(@RequestParam("firstName") String fname, @RequestParam("lastName") String lname, Model model) {
     String hi = "Welcome";
+    String firstName = "";
+    String lastName = "";
+    String dob = "";
 
     InputRequest requestData = new InputRequest();
-    requestData.credentials.account_id = "128307";
-    requestData.credentials.api_key = "EANh95OzC9CkzpmGhbA445W0CD";
+    requestData.credentials.account_id = "128311";
+    requestData.credentials.api_key = "pigjgF0OgqVMihl1E8xtgHrg9m";
     requestData.product = "criminal_database";
-    requestData.data.FirstName = "Andre";
-    requestData.data.LastName = "Sardin";
+    requestData.data.FirstName = fname;
+    requestData.data.LastName = lname;
+    try {
+      String criminalDBUrl = "https://api.imsasllc.com/v3/";
+      hi = queryCriminalDB(criminalDBUrl, requestData);
+      JSONObject json = null;
 
-    String criminalDBUrl = "https://api.imsasllc.com/v3/";
-    hi = queryCriminalDB(criminalDBUrl,requestData);
+      json = new JSONObject(hi);
+
+      firstName = json.getJSONObject("Results").getJSONObject("Inputs").getString("FirstName");
+      lastName = json.getJSONObject("Results").getJSONObject("Inputs").getString("LastName");
+      dob = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(0).getString("DOB");
+
+      model.addAttribute("allthejson", hi);
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
 //    String sampleDataFile = "/Users/kuwu/Desktop/imsas_response.json";
 //    hi = queryCriminalDB(sampleDataFile);
 
@@ -54,7 +73,7 @@ public class CriminalController {
 //      e.printStackTrace();
 //    }
 
-    return new ModelAndView("admin", "message", hi);
+    return new ModelAndView("admin", "message", firstName + " " + lastName + dob);
   }
 
   // reading from a saved JSON file on local machine
@@ -107,7 +126,11 @@ public class CriminalController {
         while ((response = br.readLine()) != null) {
           result += response;
         }
-
+        // This was Antonella's test
+//        JSONObject json = new JSONObject(result);
+//        String firstName = json.getJSONObject("Results").getJSONObject("Inputs").getString("FirstName");
+//
+//        System.out.println(firstName);
         br.close();
       }
 
@@ -120,7 +143,9 @@ public class CriminalController {
     } catch (
         IOException e) {
       e.printStackTrace();
-    }
+    } //catch (JSONException e) {
+//      e.printStackTrace();
+//    }
 
     return result;
   }

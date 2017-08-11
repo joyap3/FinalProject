@@ -16,16 +16,16 @@
 ${message}
 <a href="/listusers">View Users</a>
 <a href="/listjobs">View Jobs</a>
-<a href="/showAPI">API</a>
+<%--<a href="/showAPI">API</a>--%>
 
-<form action="searchForUser" method="get">
+<form action="/showAPI" method="get">
     <input type="text" name="firstName">
-    <%--<input type="text" name="lastName">--%>
+    <input type="text" name="lastName">
     <%--<input type="email" name="email">--%>
     <input type="submit" value="Search">
 
 </form>
-
+${allthejson}
 <%--<form action="crimetype" method="post">--%>
 <%--<input type="checkbox" name="violent" value="V" >--%>
 <%--<input type="checkbox" name="non-violent" value="NV" checked>--%>
@@ -49,7 +49,7 @@ ${message}
                 <a href="updatecrimetype?id=${myvar.idUsers}">
                     <button value="Edit Item">Edit</button>
                 </a>
-            </form> </td>
+                </form> </td>
         </tr>
     </c:forEach>
 
