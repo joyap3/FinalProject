@@ -61,7 +61,7 @@ ${message}
     <input type="text" name="firstName">
     <input type="text" name="lastName">
     <input type="submit" value="Search">
-
+</form>
 <%--&lt;%&ndash;</form>&ndash;%&gt;--%>
 <%--<nav class="navbar navbar-inverse navbar-fixed-top ">--%>
     <%--<div class="container">--%>
@@ -112,13 +112,13 @@ ${message}
 
 <%--</div><!-- /.container -->--%>
 
-<br>
+
 ${allthejson}
-<br>
+
 
 <table class="table table-bordered">
     <c:forEach var = "myvar" items = "${uList}">
-        <thead>
+
         <tr>
             <td>${myvar.firstName}</td>
             <td>${myvar.lastName}</td>
@@ -135,18 +135,20 @@ ${allthejson}
                 </a>
                 </form> </td>
         </tr>
-        </thead>
+
     </c:forEach>
 
     <c:forEach var = "myvar" items = "${jList}">
+    <thead>
         <tr>
             <td>${myvar.jobId}</td>
             <td>${myvar.company}</td>
             <td>${myvar.jobTitle}</td>
             <td>${myvar.jobDescription}</td>
-            <td>--${myvar.crimetype}--</td>
+            <%--<td>${myvar.crimetype}</td>--%>
             <td><a href="deletejob?id=${myvar.jobId}"> Delete </a> </td>
         </tr>
+    </thead>
     </c:forEach>
 
 </table>
