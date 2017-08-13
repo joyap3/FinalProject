@@ -21,7 +21,7 @@
     <style>
         body {
             padding-top: 50px;
-            background-color: #c8b897;
+            background-color: #b9b5b4;
         }
 
         .spacer {
@@ -34,16 +34,17 @@
         }
 
         .block {
-            height: 370px;
-            padding-top: 5px;
-            background-image: url("${pageContext.request.contextPath}../resource/theme/img/login.jpg");
+            height: 460px;
+            padding-top: 15px;
+            background: center no-repeat;
+            background-image: url("${pageContext.request.contextPath}../resource/theme/img/login2.jpg");
             /*background-color: darkorange;*/
-            box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+
         }
 
         .block2 {
             min-height: 160px;
-            padding-top: 15px;
+            padding-top: 40px;
             background: rgba(225, 245, 255, 0.8)
         }
 
@@ -72,11 +73,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand " href="#">180</a>
+            <a class="navbar-brand " href="/">180</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="/">Home</a></li>
                 <!-- <li><a href="#about">About</a></li> -->
                 <li><a href="#contact">Contact</a></li>
             </ul>
