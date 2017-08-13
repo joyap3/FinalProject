@@ -22,17 +22,18 @@
     <style>
         body {
             padding-top: 50px;
-            background-color: #c8b897;
+            background-color: #b9b5b4;
         }
         .spacer {
             margin-top: 2%;
             margin-bottom: 2%;
         }
         .block {
-            height: 300px;
-            padding-top: 15px;
-            background-image: url("${pageContext.request.contextPath}../resource/theme/img/login.jpg");
-            box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+            height: 260px;
+            padding-top: 30px;
+            background: center no-repeat;
+            background-image: url("${pageContext.request.contextPath}../resource/theme/img/login2.jpg");
+
         }
         .block2 {
             min-height: 160px;
@@ -79,7 +80,7 @@
     <div class="row col-xs-6 block2 bg-primary center">
         <form method="post" action="/loginUser"  class="form-horizontal" role="form" align="center">
             <div class="form-group" >
-                <font color="gray"><strong>${invalid}</strong></font>
+                <font color="gray" align="center"><strong>${invalid}</strong></font><br><br>
                 <label class="control-label col-sm-3"  for="user email"><font color="gray">username</font></label>
                 <div class="col-sm-8 col-xs-12">
                     <input type="text" color="black" name="user" id="user email" placeholder="user email" required="true" class="form-control"/>
