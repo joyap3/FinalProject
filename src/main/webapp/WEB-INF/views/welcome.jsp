@@ -48,7 +48,9 @@
 
 
 <style>
-
+h1{
+    text-shadow: 2px 2px rgba(107, 105, 106, 0.98);
+}
 
 </style>
 </head>
@@ -61,7 +63,7 @@
                 <h1 class="display-3">Welcome to 180</h1>
                 <p>180 provides a digital space find work, offer work and connect with groups and organizations that foster
                     life skills. Seeking to improve the lives of people affected by a felony conviction.</p>
-                <a href="#" data-toggle="modal" data-target="#login-modal"><h1><strong>Login</strong></h1></a>
+                <a href="#" data-toggle="modal" data-target="#login-modal"><h3><strong>Login</strong></h3></a>
                 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                      aria-hidden="true" style="display: none;">
                     <div class="modal-dialog">
