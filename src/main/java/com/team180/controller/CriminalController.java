@@ -31,6 +31,10 @@ public class CriminalController {
     String firstName = "";
     String lastName = "";
     String dob = "";
+    String cat = "";
+    String sex = "";
+    String race = "";
+    String desc = "";
 
     InputRequest requestData = new InputRequest();
     requestData.credentials.account_id = "128312";
@@ -38,6 +42,7 @@ public class CriminalController {
     requestData.product = "criminal_database";
     requestData.data.FirstName = fname;
     requestData.data.LastName = lname;
+
     try {
       String criminalDBUrl = "https://api.imsasllc.com/v3/";
       hi = queryCriminalDB(criminalDBUrl, requestData);
@@ -48,6 +53,11 @@ public class CriminalController {
       firstName = json.getJSONObject("Results").getJSONObject("Inputs").getString("FirstName");
       lastName = json.getJSONObject("Results").getJSONObject("Inputs").getString("LastName");
       dob = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(0).getString("DOB");
+      cat = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(0).getString("Category");
+      sex = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(0).getString("Sex");
+      race = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(0).getString("Race");
+      desc = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(0).getJSONArray("Offenses").getJSONObject(0).getString("Description");
+
 
       model.addAttribute("allthejson", hi);
     } catch (JSONException e) {
@@ -73,7 +83,7 @@ public class CriminalController {
 //      e.printStackTrace();
 //    }
 
-    return new ModelAndView("admin", "message", firstName + " " + lastName + dob);
+    return new ModelAndView("admin", "dbresult", (firstName +"'\n'"+ lastName +"'\n'"+ dob +"\n"+ cat +"\n"+ sex +"\n"+ race +"\n"+ desc));
   }
 
   // reading from a saved JSON file on local machine
