@@ -191,7 +191,7 @@ h1{
                                     voluptatibus accusantium, numquam voluptates velit, dicta maiores dolor quo
                                     expedita.</p>
                                 <button type="button" class="btn btn-success-outline" data-toggle="modal"
-                                        data-target="#myModal">Search for work
+                                        data-target="#login-modal">Search for work
                                 </button>
                             </div>
                         </div>
