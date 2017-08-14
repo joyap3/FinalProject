@@ -31,7 +31,7 @@ public class AdminController {
     @RequestMapping("/admin")
     public ModelAndView helloWorld() {
         return new
-                ModelAndView("admin", "message", "Hello World");
+                ModelAndView("admin", "message", "Felon Search");
 
     }
 

@@ -26,5 +26,6 @@
         <property name="jobDescription">
             <column name="job_description" sql-type="blob"/>
         </property>
+
     </class>
 </hibernate-mapping>

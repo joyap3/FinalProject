@@ -71,8 +71,8 @@ h1{
                             <h1>Login to Your Account</h1><br>
                             <form action="/loginUser" method="post">
                                 ${invalid}
-                                <input type="text" name="user" placeholder="Username">
-                                <input type="password" name="pass" placeholder="Password">
+                                <font color="gray"><input type="text" name="user" placeholder="Username"></font>
+                                    <font color="gray"><input type="password" name="pass" placeholder="Password"></font>
                                 <input type="submit" name="login" class="login loginmodal-submit" value="Login">
                             </form>
 
