@@ -52,6 +52,7 @@ h1{
     text-shadow: 2px 2px rgba(107, 105, 106, 0.98);
 }
 
+
 </style>
 </head>
 <body>
@@ -68,7 +69,7 @@ h1{
                      aria-hidden="true" style="display: none;">
                     <div class="modal-dialog">
                         <div class="loginmodal-container">
-                            <h1>Login to Your Account</h1><br>
+                            <h1>Login to Your Account</h1><br><br>
                             <form action="/loginUser" method="post">
                                 ${invalid}
                                 <font color="gray"><input type="text" name="user" placeholder="Username"></font>
@@ -77,7 +78,7 @@ h1{
                             </form>
 
                             <div class="login-help">
-                                <a href="/registerUser">Register</a> - <a href="/registerJob">Register Job</a>
+                                <a href="/registerUser"><font color="white">Register</font></a> - <a href="/registerJob"><font color="white">Register Job</font></a>
                             </div>
                         </div>
                     </div>
