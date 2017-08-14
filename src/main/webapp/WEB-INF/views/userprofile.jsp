@@ -13,6 +13,7 @@
 </head>
 <body>
 <a href="login">go to login</a>
+<a href="logout"> Log out</a>
 
 <h1>Welcome, ${userProfile.firstName} ${firstName}</h1>
 <p>
