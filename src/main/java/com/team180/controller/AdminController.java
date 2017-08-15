@@ -1,6 +1,8 @@
 package com.team180.controller;
 
 import com.team180.DAO.HibernateDao;
+import com.team180.Encryption.PasswordMD5Encrypt;
+import com.team180.tables.AdminUsersEntity;
 import com.team180.tables.EmployerListingEntity;
 import com.team180.tables.UsersEntity;
 import org.hibernate.Criteria;
@@ -22,13 +24,35 @@ import java.util.List;
 
 @Controller
 public class AdminController {
-
+    private AdminUsersEntity loggedInAdmin;
     private int id;
 
     @RequestMapping("/admin")
     public ModelAndView helloWorld() {
-        return new
-                ModelAndView("admin", "message", "Felon Search");
+        if (loggedInAdmin != null) {
+
+            return new
+                    ModelAndView("admin", "message", "Felon Search");
+        }else
+            return new ModelAndView("adminlogin","","");
+    }
+
+    @RequestMapping("/loginadmin")
+    public ModelAndView loginAdmin(@RequestParam ("user") String adminUser, @RequestParam("password")String adminPassword) {
+        List<AdminUsersEntity> adminUsers = HibernateDao.getAdminEntities(adminUser);
+        if (adminUsers.isEmpty()) {
+            return new ModelAndView("adminlogin", "invalid", "Not a registered Administrator");
+        }
+        if (adminUsers.get(0).getEmail().equalsIgnoreCase(adminUser)) {
+            if (adminUsers.get(0).getPassword().equals(PasswordMD5Encrypt.PasswordMD5Encrypt(adminPassword))) {
+                loggedInAdmin = adminUsers.get(0);
+                return new ModelAndView("admin", "", "");
+            } else {
+                return new ModelAndView("adminlogin", "invalid", "Invalid Password");
+            }
+        }
+            return new ModelAndView("adminlogin", "invalid", "Invalid Admin username");
+
 
     }
 
@@ -54,19 +78,18 @@ public class AdminController {
     //this is a regular method and not a controller method
 
 
-
     @RequestMapping("/updatecrimetype")
-    public ModelAndView updateUserAdmin(Model model, @RequestParam("id")int id){
+    public ModelAndView updateUserAdmin(Model model, @RequestParam("id") int id) {
 
         this.id = id;
 
         Session s = HibernateDao.getSession();
 
-        UsersEntity temp = (UsersEntity) s.get(UsersEntity.class,id);
+        UsersEntity temp = (UsersEntity) s.get(UsersEntity.class, id);
 
         List<UsersEntity> userList = HibernateDao.getUsersEntities(temp.getEmail());
 
-        return new ModelAndView("viewapi","userProfile",userList.get(0));
+        return new ModelAndView("viewapi", "userProfile", userList.get(0));
     }
 
     @RequestMapping("/crimetype")
@@ -78,7 +101,7 @@ public class AdminController {
         Session editCrimetype = HibernateDao.getSession();
 
         //temp object will store infor for the object we want to delete.
-        UsersEntity temp = editCrimetype.get(UsersEntity.class,id);
+        UsersEntity temp = editCrimetype.get(UsersEntity.class, id);
 
         temp.setFirstName(fname);
         temp.setMiddleName(midName);
@@ -102,7 +125,7 @@ public class AdminController {
     }
 
     @RequestMapping("/searchForUser")
-    public ModelAndView searchUser(@RequestParam("firstName") String firstName){
+    public ModelAndView searchUser(@RequestParam("firstName") String firstName) {
 //                                   @RequestParam("email") String email,
 //                                   @RequestParam("lastName") String lastName)
 
@@ -135,7 +158,6 @@ public class AdminController {
 
         return new ModelAndView("admin", "uList", userList);
     }
-
 
 
     @RequestMapping("/deletejob")

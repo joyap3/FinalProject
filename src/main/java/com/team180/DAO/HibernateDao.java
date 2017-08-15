@@ -1,5 +1,6 @@
 package com.team180.DAO;
 
+import com.team180.tables.AdminUsersEntity;
 import com.team180.tables.EmployerListingEntity;
 import com.team180.tables.UsersEntity;
 import org.hibernate.Criteria;
@@ -48,6 +49,16 @@ public class HibernateDao {
         getUserInfo.setParameter("username",userName);
 
         return (List<UsersEntity>) getUserInfo.getResultList();
+    }
+    public static List<AdminUsersEntity> getAdminEntities(@RequestParam("adminuser") String userName){
+        Session session = getSession();
+
+        String hql = "FROM AdminUsersEntity WHERE email= :username";
+
+        Query getAdminInfo = session.createQuery(hql);
+        getAdminInfo.setParameter("username",userName);
+
+        return (List<AdminUsersEntity>) getAdminInfo.getResultList();
     }
 
     public static List<EmployerListingEntity> getEmployerListingEntities(@RequestParam("user") String userName) {
