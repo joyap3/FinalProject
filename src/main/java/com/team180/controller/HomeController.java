@@ -120,7 +120,7 @@ public class HomeController {
 
     public ModelAndView registerEmployer(@RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
                                          @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
-                                         @RequestParam("email") String email, @RequestParam("jobDescription") String jDescription,
+                                         @RequestParam("contactEmail") String email, @RequestParam("jobDescription") String jDescription,
                                          @RequestParam("crimetype") byte cType, @RequestParam("password") String password) {
 
         Session s = HibernateDao.getSession();

@@ -124,7 +124,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-3" for="email"><font color="gray">email</font></label>
                 <div class="col-sm-8 col-xs-12">
-                    <input type="email" name="email" id="email" placeholder="email" required="true"
+                    <input type="email" name="contactEmail" id="email" placeholder="email" required="true"
                            class="form-control"/>
                 </div>
             </div>
