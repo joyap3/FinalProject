@@ -111,6 +111,28 @@ ${dbresult}
     </form>
 </div>
 
+<table class="table table-bordered">
+    <c:forEach var ="myvar" items = "${cList}" varStatus="status">
+        <tr>
+            <td>${myvar.firstName}</td>
+            <td>${myvar.lastName}</td>
+                <%--<td>${myvar.fullName}</td>--%>
+            <td>${myvar.dob}</td>
+            <td>${myvar.sex}</td>
+            <td>${myvar.race}</td>
+            <td>${myvar.description}</td>
+                <%--<td>--${myvar.category}--</td>--%>
+            <td>${myvar.casenumber}</td>
+            <td>${myvar.jurisdiction}</td>
+            <td>
+                <a href="criminalchoice?id=${status.index}&fName=${myvar.firstName}&lName=${myvar.lastName}&dob=${myvar.dob}&sex=${myvar.sex}&race=${myvar.race}&desc=${myvar.description}&caseNum=${myvar.casenumber}&jurisd=${myvar.jurisdiction}">
+                    <button value="Edit Item">Select</button>
+                </a>
+            </td>
+        </tr>
+    </c:forEach>
+</table>
+
 
 </body>
 </html>

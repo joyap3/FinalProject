@@ -42,8 +42,8 @@ public class CriminalController {
     String jurs = "";
 
     InputRequest requestData = new InputRequest();
-    requestData.credentials.account_id = "128318";
-    requestData.credentials.api_key = "Z33AiUPbmCqhYWJ8WvP9Rfq0Gn";
+    requestData.credentials.account_id = "128319";
+    requestData.credentials.api_key = "0JClmxxIgIrrthBjZONC5b4Hu6";
     requestData.product = "criminal_database";
     requestData.data.FirstName = fname;
     requestData.data.LastName = lname;
@@ -89,7 +89,7 @@ public class CriminalController {
     }
 
 
-    return new ModelAndView("admin", "dbresult", firstName + " " + lastName + "" + dob + " " + cat + " " + sex + " " + race + " " + desc);
+    return new ModelAndView("viewapi", "dbresult", firstName + " " + lastName + "" + dob + " " + cat + " " + sex + " " + race + " " + desc);
   }
 
   @RequestMapping("/criminalchoice")
@@ -144,7 +144,7 @@ public class CriminalController {
         jurisd = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(index).getJSONArray("Offenses").getJSONObject(0).getString("Jurisdiction");
       }
 
-      String table = "<table border=1><tr><td>" + fname + lname + dob + sex + race + desc + caseNum + jurisd + "</td></tr></table>";
+      String table = "<table border=1><tr><th>First Name</th><th>Last Name</th><th>Date of Birth</th><th>Sex</th><th>Race</th><th>Description</th><th>Case No.</th><th>Jurisdiction</th></tr><tr><td>" + fname +"</td><td>"+ lname +"</td><td>"+ dob +"</td><td>"+ sex +"</td><td>"+ race +"</td><td>"+ desc +"</td><td>"+ caseNum +"</td><td>"+ jurisd + "</td></tr></table>";
 
       model.addAttribute("newtable", table);
 
