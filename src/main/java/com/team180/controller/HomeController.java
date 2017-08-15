@@ -44,6 +44,13 @@ public class HomeController {
         return "registerjob";
     }
 
+    @RequestMapping("/registerEmployer")//This is removed if it doesnt work.
+
+    public String registerEmployer(){
+
+        return "employerregistration";
+    }
+
 
     @RequestMapping("/insertUser")
 
@@ -88,7 +95,7 @@ public class HomeController {
 
     public String registerJob(@RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
                               @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
-                              @RequestParam("email") String email, @RequestParam("jobDescription") byte[] jDescription,
+                              @RequestParam("email") String email, @RequestParam("jobDescription") String jDescription,
                               @RequestParam("crimetype") byte cType) {
 
         Session s = HibernateDao.getSession();
@@ -107,6 +114,43 @@ public class HomeController {
         s.close();
 
         return "success";
+    }
+
+    @RequestMapping("/insertEmployer")//this was also added and might need to be removed
+
+    public ModelAndView registerEmployer(@RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
+                                         @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
+                                         @RequestParam("email") String email, @RequestParam("jobDescription") String jDescription,
+                                         @RequestParam("crimetype") byte cType, @RequestParam("password") String password) {
+
+        Session s = HibernateDao.getSession();
+
+        EmployerListingEntity newEmployer = new EmployerListingEntity();
+
+        newEmployer.setCompany(company);
+        newEmployer.setJobTitle(jTitle);
+        newEmployer.setContactName(cName);
+        newEmployer.setContactPhone(cPhone);
+        newEmployer.setJobDescription(jDescription);
+        newEmployer.setCrimetype(cType);
+
+
+        ModelAndView alert = HibernateDao.validateEmail(email);
+        if (alert != null) {
+            return alert;
+        }
+
+        newEmployer.setContactEmail(email);
+        newEmployer.setPassword(PasswordMD5Encrypt.PasswordMD5Encrypt(password));
+
+        s.save(newEmployer);
+        s.getTransaction().commit();
+        s.close();
+
+        List<EmployerListingEntity> employerList = HibernateDao.getEmployerListingEntities(email);
+        EmployerController.loggedInEmployer = employerList.get(0);
+
+        return new ModelAndView("employerprofile", "employerProfile", employerList.get(0)) ;
     }
 
 }

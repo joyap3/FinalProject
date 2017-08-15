@@ -78,13 +78,8 @@
 <div class="container col-lg-12 spacer">
 <p><a href="/listusers">View Users</a>  |  <a href="/listjobs">View Jobs</a></p>
 </div>
-<%--<a href="/showAPI">API</a>--%>
-<%--<form action="/showAPI" method="get">--%>
-    <%--<input type="text" name="firstName" placeholder="first name">--%>
-    <%--<input type="text" name="lastName" placeholder="last name">--%>
-    <%--&lt;%&ndash;<input type="text" name="dob" placeholder="yyyy-mm-dd">&ndash;%&gt;--%>
-    <%--<input type="submit" value="Search">--%>
-<%--</form>--%>
+
+
 <div class="container col-lg-12 spacer"></div>
 <div class="container col-lg-12 block">
     <div class="row col-xs-6 block2 bg-primary center">
@@ -113,33 +108,72 @@
 </div><!-- /.container -->
 
 <br>
-${dbresult}
-<br>
-<br>
-${allthejson}
+<%--${dbresult}--%>
+<%--<br>--%>
+<%--<div>--%>
+<%--<table class="table table-bordered">--%>
+<%--<tr>--%>
+    <%--<td>${firstName}</td>--%>
+    <%--<td>${lastName}</td>--%>
+    <%--<td>${dob}</td>--%>
+    <%--<td>${cat}</td>--%>
+    <%--<td>${sex}</td>--%>
+    <%--<td>${race}</td>--%>
+    <%--<td>${desc}</td>--%>
+<%--</tr>--%>
+<%--</table>--%>
+<%--</div>--%>
+<%--<br>--%>
+<%--<br>--%>
+
 
 
 <table class="table table-bordered">
-    <c:forEach var = "myvar" items = "${uList}">
+    <c:forEach var ="myvar" items = "${cList}" varStatus="status">
 
         <tr>
             <td>${myvar.firstName}</td>
             <td>${myvar.lastName}</td>
-            <td>${myvar.birthday}</td>
-            <td>${myvar.email}</td>
-            <td>${myvar.address}</td>
-            <td>${myvar.zip}</td>
-            <td>${myvar.phoneNumber}</td>
-            <td>--${myvar.crimetype}--</td>
-            <td><a href="deleteuser?id=${myvar.idUsers}"> Delete </a> </td>
+            <%--<td>${myvar.fullName}</td>--%>
+            <td>${myvar.dob}</td>
+            <td>${myvar.sex}</td>
+            <td>${myvar.race}</td>
+            <td>${myvar.description}</td>
+            <%--<td>--${myvar.category}--</td>--%>
+            <td>${myvar.casenumber}</td>
+            <td>${myvar.jurisdiction}</td>
             <td>
-                <a href="updatecrimetype?id=${myvar.idUsers}">
-                    <button value="Edit Item">Edit</button>
+                <a href="criminalchoice?id=${status.index}&fName=${myvar.firstName}&lName=${myvar.lastName}&dob=${myvar.dob}&sex=${myvar.sex}&race=${myvar.race}&desc=${myvar.description}&caseNum=${myvar.casenumber}&jurisd=${myvar.jurisdiction}">
+                    <button value="Edit Item">Select</button>
                 </a>
-                </form> </td>
+               </td>
         </tr>
 
     </c:forEach>
+
+</table>
+    ${allthejson}
+
+<table class="table table-bordered">
+<c:forEach var = "myvar" items = "${uList}">
+    <tr>
+        <td>${myvar.firstName}</td>
+        <td>${myvar.lastName}</td>
+        <td>${myvar.birthday}</td>
+        <td>${myvar.email}</td>
+        <td>${myvar.address}</td>
+        <td>${myvar.zip}</td>
+        <td>${myvar.phoneNumber}</td>
+        <td>${myvar.crimetype}</td>
+        <td><a href="deleteuser?id=${myvar.idUsers}"> Delete </a> </td>
+        <td>
+            <a href="updatecrimetype?id=${myvar.idUsers}">
+                <button value="Edit Item">Edit</button>
+            </a>
+            </form> </td>
+    </tr>
+</c:forEach>
+
 
     <c:forEach var = "myvar" items = "${jList}">
     <thead>

@@ -1,5 +1,6 @@
 package com.team180.controller;
 
+import com.team180.criminalmodels.CriminalObjects;
 import com.team180.data.imsas.DataResponse;
 import com.team180.data.imsas.InputRequest;
 import org.codehaus.jackson.JsonGenerationException;
@@ -7,6 +8,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 
 
 @Controller
@@ -35,13 +38,16 @@ public class CriminalController {
     String sex = "";
     String race = "";
     String desc = "";
+    String casenum = "";
+    String jurs = "";
 
     InputRequest requestData = new InputRequest();
-    requestData.credentials.account_id = "128312";
-    requestData.credentials.api_key = "57Mu6TzV5CnsnGoRh2DUe2bUKm";
+    requestData.credentials.account_id = "128318";
+    requestData.credentials.api_key = "Z33AiUPbmCqhYWJ8WvP9Rfq0Gn";
     requestData.product = "criminal_database";
     requestData.data.FirstName = fname;
     requestData.data.LastName = lname;
+
 
     try {
       String criminalDBUrl = "https://api.imsasllc.com/v3/";
@@ -50,60 +56,123 @@ public class CriminalController {
 
       json = new JSONObject(hi);
 
-      firstName = json.getJSONObject("Results").getJSONObject("Inputs").getString("FirstName");
-      lastName = json.getJSONObject("Results").getJSONObject("Inputs").getString("LastName");
-      dob = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(0).getString("DOB");
-      cat = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(0).getString("Category");
-      sex = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(0).getString("Sex");
-      race = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(0).getString("Race");
-      desc = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(0).getJSONArray("Offenses").getJSONObject(0).getString("Description");
+      JSONArray records = json.getJSONObject("Results").getJSONArray("Records");
+      ArrayList<CriminalObjects> criminal = new ArrayList<CriminalObjects>();
+      int count = 0;
 
+      for (int i = 0; i < records.length(); i++) {
+        //criminal.add(new CriminalObjects(json.getJSONObject("Results").getJSONObject("Inputs").getString("FirstName"),json.getJSONObject("Results").getJSONObject("Inputs").getString("LastName"),json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).getString("DOB"),json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).getString("Sex"),json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).getString("Race"),json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).getJSONArray("Offenses").getJSONObject(0).getString("Description"),json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).getString("Category")));
+        //criminal.add(new CriminalObjects(json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).getJSONArray("Offenses").getJSONObject(0).getString("Description"),json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).getString("Category")));
+        criminal.add(new CriminalObjects());
+        criminal.get(i).setFirstName(json.getJSONObject("Results").getJSONObject("Inputs").getString("FirstName"));
+        criminal.get(i).setLastName(json.getJSONObject("Results").getJSONObject("Inputs").getString("LastName"));
 
+        if (json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).has("DOB"))
+          criminal.get(i).setDob(json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).get("DOB").toString());
+        if (json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).has("Sex"))
+          criminal.get(i).setSex(json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).getString("Sex"));
+        if (json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).has("Race"))
+          criminal.get(i).setRace(json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).getString("Race"));
+        if (json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).getJSONArray("Offenses").getJSONObject(0).has("Description"))
+          criminal.get(i).setRace(json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).getJSONArray("Offenses").getJSONObject(0).getString("Description"));
+        if (json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).getJSONArray("Offenses").getJSONObject(0).has("CaseNumber"))
+          criminal.get(i).setRace(json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).getJSONArray("Offenses").getJSONObject(0).getString("CaseNumber"));
+        if (json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).getJSONArray("Offenses").getJSONObject(0).has("Jurisdiction"))
+          criminal.get(i).setRace(json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).getJSONArray("Offenses").getJSONObject(0).getString("Jurisdiction"));
+
+      }
+//      System.out.println(criminal);
+      model.addAttribute("cList", criminal);
       model.addAttribute("allthejson", hi);
     } catch (JSONException e) {
       e.printStackTrace();
     }
-//    String sampleDataFile = "/Users/kuwu/Desktop/imsas_response.json";
-//    hi = queryCriminalDB(sampleDataFile);
 
-    ObjectMapper mapper = new ObjectMapper();
-    DataResponse data;
+
+    return new ModelAndView("admin", "dbresult", firstName + " " + lastName + "" + dob + " " + cat + " " + sex + " " + race + " " + desc);
+  }
+
+  @RequestMapping("/criminalchoice")
+  public String criminalChoice(Model model, @RequestParam("id") int index, @RequestParam("fName") String fname, @RequestParam("lName") String lname, @RequestParam("dob") String dob, @RequestParam("sex") String sex, @RequestParam("race") String race, @RequestParam("desc") String desc, @RequestParam("caseNum") String caseNum, @RequestParam("jurisd") String jurisd) {
+    String firstName = "";
+    String lastName = "";
+    String hi = "Welcome";
+    InputRequest requestData = new InputRequest();
+    requestData.credentials.account_id = "128318";
+    requestData.credentials.api_key = "Z33AiUPbmCqhYWJ8WvP9Rfq0Gn";
+    requestData.product = "criminal_database";
+    requestData.data.FirstName = fname;
+    requestData.data.LastName = lname;
+
+    model.addAttribute("fName", fname);
+    model.addAttribute("lName", lname);
+    model.addAttribute("index", index);
+    model.addAttribute("dob", dob);
+    model.addAttribute("sex", sex);
+    model.addAttribute("race", race);
+    model.addAttribute("desc", desc);
+    model.addAttribute("caseNum", caseNum);
+    model.addAttribute("jurisd", jurisd);
+    try {
+      String criminalDBUrl = "https://api.imsasllc.com/v3/";
+      hi = queryCriminalDB(criminalDBUrl, requestData);
+      JSONObject json = null;
+
+
+      json = new JSONObject(hi);
+
+
+      fname = json.getJSONObject("Results").getJSONObject("Inputs").getString("FirstName");
+      lname = json.getJSONObject("Results").getJSONObject("Inputs").getString("LastName");
+
+      if (json.getJSONObject("Results").getJSONArray("Records").getJSONObject(index).has("DOB")) {
+        dob = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(index).get("DOB").toString();
+      }
+      if (json.getJSONObject("Results").getJSONArray("Records").getJSONObject(index).has("Sex")) {
+        sex = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(index).getString("Sex");
+      }
+      if (json.getJSONObject("Results").getJSONArray("Records").getJSONObject(index).has("Race")) {
+        race = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(index).getString("Race");
+      }
+      if (json.getJSONObject("Results").getJSONArray("Records").getJSONObject(index).getJSONArray("Offenses").getJSONObject(0).has("Description")) {
+        desc = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(index).getJSONArray("Offenses").getJSONObject(0).getString("Description");
+      }
+      if (json.getJSONObject("Results").getJSONArray("Records").getJSONObject(index).getJSONArray("Offenses").getJSONObject(0).has("CaseNumber")) {
+        caseNum = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(index).getJSONArray("Offenses").getJSONObject(0).getString("CaseNumber");
+      }
+      if (json.getJSONObject("Results").getJSONArray("Records").getJSONObject(index).getJSONArray("Offenses").getJSONObject(0).has("Jurisdiction")) {
+        jurisd = json.getJSONObject("Results").getJSONArray("Records").getJSONObject(index).getJSONArray("Offenses").getJSONObject(0).getString("Jurisdiction");
+      }
+
+      String table = "<table border=1><tr><td>" + fname + lname + dob + sex + race + desc + caseNum + jurisd + "</td></tr></table>";
+
+      model.addAttribute("newtable", table);
+
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+    return "criminalresult";
+  }
+
+
+  // reading from a saved JSON file on local machine
+//  private String queryCriminalDB(String pathFilename) {
+//    String result = "";
+//    String line;
+//
 //    try {
-//      data = mapper.readValue(new File(sampleDataFile), DataResponse.class);
-
-    //This was for testing in debugger when testing for empty fields
-    //hi = data.Results.Message;
-
-//      // output test
-//      for (com.test.data.imsas.Record record : data.Results.Records) {
-//        hi = record.FullName;
+//
+//      BufferedReader br = new BufferedReader(new FileReader(pathFilename));
+//      while ((line = br.readLine()) != null) {
+//        result += line;
 //      }
 //
 //    } catch (IOException e) {
 //      e.printStackTrace();
 //    }
-
-    return new ModelAndView("admin", "dbresult", (firstName +"'\n'"+ lastName +"'\n'"+ dob +"\n"+ cat +"\n"+ sex +"\n"+ race +"\n"+ desc));
-  }
-
-  // reading from a saved JSON file on local machine
-  private String queryCriminalDB(String pathFilename) {
-    String result = "";
-    String line;
-
-    try {
-
-      BufferedReader br = new BufferedReader(new FileReader(pathFilename));
-      while ((line = br.readLine()) != null) {
-        result += line;
-      }
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-    return result;
-  }
+//
+//    return result;
+//  }
 
   // reading form the API
   private String queryCriminalDB(String requestUrl, InputRequest requestData) {
@@ -136,11 +205,7 @@ public class CriminalController {
         while ((response = br.readLine()) != null) {
           result += response;
         }
-        // This was Antonella's test
-//        JSONObject json = new JSONObject(result);
-//        String firstName = json.getJSONObject("Results").getJSONObject("Inputs").getString("FirstName");
-//
-//        System.out.println(firstName);
+
         br.close();
       }
 
@@ -153,9 +218,7 @@ public class CriminalController {
     } catch (
         IOException e) {
       e.printStackTrace();
-    } //catch (JSONException e) {
-//      e.printStackTrace();
-//    }
+    }
 
     return result;
   }
