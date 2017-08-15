@@ -1,7 +1,6 @@
 package com.team180.tables;
 
 import javax.persistence.*;
-import java.util.Arrays;
 
 @Entity
 @Table(name = "employer_listing", schema = "oneeighty", catalog = "")
@@ -12,8 +11,9 @@ public class EmployerListingEntity {
     private String contactName;
     private String contactPhone;
     private String contactEmail;
-    private byte[] jobDescription;
+    private String jobDescription;
     private Byte crimetype;
+    private String password;
 
     @Id
     @Column(name = "jobID", nullable = false)
@@ -76,22 +76,33 @@ public class EmployerListingEntity {
     }
 
     @Basic
-    @Column(name = "job_description", nullable = false)
-    public byte[] getJobDescription() {
+    @Column(name = "job_description", nullable = false, length = -1)
+    public String getJobDescription() {
         return jobDescription;
     }
 
-    public void setJobDescription(byte[] jobDescription) {
+    public void setJobDescription(String jobDescription) {
         this.jobDescription = jobDescription;
     }
 
     @Basic
     @Column(name = "crimetype", nullable = true)
-    public byte getCrimetype() {return crimetype;
+    public Byte getCrimetype() {
+        return crimetype;
     }
 
-    public void setCrimetype(byte crimetype) {
+    public void setCrimetype(Byte crimetype) {
         this.crimetype = crimetype;
+    }
+
+    @Basic
+    @Column(name = "password", nullable = false, length = 45)
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -107,7 +118,10 @@ public class EmployerListingEntity {
         if (contactName != null ? !contactName.equals(that.contactName) : that.contactName != null) return false;
         if (contactPhone != null ? !contactPhone.equals(that.contactPhone) : that.contactPhone != null) return false;
         if (contactEmail != null ? !contactEmail.equals(that.contactEmail) : that.contactEmail != null) return false;
-        if (!Arrays.equals(jobDescription, that.jobDescription)) return false;
+        if (jobDescription != null ? !jobDescription.equals(that.jobDescription) : that.jobDescription != null)
+            return false;
+        if (crimetype != null ? !crimetype.equals(that.crimetype) : that.crimetype != null) return false;
+        if (password != null ? !password.equals(that.password) : that.password != null) return false;
 
         return true;
     }
@@ -120,9 +134,9 @@ public class EmployerListingEntity {
         result = 31 * result + (contactName != null ? contactName.hashCode() : 0);
         result = 31 * result + (contactPhone != null ? contactPhone.hashCode() : 0);
         result = 31 * result + (contactEmail != null ? contactEmail.hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(jobDescription);
+        result = 31 * result + (jobDescription != null ? jobDescription.hashCode() : 0);
+        result = 31 * result + (crimetype != null ? crimetype.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }
-
-
 }

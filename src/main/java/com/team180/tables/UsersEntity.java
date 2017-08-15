@@ -90,7 +90,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "phone_number", nullable = true, length = 10)
+    @Column(name = "phone_number", nullable = true, length = 20)
     public String getPhoneNumber() {
         return phoneNumber;
     }

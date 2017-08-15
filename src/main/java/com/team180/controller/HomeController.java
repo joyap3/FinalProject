@@ -88,7 +88,7 @@ public class HomeController {
 
     public String registerJob(@RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
                               @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
-                              @RequestParam("email") String email, @RequestParam("jobDescription") byte[] jDescription,
+                              @RequestParam("email") String email, @RequestParam("jobDescription") String jDescription,
                               @RequestParam("crimetype") byte cType) {
 
         Session s = HibernateDao.getSession();
