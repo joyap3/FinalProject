@@ -53,7 +53,7 @@ public class HibernateDao {
     public static List<EmployerListingEntity> getEmployerListingEntities(@RequestParam("user") String userName) {
         Session session = getSession();
 
-        String hql = "FROM EmployerListingEntity WHERE email= :username";
+        String hql = "FROM EmployerListingEntity WHERE contactEmail= :username";
 
         Query getUserInfo = session.createQuery(hql);
         getUserInfo.setParameter("username",userName);

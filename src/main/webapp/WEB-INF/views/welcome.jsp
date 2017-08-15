@@ -78,7 +78,7 @@ h1{
                             </form>
 
                             <div class="login-help">
-                                <a href="/registerUser"><font color="white">Register</font></a> - <a href="/registerJob"><font color="white">Register Job</font></a>
+                                <a href="/registerUser"><font color="white">Register</font></a> - <a href="/registerEmployer"><font color="white">Register Job</font></a>
                             </div>
                         </div>
                     </div>
