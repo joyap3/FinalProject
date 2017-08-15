@@ -34,7 +34,7 @@ public class AdminController {
             return new
                     ModelAndView("admin", "message", "Felon Search");
         }else
-            return new ModelAndView("admin","","");
+            return new ModelAndView("adminlogin","","");
     }
 
 
@@ -62,7 +62,7 @@ public class AdminController {
     public ModelAndView listusers() {
         ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
 
-        return new ModelAndView("admin", "uList", userList);
+        return new ModelAndView("adminviewusers", "uList", userList);
     }
 
     //this method was extracted to be used again
@@ -73,7 +73,7 @@ public class AdminController {
         ArrayList<EmployerListingEntity> jobList = HibernateDao.displayJobList();
 
 
-        return new ModelAndView("admin", "jList", jobList);
+        return new ModelAndView("adminviewjobs", "jList", jobList);
     }
 
     //this method was extracted to be used again
@@ -123,7 +123,7 @@ public class AdminController {
         ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
 
 
-        return new ModelAndView("admin", "uList", userList);
+        return new ModelAndView("adminviewusers", "uList", userList);
     }
 
     @RequestMapping("/searchForUser")
@@ -158,7 +158,7 @@ public class AdminController {
         ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
 
 
-        return new ModelAndView("admin", "uList", userList);
+        return new ModelAndView("adminviewusers", "uList", userList);
     }
 
 
@@ -176,6 +176,6 @@ public class AdminController {
         ArrayList<EmployerListingEntity> jobList = HibernateDao.displayJobList();
 
 
-        return new ModelAndView("admin", "jList", jobList);
+        return new ModelAndView("adminviewjobs", "jList", jobList);
     }
 }

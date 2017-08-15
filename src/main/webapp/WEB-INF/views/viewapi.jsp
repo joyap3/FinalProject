@@ -13,8 +13,34 @@
 </head>
 <body>
 <div>
-    <p>This is where the API info will go</p>
+    <div class="container col-lg-12 spacer"></div>
+    <div class="container col-lg-12 block">
+        <div class="row col-xs-6 block2 bg-primary center">
+            <form method="post" action="/showAPI"  class="form-horizontal" role="form" align="center">
+                <div class="form-group" >
+                    <font color="gray" align="center"><strong>${message}</strong></font><br><br>
+                    <label class="control-label col-sm-3"  for="first name"><font color="gray">first name</font></label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" color="black" name="firstName" id="first name" placeholder="first name" required="true" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3" for="last name"><font color="gray">last name</font></label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" name="lastName" id="last name" placeholder="last name" required="true" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8">
+                        <input type="submit" name="search" id="search" value="Search" class="btn btn-default"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div><!-- /.container -->
 </div>
+${dbresult}
 <div>
     <form id="updateUser" action="/crimetype" method="post">
         <table>
