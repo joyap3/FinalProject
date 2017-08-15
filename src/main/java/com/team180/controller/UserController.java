@@ -114,7 +114,7 @@ public class UserController {
                 String message = "Your profile is under review, please check back in 24-48 hours";
                 return new ModelAndView("viewjobboard","message",message);
             }
-            if(loggedInUser.getCrimetype() == 0){
+            if(loggedInUser.getCrimetype().equalsIgnoreCase("violent")){
                 List<EmployerListingEntity> restrictedJobs = HibernateDao.displayRestrictedList();
                 return new ModelAndView("viewjobboard","restricted",restrictedJobs);
             }

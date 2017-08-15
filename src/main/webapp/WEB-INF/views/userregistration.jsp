@@ -150,13 +150,13 @@
                     <td><font color="gray">Skill-set:</font></td>
                 <td>
                     <font color="gray"><select name="skillSet"></font>
-                        <option value="trades">Trade Worker</option>
-                        <option value="administration">Administration</option>
-                        <option value="technology">Technology</option>
-                        <option value="business">Business</option>
-                        <option value="sales">Sales</option>
-                        <option value="publicService">Public Service</option>
-                        <option value="other">Other</option>
+                        <option value="Trade Worker">Trade Worker</option>
+                        <option value="Administration">Administration</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Business">Business</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Public Service">Public Service</option>
+                        <option value="Other">Other</option>
                     </select>
                 </td>
                 </tr>

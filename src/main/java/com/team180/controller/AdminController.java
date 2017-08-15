@@ -34,8 +34,10 @@ public class AdminController {
             return new
                     ModelAndView("admin", "message", "Felon Search");
         }else
-            return new ModelAndView("adminlogin","","");
+            return new ModelAndView("admin","","");
     }
+
+
 
     @RequestMapping("/loginadmin")
     public ModelAndView loginAdmin(@RequestParam ("user") String adminUser, @RequestParam("password")String adminPassword) {
@@ -44,7 +46,7 @@ public class AdminController {
             return new ModelAndView("adminlogin", "invalid", "Not a registered Administrator");
         }
         if (adminUsers.get(0).getEmail().equalsIgnoreCase(adminUser)) {
-            if (adminUsers.get(0).getPassword().equals(PasswordMD5Encrypt.PasswordMD5Encrypt(adminPassword))) {
+            if (adminUsers.get(0).getPassword().equals(adminPassword)) {
                 loggedInAdmin = adminUsers.get(0);
                 return new ModelAndView("admin", "", "");
             } else {
@@ -96,7 +98,7 @@ public class AdminController {
     public ModelAndView editCrimetype(@RequestParam("firstName") String fname, @RequestParam("lastName") String lname,
                                       @RequestParam("middleName") String midName, @RequestParam("birthday") Date bday,
                                       @RequestParam("address") String address, @RequestParam("zip") int zip, @RequestParam("phoneNumber") String phoneNum,
-                                      @RequestParam("email") String email, @RequestParam("skillSet") String skillSet, @RequestParam("crimetype") Byte crime) {
+                                      @RequestParam("email") String email, @RequestParam("skillSet") String skillSet, @RequestParam("crimetype") String crime) {
 
         Session editCrimetype = HibernateDao.getSession();
 
@@ -114,7 +116,7 @@ public class AdminController {
         temp.setSkillset(skillSet);
         temp.setCrimetype(crime);
 
-        editCrimetype.save(temp);
+        editCrimetype.update(temp);
         editCrimetype.getTransaction().commit();
         editCrimetype.close();
 

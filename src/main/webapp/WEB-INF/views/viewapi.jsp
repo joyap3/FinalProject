@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.sql.ResultSet" %><%--
   Created by IntelliJ IDEA.
   User: Steve
   Date: 8/10/2017
@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>View API</title>
@@ -15,7 +16,7 @@
     <p>This is where the API info will go</p>
 </div>
 <div>
-    <form action="/crimetype" method="post">
+    <form id="updateUser" action="/crimetype" method="post">
         <table>
             <tr>
                 <td>First Name:</td>
@@ -52,27 +53,38 @@
             <tr>
                 <td>Skill-set:</td>
                 <td>
-                    <select name="skillSet" value="${userProfile.skillset}">
-                        <option value="trades">Trade Worker</option>
-                        <option value="administration">Administration</option>
-                        <option value="technology">Technology</option>
-                        <option value="business">Business</option>
-                        <option value="sales">Sales</option>
-                        <option value="publicService">Public Service</option>
-                        <option value="other">Other</option>
+                    <select form="updateUser" name="skillSet">
+                        <option selected>${userProfile.skillset}</option>
+                        <option value="Trade Worker">Trade Worker</option>
+                        <option value="Administration">Administration</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Business">Business</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Public Service">Public Service</option>
+                        <option value="Other">Other</option>
+
                     </select>
                 </td>
             </tr>
             <tr>
                 <td>Crime Type:</td>
                 <td>
-                    <input type="checkbox" name="crimetype" value="0" >V<br>
-                    <input type="checkbox" name="crimetype" value="1" >NV<br>
+                    <select form="updateUser" name="crimetype">
+                        <option selected>${userProfile.crimetype}</option>
+                        <option value="Violent">Violent</option>
+                        <option value="Non-Violent">Non-Violent</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <input type="submit" value="Submit">
                 </td>
             </tr>
         </table>
     </form>
 </div>
+
+
 </body>
 </html>

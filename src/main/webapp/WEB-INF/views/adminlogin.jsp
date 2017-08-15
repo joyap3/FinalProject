@@ -78,7 +78,7 @@
 <div class="container col-lg-12 spacer"></div>
 <div class="container col-lg-12 block">
     <div class="row col-xs-6 block2 bg-primary center">
-        <form method="post" action="/admin"  class="form-horizontal" role="form" align="center">
+        <form method="post" action="/loginadmin"  class="form-horizontal" role="form" align="center">
             <div class="form-group" >
                 <font color="gray" align="center"><strong>${invalid}</strong></font><br><br>
                 <label class="control-label col-sm-3"  for="user email"><font color="gray">username</font></label>

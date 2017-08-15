@@ -17,7 +17,7 @@ public class UsersEntity {
     private String email;
     private String password;
     private String skillset;
-    private Byte crimetype;
+    private String crimetype;
 
     @Id
     @Column(name = "idUsers", nullable = false)
@@ -131,11 +131,11 @@ public class UsersEntity {
 
     @Basic
     @Column(name = "crimetype", nullable = true)
-    public Byte getCrimetype() {
+    public String getCrimetype() {
         return crimetype;
     }
 
-    public void setCrimetype(Byte crimetype) {
+    public void setCrimetype(String crimetype) {
         this.crimetype = crimetype;
     }
 
