@@ -43,6 +43,13 @@
     <td>Crime Type:</td>
     <td>${employerProfile.crimetype} ${crimeType}</td>
 </tr>
+    <tr>
+        <td>
+            <a href="updateEmployerInfo?id=${employerProfile.jobId}">
+                <button value="Edit Item">Edit</button>
+            </a>
+        </td>
+    </tr>
 </table>
 
 </body>
