@@ -30,6 +30,56 @@ public class HomeController {
     }
 
 
+
+    //public static EmployerListingEntity loggedInEmployer;
+    private int id;
+
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping("/loginUser")
+    public ModelAndView loginUser(@RequestParam("user") String userName, @RequestParam("pass") String password) {
+
+        List<UsersEntity> userList = HibernateDao.getUsersEntities(userName);
+
+        if(userList.isEmpty()){
+            List<EmployerListingEntity> listResult = HibernateDao.getEmployerListingEntities(userName);
+
+            if(listResult.isEmpty()){
+                return new ModelAndView("login","invalid","User does not exist, please register");
+            }
+
+            if (listResult.get(0).getContactEmail().equalsIgnoreCase(userName)) {
+                if (listResult.get(0).getPassword().equals(PasswordMD5Encrypt.PasswordMD5Encrypt(password))) {
+                    EmployerController.loggedInEmployer = listResult.get(0);
+                    return new ModelAndView("employerprofile", "employerProfile", listResult.get(0));
+                } else {
+                    String alert = "Invalid password";
+                    return new ModelAndView("login", "invalid", alert);
+                }
+            }
+            String alert = "Invalid user name";
+
+            return new ModelAndView("login","invalid",alert);
+        }
+
+        if (userList.get(0).getEmail().equalsIgnoreCase(userName)) {
+            if (userList.get(0).getPassword().equals(PasswordMD5Encrypt.PasswordMD5Encrypt(password))) {
+                UserController.loggedInUser = userList.get(0);
+                return new ModelAndView("userprofile", "userProfile", userList.get(0));
+            } else {
+                String alert = "Invalid password";
+                return new ModelAndView("login", "invalid", alert);
+            }
+        }
+        String alert = "Invalid user name";
+        return new ModelAndView("login", "invalid", alert);
+    }
+
+
+
     @RequestMapping("/registerUser")
 
     public String registerUser() {
