@@ -50,6 +50,17 @@ public class HibernateDao {
         return (List<UsersEntity>) getUserInfo.getResultList();
     }
 
+    public static List<EmployerListingEntity> getEmployerListingEntities(@RequestParam("user") String userName) {
+        Session session = getSession();
+
+        String hql = "FROM EmployerListingEntity WHERE email= :username";
+
+        Query getUserInfo = session.createQuery(hql);
+        getUserInfo.setParameter("username",userName);
+
+        return (List<EmployerListingEntity>) getUserInfo.getResultList();
+    }
+
     public static List<EmployerListingEntity> displayRestrictedList(){
 
         String hql = "FROM EmployerListingEntity WHERE crimetype = 0";
