@@ -28,6 +28,10 @@ import java.util.ArrayList;
 @Controller
 public class CriminalController {
 
+
+  private String apiKey = "QG03NyTMtuhcbD7a4xTfkb7xpq";
+  private String accountId = "128303";
+
   @RequestMapping("/showAPI")
   public ModelAndView CriminalDB(@RequestParam("firstName") String fname, @RequestParam("lastName") String lname, Model model) {
     String hi = "Welcome";
@@ -42,8 +46,8 @@ public class CriminalController {
     String jurs = "";
 
     InputRequest requestData = new InputRequest();
-    requestData.credentials.account_id = "128319";
-    requestData.credentials.api_key = "0JClmxxIgIrrthBjZONC5b4Hu6";
+    requestData.credentials.account_id = accountId;
+    requestData.credentials.api_key = apiKey;
     requestData.product = "criminal_database";
     requestData.data.FirstName = fname;
     requestData.data.LastName = lname;
@@ -98,8 +102,8 @@ public class CriminalController {
     String lastName = "";
     String hi = "Welcome";
     InputRequest requestData = new InputRequest();
-    requestData.credentials.account_id = "128318";
-    requestData.credentials.api_key = "Z33AiUPbmCqhYWJ8WvP9Rfq0Gn";
+    requestData.credentials.account_id = accountId;
+    requestData.credentials.api_key = apiKey;
     requestData.product = "criminal_database";
     requestData.data.FirstName = fname;
     requestData.data.LastName = lname;
