@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<h1>Welcome, ${employerProfile.contactName} ${contactName}</h1>
+<h1>Welcome, ${employerProfile.contactName}</h1>
 
 </body>
 </html>

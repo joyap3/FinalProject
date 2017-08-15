@@ -18,6 +18,7 @@ import java.util.List;
 public class UserController {
 
     public static UsersEntity loggedInUser;
+    public static EmployerListingEntity loggedInEmployer;
     private int id;
 
     @RequestMapping("/login")
@@ -28,16 +29,33 @@ public class UserController {
     @RequestMapping("/loginUser")
     public ModelAndView loginUser(@RequestParam("user") String userName, @RequestParam("pass") String password) {
 
-        List<UsersEntity> listResult = HibernateDao.getUsersEntities(userName);
+        List<UsersEntity> userList = HibernateDao.getUsersEntities(userName);
 
-        if(listResult.isEmpty()){
-            return new ModelAndView("login","invalid","User does not exist, please register");
+        if(userList.isEmpty()){
+            List<EmployerListingEntity> listResult = HibernateDao.getEmployerListingEntities(userName);
+
+            if(listResult.isEmpty()){
+                return new ModelAndView("login","invalid","User does not exist, please register");
+            }
+
+            if (listResult.get(0).getContactEmail().equalsIgnoreCase(userName)) {
+                if (listResult.get(0).getPassword().equals(PasswordMD5Encrypt.PasswordMD5Encrypt(password))) {
+                    loggedInEmployer = listResult.get(0);
+                    return new ModelAndView("employerprofile", "employerProfile", listResult.get(0));
+                } else {
+                    String alert = "Invalid password";
+                    return new ModelAndView("login", "invalid", alert);
+                }
+            }
+            String alert = "Invalid user name";
+
+            return new ModelAndView("login","invalid",alert);
         }
 
-        if (listResult.get(0).getEmail().equalsIgnoreCase(userName)) {
-            if (listResult.get(0).getPassword().equals(PasswordMD5Encrypt.PasswordMD5Encrypt(password))) {
-                loggedInUser = listResult.get(0);
-                return new ModelAndView("userprofile", "userProfile", listResult.get(0));
+        if (userList.get(0).getEmail().equalsIgnoreCase(userName)) {
+            if (userList.get(0).getPassword().equals(PasswordMD5Encrypt.PasswordMD5Encrypt(password))) {
+                loggedInUser = userList.get(0);
+                return new ModelAndView("userprofile", "userProfile", userList.get(0));
             } else {
                 String alert = "Invalid password";
                 return new ModelAndView("login", "invalid", alert);
