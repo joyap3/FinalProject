@@ -13,6 +13,16 @@
 </head>
 <body>
 <div>
+    <nav>
+        <a class="nav-link" href="/">Home</a> |
+        <a class="nav-link" href="/admin">Dashboard</a> |
+        <a class="nav-link" href="/listusers">View Users</a> |
+        <a class="nav-link" href="/listjobs">View Jobs</a> |
+        <a class="nav-link" href="/viewcriminalresults">Background Search</a>
+        <a class="nav-link" href="/logout">Log Out</a>
+    </nav>
+</div>
+<div>
     <form id="updateUser" action="/crimetype" method="post">
         <table>
             <tr>

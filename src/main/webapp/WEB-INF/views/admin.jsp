@@ -41,7 +41,7 @@
             </div>
 
             <span class="logout-spn" >
-                  <a href="/logout" style="color:white;">LOGOUT</a>
+                  <a href="/logout" style="color:white;">Logout</a>
 
                 </span>
         </div>
@@ -100,7 +100,7 @@
             <div class="row">
                 <div class="col-lg-12 ">
                     <div class="alert alert-info">
-                        <strong>Welcome ${welcome}! </strong>
+                        <strong>Welcome ${adminUser.firstName}! </strong>
                     </div>
 
                 </div>

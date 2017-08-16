@@ -74,7 +74,7 @@ public class HibernateDao {
 
     public static List<EmployerListingEntity> displayRestrictedList(){
 
-        String hql = "FROM EmployerListingEntity WHERE crimetype = 0";
+        String hql = "FROM EmployerListingEntity WHERE crimetype = 'violent'";
         Query getListing = getSession().createQuery(hql);
         return (List<EmployerListingEntity>) getListing.getResultList();
     }

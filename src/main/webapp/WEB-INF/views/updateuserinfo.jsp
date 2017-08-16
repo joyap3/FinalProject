@@ -59,6 +59,7 @@
             <td>Skill-set:</td>
             <td>
                 <select name="skillSet" value="${userProfile.skillset}">
+                    <option selected>${userProfile.skillset}</option>
                     <option value="trades">Trade Worker</option>
                     <option value="administration">Administration</option>
                     <option value="technology">Technology</option>

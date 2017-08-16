@@ -152,8 +152,8 @@
             </div>
             <div>
                 <strong><font color="gray" size="2">Jobseeker with violent conviction history can apply.</font></strong>
-                <input type="checkbox" name="crimetype" value="0" ><strong><font color="gray" size="2">Y</font></strong>
-                <input type="checkbox" name="crimetype" value="1" ><strong><font color="gray" size="2">N</font></strong>
+                <input type="checkbox" name="crimetype" value="Violent" ><strong><font color="gray" size="2">Y</font></strong>
+                <input type="checkbox" name="crimetype" value="Non-Violent" ><strong><font color="gray" size="2">N</font></strong>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-8">

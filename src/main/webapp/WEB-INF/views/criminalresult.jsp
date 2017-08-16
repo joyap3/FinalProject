@@ -12,6 +12,16 @@
     <title>Criminal Results</title>
 </head>
 <body>
+<div>
+    <nav>
+        <a class="nav-link" href="/">Home</a> |
+        <a class="nav-link" href="/admin">Dashboard</a> |
+        <a class="nav-link" href="/listusers">View Users</a> |
+        <a class="nav-link" href="/listjobs">View Jobs</a> |
+        <a class="nav-link" href="/logout">Log Out</a>
+    </nav>
+</div>
+<br>
 ${index}
 ${fName}
 ${lName}

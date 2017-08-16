@@ -12,7 +12,17 @@
     <title>View Jobs</title>
 </head>
 <body>
-<table>
+<div>
+    <nav>
+        <a class="nav-link" href="/">Home</a> |
+        <a class="nav-link" href="/admin">Dashboard</a> |
+        <a class="nav-link" href="/listusers">View Users</a> |
+        <a class="nav-link" href="/viewcriminalresults">Background Search</a> |
+        <a class="nav-link" href="/logout">Log Out</a>
+    </nav>
+</div>
+<br>
+<table border="1">
     <tr>
         <th>Job ID</th>
         <th>Company Name</th>
@@ -24,7 +34,6 @@
         <th>Crimetype</th>
     </tr>
 <c:forEach var = "myvar" items = "${jList}">
-    <thead>
     <tr>
         <td>${myvar.jobId}</td>
         <td>${myvar.company}</td>
@@ -36,7 +45,6 @@
         <td>${myvar.crimetype}</td>
         <td><a href="deletejob?id=${myvar.jobId}"><button value="Delete Job">Delete</button></a></td>
     </tr>
-    </thead>
 </c:forEach>
 
 </table>

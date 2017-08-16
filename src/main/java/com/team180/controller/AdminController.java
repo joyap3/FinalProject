@@ -25,16 +25,17 @@ import java.util.List;
 @Controller
 public class AdminController {
     private AdminUsersEntity loggedInAdmin;
+    private boolean isLoggedIn = false;
     private int id;
 
     @RequestMapping("/admin")
     public ModelAndView helloWorld() {
         if (loggedInAdmin != null) {
-
+            isLoggedIn = true;
             return new
-                    ModelAndView("admin", "message", "Felon Search");
+                    ModelAndView("admin", "adminUser", HibernateDao.getAdminEntities(loggedInAdmin.getEmail()).get(0));
         }else
-            return new ModelAndView("adminlogin","","");
+            return new ModelAndView("adminlogin","invalid","Please Log In");
     }
 
 
@@ -48,21 +49,24 @@ public class AdminController {
         if (adminUsers.get(0).getEmail().equalsIgnoreCase(adminUser)) {
             if (adminUsers.get(0).getPassword().equals(adminPassword)) {
                 loggedInAdmin = adminUsers.get(0);
-                return new ModelAndView("admin", "", "");
+                isLoggedIn = true;
+                return new ModelAndView("admin", "adminUser", loggedInAdmin);
             } else {
                 return new ModelAndView("adminlogin", "invalid", "Invalid Password");
             }
         }
             return new ModelAndView("adminlogin", "invalid", "Invalid Admin username");
-
-
     }
 
     @RequestMapping("/listusers")
     public ModelAndView listusers() {
-        ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
+        if (isLoggedIn) {
+            ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
 
-        return new ModelAndView("adminviewusers", "uList", userList);
+            return new ModelAndView("adminviewusers", "uList", userList);
+        }else{
+            return new ModelAndView("adminlogin","invalid","Please Log In");
+        }
     }
 
     //this method was extracted to be used again
@@ -70,14 +74,22 @@ public class AdminController {
 
     @RequestMapping("/listjobs")
     public ModelAndView listjobs() {
-        ArrayList<EmployerListingEntity> jobList = HibernateDao.displayJobList();
-
-
-        return new ModelAndView("adminviewjobs", "jList", jobList);
+        if(isLoggedIn) {
+            ArrayList<EmployerListingEntity> jobList = HibernateDao.displayJobList();
+            return new ModelAndView("adminviewjobs", "jList", jobList);
+        }
+        else{
+            return new ModelAndView("adminlogin","invalid","Please Log In");
+        }
     }
     @RequestMapping("/viewcriminalresults")
     public String viewCriminalResult(){
-        return "criminalresult";
+        if(isLoggedIn) {
+            return "criminalresult";
+        }
+        else{
+            return "adminlogin";
+        }
     }
 
     //this method was extracted to be used again
@@ -86,16 +98,19 @@ public class AdminController {
 
     @RequestMapping("/updatecrimetype")
     public ModelAndView updateUserAdmin(Model model, @RequestParam("id") int id) {
+        if (isLoggedIn) {
+            this.id = id;
 
-        this.id = id;
+            Session s = HibernateDao.getSession();
 
-        Session s = HibernateDao.getSession();
+            UsersEntity temp = (UsersEntity) s.get(UsersEntity.class, id);
 
-        UsersEntity temp = (UsersEntity) s.get(UsersEntity.class, id);
+            List<UsersEntity> userList = HibernateDao.getUsersEntities(temp.getEmail());
 
-        List<UsersEntity> userList = HibernateDao.getUsersEntities(temp.getEmail());
-
-        return new ModelAndView("viewapi", "userProfile", userList.get(0));
+            return new ModelAndView("viewapi", "userProfile", userList.get(0));
+        }else {
+            return new ModelAndView("adminlogin","invalid","Please Log In");
+        }
     }
 
     @RequestMapping("/crimetype")
@@ -103,83 +118,98 @@ public class AdminController {
                                       @RequestParam("middleName") String midName, @RequestParam("birthday") Date bday,
                                       @RequestParam("address") String address, @RequestParam("zip") int zip, @RequestParam("phoneNumber") String phoneNum,
                                       @RequestParam("email") String email, @RequestParam("skillSet") String skillSet, @RequestParam("crimetype") String crime) {
+        if (isLoggedIn) {
+            Session editCrimetype = HibernateDao.getSession();
 
-        Session editCrimetype = HibernateDao.getSession();
+            //temp object will store infor for the object we want to delete.
+            UsersEntity temp = editCrimetype.get(UsersEntity.class, id);
 
-        //temp object will store infor for the object we want to delete.
-        UsersEntity temp = editCrimetype.get(UsersEntity.class, id);
+            temp.setFirstName(fname);
+            temp.setMiddleName(midName);
+            temp.setLastName(lname);
+            temp.setBirthday(bday);
+            temp.setAddress(address);
+            temp.setZip(zip);
+            temp.setPhoneNumber(phoneNum);
+            temp.setEmail(email);
+            temp.setSkillset(skillSet);
+            temp.setCrimetype(crime);
 
-        temp.setFirstName(fname);
-        temp.setMiddleName(midName);
-        temp.setLastName(lname);
-        temp.setBirthday(bday);
-        temp.setAddress(address);
-        temp.setZip(zip);
-        temp.setPhoneNumber(phoneNum);
-        temp.setEmail(email);
-        temp.setSkillset(skillSet);
-        temp.setCrimetype(crime);
+            editCrimetype.update(temp);
+            editCrimetype.getTransaction().commit();
+            editCrimetype.close();
 
-        editCrimetype.update(temp);
-        editCrimetype.getTransaction().commit();
-        editCrimetype.close();
-
-        ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
+            ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
 
 
-        return new ModelAndView("adminviewusers", "uList", userList);
+            return new ModelAndView("adminviewusers", "uList", userList);
+        } else{
+            return new ModelAndView("adminlogin","invalid","Please Log In");
+        }
     }
 
     @RequestMapping("/searchForUser")
     public ModelAndView searchUser(@RequestParam("firstName") String firstName) {
 //                                   @RequestParam("email") String email,
 //                                   @RequestParam("lastName") String lastName)
+        if(isLoggedIn) {
+            Session selectUsers = HibernateDao.getSession();
 
-        Session selectUsers = HibernateDao.getSession();
+            Criteria c = selectUsers.createCriteria(UsersEntity.class);
 
-        Criteria c = selectUsers.createCriteria(UsersEntity.class);
-
-        c.add(Restrictions.like("firstName", "%" + firstName + "%"));
+            c.add(Restrictions.like("firstName", "%" + firstName + "%"));
 //        c.add(Restrictions.like("lastName", "%" + lastName + "%"));
 //        c.add(Restrictions.like("email", "%" + email + "%"));
 
-        ArrayList<UsersEntity> userList = (ArrayList<UsersEntity>) c.list();
+            ArrayList<UsersEntity> userList = (ArrayList<UsersEntity>) c.list();
 
-        return new ModelAndView("admin", "uList", userList);
+            return new ModelAndView("admin", "uList", userList);
+        }else{
+            return new ModelAndView("adminlogin","invalid","Please Log In");
+        }
     }
 
     @RequestMapping("/deleteuser")
     public ModelAndView deleteUser(@RequestParam("id") int id) {
-        //temp object will store infor for the object we want to delete.
-        UsersEntity temp = new UsersEntity();
-        temp.setIdUsers(id);
+        if (isLoggedIn) {
+            //temp object will store infor for the object we want to delete.
+            UsersEntity temp = new UsersEntity();
+            temp.setIdUsers(id);
 
-        Session deleteUsers = HibernateDao.getSession();
+            Session deleteUsers = HibernateDao.getSession();
 
-        deleteUsers.delete(temp);//delete the object from the list
-        deleteUsers.getTransaction().commit();//deletes the row from the database table
+            deleteUsers.delete(temp);//delete the object from the list
+            deleteUsers.getTransaction().commit();//deletes the row from the database table
 
-        ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
+            ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
 
 
-        return new ModelAndView("adminviewusers", "uList", userList);
+            return new ModelAndView("adminviewusers", "uList", userList);
+        }
+        else{
+            return new ModelAndView("adminlogin","invalid","Please Log In");
+        }
     }
 
 
     @RequestMapping("/deletejob")
     public ModelAndView deleteJob(@RequestParam("id") int id) {
-        //temp object will store infor for the object we want to delete.
-        EmployerListingEntity temp = new EmployerListingEntity();
-        temp.setJobId(id);
+        if (isLoggedIn) {
+            //temp object will store infor for the object we want to delete.
+            EmployerListingEntity temp = new EmployerListingEntity();
+            temp.setJobId(id);
 
-        Session deleteJob = HibernateDao.getSession();
+            Session deleteJob = HibernateDao.getSession();
 
-        deleteJob.delete(temp);//delete the object from the list
-        deleteJob.getTransaction().commit();//deletes the row from the database table
+            deleteJob.delete(temp);//delete the object from the list
+            deleteJob.getTransaction().commit();//deletes the row from the database table
 
-        ArrayList<EmployerListingEntity> jobList = HibernateDao.displayJobList();
+            ArrayList<EmployerListingEntity> jobList = HibernateDao.displayJobList();
 
 
-        return new ModelAndView("adminviewjobs", "jList", jobList);
+            return new ModelAndView("adminviewjobs", "jList", jobList);
+        }else{
+            return new ModelAndView("adminlogin","invalid","Please Log In");
+        }
     }
 }

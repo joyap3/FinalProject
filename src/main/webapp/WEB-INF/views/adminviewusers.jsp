@@ -12,7 +12,17 @@
     <title>View Users</title>
 </head>
 <body>
-<table class="table table-bordered">
+<div>
+    <nav>
+        <a class="nav-link" href="/">Home</a> |
+        <a class="nav-link" href="/admin">Dashboard</a> |
+        <a class="nav-link" href="/listjobs">View Jobs</a> |
+        <a class="nav-link" href="/viewcriminalresults">Background Search</a> |
+        <a class="nav-link" href="/logout">Log Out</a>
+    </nav>
+</div>
+<br>
+<table border="1" class="table table-bordered">
 
     <tr>
         <th>First Name</th>
@@ -40,8 +50,8 @@
         <td>${myvar.phoneNumber}</td>
         <td>${myvar.skillset}</td>
         <td>${myvar.crimetype}</td>
-        <td><a href="deleteuser?id=${myvar.idUsers}"><button value="Delete Item">Delete</button></a></td>
         <td><a href="updatecrimetype?id=${myvar.idUsers}"><button value="Edit Item">Edit</button></a></td>
+        <td><a href="deleteuser?id=${myvar.idUsers}"><button value="Delete Item">Delete</button></a></td>
     </tr>
     </c:forEach>
 </table>
