@@ -50,12 +50,17 @@
         </tr>
         <tr>
             <td>Current Crime Type:</td>
-            <td><${employerProfile.crimetype}</td>
+            <td>${employerProfile.crimetype}</td>
         </tr>
         <tr>
-            <td>Update Crime Type:</td>
-            <td><input type="checkbox" name="crimetype" value="0" ></td>y
-            <td><input type="checkbox" name="crimetype" value="1" ></td>n
+            <td>Update Crime type:</td>
+            <td>Hire potential Job Seekers with a violent background?</td>
+            <td>
+            <select name="crimetype" required="true">
+                <option value="Violent">Yes</option>
+                <option value="Non-Violent">No</option>
+            </select>
+            </td>
         </tr>
         <%--Update crime type needs better formatting--%>
     </table>

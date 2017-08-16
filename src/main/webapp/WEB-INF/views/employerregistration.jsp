@@ -151,10 +151,14 @@
                 </div>
             </div>
             <div>
-                <strong><font color="gray" size="2">Jobseeker with violent conviction history can apply.</font></strong>
-                <input type="checkbox" name="crimetype" value="Violent" ><strong><font color="gray" size="2">Y</font></strong>
-                <input type="checkbox" name="crimetype" value="Non-Violent" ><strong><font color="gray" size="2">N</font></strong>
-            </div>
+                <td><font color="gray">Are you willing to hire a Job Seeker with a violent criminal background?</font></td>
+                <td>
+                    <font color="gray"><select name="crimetype" required="true"></font>
+                    <option value="Violent">Yes</option>
+                    <option value="Non-Violent">No</option>
+                    </select>
+                </td>
+            </div><br>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-8">
                     <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-default"/>
