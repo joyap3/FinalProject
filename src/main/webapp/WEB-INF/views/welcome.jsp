@@ -56,45 +56,6 @@ h1{
 </style>
 </head>
 <body>
-
-<section id="cover">
-    <br>
-    <div id="cover-caption">
-        <div class="container">
-            <div class="col-sm-10 col-sm-offset-1">
-                <br>
-                <br>
-                <h1 class="display-3">Welcome to 180</h1>
-                <p>180 provides a digital space find work, offer work and connect with groups and organizations that foster
-                    life skills. Seeking to improve the lives of people affected by a felony conviction.</p>
-                <a href="#" data-toggle="modal" data-target="#login-modal"><h3><strong>Login</strong></h3></a>
-                <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                     aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog">
-                        <div class="loginmodal-container">
-                            <h1>Login to Your Account</h1><br><br>
-                            <form action="/loginUser" method="post">
-                                <font color="gray"><input type="text" name="user" placeholder="Username"></font>
-                                    <font color="gray"><input type="password" name="pass" placeholder="Password"></font>
-                                <input type="submit" name="login" class="login loginmodal-submit" value="Login">
-                            </form>
-
-                            <div class="login-help">
-                                <a href="/registerUser"><font color="white">Register</font></a> - <a href="/registerEmployer"><font color="white">Employer Registration</font></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <br>
-
-                <a href="#nav-main" class="btn btn-secondary-outline btn-sm" role="button">&darr;</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-
 <nav class="navbar navbar-dark bg-inverse navbar-fixed-top navbar-full" id="nav-main">
     <a class="navbar-brand" href="#">180</a>
     <ul class="nav navbar-nav">
@@ -120,52 +81,111 @@ h1{
 </nav>
 
 
-<section id="carousel">
-    <div id="carousel-home" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carousel-home" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-home" data-slide-to="1"></li>
-            <li data-target="#carousel-home" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-                <img src="${pageContext.request.contextPath}../resource/theme/img/woman-camera.JPG"/>
-                <div class="carousel-caption">
+<section id="cover">
+    <br>
+    <div id="cover-caption">
+        <div class="container">
+            <div class="col-sm-10 col-sm-offset-1">
+                <br>
+                <br>
+                <h1 class="display-3">Welcome to 180</h1>
+                <p>180 provides a digital space find work, offer work and connect with groups and organizations that foster
+                    life skills. Seeking to improve the lives of people affected by a felony conviction.</p>
+                <a href="#" data-toggle="modal" data-target="#login-modal"><h3><strong>Login</strong></h3></a>
+                <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="loginmodal-container">
+                            <h1>Login to Your Account</h1><br><br>
+                            <form action="/loginUser" method="post">
+                                <font color="gray"><input type="text" name="user" placeholder="User Email"></font>
+                                    <font color="gray"><input type="password" name="pass" placeholder="Password"></font>
+                                <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+                            </form>
+
+                            <div class="login-help">
+                                <a href="/registerUser"><font color="white">Register</font></a> - - <a href="/registerEmployer"><font color="white">Employer Registration</font></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="carousel-item">
-                <img src="${pageContext.request.contextPath}../resource/theme/mg/spiderweb.JPG"/>
-                <div class="carousel-caption">
-                    <h3>Walkthrough</h3>
-                    <p>Checking the flow</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="${pageContext.request.contextPath}../resource/theme/img/hearthand.JPG"/>
-                <div class="carousel-caption">
-                    <h3>Feedback Loop</h3>
-                    <p>Eric notices that...</p>
-                </div>
+
+                <br>
+
+                <a href="#nav-main" class="btn btn-secondary-outline btn-sm" role="button">&darr;</a>
             </div>
         </div>
-        <a class="left carousel-control" href="#carousel-home" role="button" data-slide="prev">
-            <span class="icon-prev" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#carousel-home" role="button" data-slide="next">
-            <span class="icon-next" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
 </section>
 
+
+
+
+<%--<section id="carousel">--%>
+    <%--<div id="carousel-home" class="carousel slide" data-ride="carousel">--%>
+        <%--<ol class="carousel-indicators">--%>
+            <%--<li data-target="#carousel-home" data-slide-to="0" class="active"></li>--%>
+            <%--<li data-target="#carousel-home" data-slide-to="1"></li>--%>
+            <%--<li data-target="#carousel-home" data-slide-to="2"></li>--%>
+        <%--</ol>--%>
+        <%--<div class="carousel-inner" role="listbox">--%>
+            <%--<div class="carousel-item active">--%>
+                <%--<img src="${pageContext.request.contextPath}../resource/theme/img/woman-camera.JPG"/>--%>
+                <%--<div class="carousel-caption">--%>
+                <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="carousel-item">--%>
+                <%--<img src="${pageContext.request.contextPath}../resource/theme/mg/spiderweb.JPG"/>--%>
+                <%--<div class="carousel-caption">--%>
+                    <%--<h3>Walkthrough</h3>--%>
+                    <%--<p>Checking the flow</p>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="carousel-item">--%>
+                <%--<img src="${pageContext.request.contextPath}../resource/theme/img/hearthand.JPG"/>--%>
+                <%--<div class="carousel-caption">--%>
+                    <%--<h3>Feedback Loop</h3>--%>
+                    <%--<p>Eric notices that...</p>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+        <%--<a class="left carousel-control" href="#carousel-home" role="button" data-slide="prev">--%>
+            <%--<span class="icon-prev" aria-hidden="true"></span>--%>
+            <%--<span class="sr-only">Previous</span>--%>
+        <%--</a>--%>
+        <%--<a class="right carousel-control" href="#carousel-home" role="button" data-slide="next">--%>
+            <%--<span class="icon-next" aria-hidden="true"></span>--%>
+            <%--<span class="sr-only">Next</span>--%>
+        <%--</a>--%>
+    <%--</div>--%>
+<%--</section>--%>
+<section id="about">
+    <div class="section-content">
+        <div class="container">
+            <div class="col-md-6">
+                <div class="about-text">
+                    <h3>About Us</h3>
+                    <p class="lead">Our team at OneEighty is comprised of dedicated individuals that work to connect
+                    parolees and re-entry citizens with companies and business who are looking for dedicated workers.</p>
+                    <p>Our name stems from the idea that you can turn your life around -- do a complete 180 -- and
+                    it all starts here. We are dedicated to help you find the right job, and provide you with the right support.</p>
+                    <h5>Meet the Team</h5>
+                    <a href="https://www.linkedin.com/in/stevensuzio" class="btn btn-sm btn-secondary-outline">Steve</a>
+                    <a href="https://www.linkedin.com/in/EricMMackey" class="btn btn-sm btn-secondary-outline">Eric</a>
+                    <a href="https://www.linkedin.com/in/k-c-wunderlich" class="btn btn-sm btn-secondary-outline">Kurt</a>
+                    <a href="https://www.linkedin.com/in/joyapuryear" class="btn btn-sm btn-secondary-outline">Joya</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <section id="what-we-do">
     <div class="section-content">
         <div class="container">
             <h2>What we do</h2>
             <p class="lead">180 provides a network in partnership with Companies, Foundations, and Out Reach Programs to
-                create lasting change in the lives of once convicted perolees.</p>
+                create lasting change in the lives of once convicted parolees.</p>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-group">
@@ -221,27 +241,7 @@ h1{
 </section>
 
 
-<section id="about">
-    <div class="section-content">
-        <div class="container">
-            <div class="col-md-6">
-                <div class="about-text">
-                    <h3>About Us</h3>
-                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima culpa nostrum
-                        voluptates praesentium quia, quae, dolor aperiam possimus architecto, tempore unde! Quasi fugit
-                        voluptate, maiores adipisci commodi nemo rem cumque.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error eum mollitia sit dolorem autem
-                        qui possimus ex voluptate, voluptatibus iste unde numquam illum, molestiae reprehenderit,
-                        eligendi. Illum quod esse voluptatibus.</p>
-                    <h5>Follow me on the web</h5>
-                    <a href="" class="btn btn-sm btn-secondary-outline">twitter</a>
-                    <a href="" class="btn btn-sm btn-secondary-outline">facebook</a>
-                    <a href="" class="btn btn-sm btn-secondary-outline">youtube</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
 
 
 <section id="news">
@@ -368,15 +368,15 @@ h1{
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
-                <p>uncopyright 2017. do what you want.</p>
-                <p>stolen by kurt from <a href="http://bradhussey.ca/">brad</a></p>
+                <p>OneEighty Copyright 2017</p>
+                <p>Bootstrap contents stolen from <a href="http://bradhussey.ca/">brad</a></p>
             </div>
             <div class="col-sm-3">
                 <ul class="list-unstyled">
-                    <li><a href="#cover">home</a></li>
-                    <li><a href="#what-we-do">what we do</a></li>
-                    <li><a href="#about">about</a></li>
-                    <li><a href="#news">latest</a></li>
+                    <li><a href="#cover">Home</a></li>
+                    <li><a href="#what-we-do">What we do</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#news">Latest</a></li>
                 </ul>
             </div>
             <div class="col-sm-3">
@@ -388,10 +388,13 @@ h1{
                 </ul>
             </div>
             <div class="col-sm-3">
-                <h6>a tiny header</h6>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam expedita fugit saepe, eum ad, quam!
-                    Eum magnam suscipit nulla ullam aliquam consectetur provident, nihil consequuntur porro labore
-                    asperiores corrupti esse?</p>
+                <h6>Team OneEighty</h6>
+                <ul>
+                    <li>Steve Suzio</li>
+                    <li>Kurt Wunderlich</li>
+                    <li>Joya Puryear</li>
+                    <li>Eric Mackey</li>
+                </ul>
             </div>
         </div>
     </div>
