@@ -16,7 +16,6 @@
         <a class="navbar-brand" href="#">180</a> |
         <a class="nav-link" href="/">Home</a> |
         <a class="nav-link" href="/registerEmployer">Register Job</a> |
-        <a class="nav-link" href="/viewJobBoard">View Jobs</a> |
         <a class="nav-link" href="/login">Profile</a>
         <a class="nav-link" href="/logout">Log Out</a>
     </nav>
@@ -56,10 +55,10 @@
             <td>Update Crime type:</td>
             <td>Hire potential Job Seekers with a violent background?</td>
             <td>
-            <select name="crimetype" required="true">
-                <option value="Violent">Yes</option>
-                <option value="Non-Violent">No</option>
-            </select>
+                <select name="crimetype" required="true">
+                    <option value="Violent">Yes</option>
+                    <option value="Non-Violent">No</option>
+                </select>
             </td>
         </tr>
         <%--Update crime type needs better formatting--%>
