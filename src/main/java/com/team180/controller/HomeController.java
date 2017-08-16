@@ -8,6 +8,7 @@ package com.team180.controller;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.team180.DAO.HibernateDao;
 import com.team180.Encryption.PasswordMD5Encrypt;
+import com.team180.tables.AdminUsersEntity;
 import com.team180.tables.EmployerListingEntity;
 import com.team180.tables.UsersEntity;
 import org.hibernate.Session;
@@ -22,11 +23,24 @@ import java.util.List;
 public class HomeController {
 
 
+
     @RequestMapping("/")
 
     public ModelAndView helloWorld() {
+        if(UserController.loggedInUser != null){
+            List<UsersEntity> getUser = HibernateDao.getUsersEntities(UserController.loggedInUser.getEmail());
+            return new ModelAndView("welcome","profile",getUser.get(0).getEmail());
+        }
+        if(EmployerController.loggedInEmployer != null){
+            List<EmployerListingEntity> getEmployer = HibernateDao.getEmployerListingEntities(EmployerController.loggedInEmployer.getContactEmail());
+            return new ModelAndView("welcome", "profile",getEmployer.get(0).getContactEmail());
+        }
+        if (AdminController.loggedInAdmin != null) {
+            List<AdminUsersEntity> getAdmin = HibernateDao.getAdminEntities(AdminController.loggedInAdmin.getEmail());
+            return new ModelAndView("welcome","profile",getAdmin.get(0).getEmail());
+        }
         return new
-                ModelAndView("welcome", "message", "welcome to 180");
+                ModelAndView("welcome", "profile", "Sign In");
 
     }
 
@@ -37,6 +51,10 @@ public class HomeController {
 
     @RequestMapping("/login")
     public ModelAndView login() {
+        if (AdminController.loggedInAdmin != null){
+            List<AdminUsersEntity> adminList = HibernateDao.getAdminEntities(AdminController.loggedInAdmin.getEmail());
+            return new ModelAndView("admin","adminUser",adminList.get(0));
+        }
         if (UserController.loggedInUser != null){
             List<UsersEntity> userList = HibernateDao.getUsersEntities(UserController.loggedInUser.getEmail());
            return new ModelAndView("userprofile", "userProfile", userList.get(0));

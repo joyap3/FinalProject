@@ -115,8 +115,7 @@ h1{
         </li>
     </ul>
     <form class="form-inline pull-xs-right">
-        <input class="form-control" type="text" placeholder="Search">
-        <button class="btn btn-success-outline" type="submit">Search</button>
+        <a class="nav-link" href="/login">${profile}</a>
     </form>
 </nav>
 
