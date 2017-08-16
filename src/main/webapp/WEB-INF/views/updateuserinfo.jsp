@@ -11,7 +11,15 @@
     <title>Update Profile</title>
 </head>
 <body>
-
+<div>
+    <nav>
+        <a class="navbar-brand" href="#">180</a> |
+        <a class="nav-link" href="/">Home</a> |
+        <a class="nav-link" href="/viewJobBoard">View Jobs</a> |
+        <a class="nav-link" href="/login">Profile</a> |
+        <a class="nav-link" href="/logout">Log Out</a>
+    </nav>
+</div>
 <form action="/update" method="post">
     <table>
 

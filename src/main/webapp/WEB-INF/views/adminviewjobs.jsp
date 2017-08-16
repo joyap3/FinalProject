@@ -13,15 +13,28 @@
 </head>
 <body>
 <table>
+    <tr>
+        <th>Job ID</th>
+        <th>Company Name</th>
+        <th>Job Title</th>
+        <th>Contact Name</th>
+        <th>Contact Email</th>
+        <th>Contact Phone</th>
+        <th>Job Description</th>
+        <th>Crimetype</th>
+    </tr>
 <c:forEach var = "myvar" items = "${jList}">
     <thead>
     <tr>
         <td>${myvar.jobId}</td>
         <td>${myvar.company}</td>
         <td>${myvar.jobTitle}</td>
+        <td>${myvar.contactName}</td>
+        <td>${myvar.contactEmail}</td>
+        <td>${myvar.contactPhone}</td>
         <td>${myvar.jobDescription}</td>
-            <%--<td>--${myvar.crimetype}--</td>--%>
-        <td><a href="deletejob?id=${myvar.jobId}"> Delete </a> </td>
+        <td>${myvar.crimetype}</td>
+        <td><a href="deletejob?id=${myvar.jobId}"><button value="Delete Job">Delete</button></a></td>
     </tr>
     </thead>
 </c:forEach>

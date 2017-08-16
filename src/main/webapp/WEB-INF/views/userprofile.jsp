@@ -12,52 +12,53 @@
     <title>User Profile</title>
 </head>
 <body>
-<a href="login">go to login</a>
-<a href="logout"> Log out</a>
+<div>
+    <nav>
+        <a class="navbar-brand" href="#">180</a> |
+        <a class="nav-link" href="/">Home</a> |
+        <a class="nav-link" href="/viewJobBoard">View Jobs</a> |
+        <a class="nav-link" href="/login">Profile</a> |
+        <a class="nav-link" href="/logout">Log Out</a>
+    </nav>
+</div>
+<h1>Welcome, ${userProfile.firstName}</h1>
 
-<h1>Welcome, ${userProfile.firstName} ${firstName}</h1>
-<p>
-    <a href="/viewJobBoard">Find a Job</a>
-    <a href="/">Homepage</a>
-</p>
-
-<table>
-
+<table border="1">
     <tr>
         <td>First Name:</td>
-        <td>${userProfile.firstName} ${firstName}</td>
+        <td>${userProfile.firstName}</td>
     </tr>
     <tr>
         <td>Middle Name:</td>
-        <td>${userProfile.middleName} ${middleName}</td>
+        <td>${userProfile.middleName}</td>
     </tr>
     <tr>
         <td>Last Name:</td>
-        <td>${userProfile.lastName} ${lastName}</td>
+        <td>${userProfile.lastName}</td>
     </tr>
     <tr>
         <td>Birthday:</td>
-        <td>${userProfile.birthday} ${birthday}</td>
+        <td>${userProfile.birthday}</td>
     </tr>
     <tr>
         <td>Address:</td>
-        <td>${userProfile.address} ${address}</td>
+        <td>${userProfile.address}</td>
     </tr>
     <tr>
         <td>Zip:</td>
-        <td>${userProfile.zip} ${zip}</td>
+        <td>${userProfile.zip}</td>
     </tr>
     <tr>
         <td>Phone Number:</td>
-        <td>${userProfile.phoneNumber} ${phoneNumber}</td>
+        <td>${userProfile.phoneNumber}</td>
     </tr>
     <tr>
         <td>email:</td>
-        <td>${userProfile.email} ${email}</td>
+        <td>${userProfile.email}</td>
     </tr>
     <tr>
         <td>skillset:</td>
-        <td>${userProfile.skillset} ${skillSet}</td>
+        <td>${userProfile.skillset}</td>
     </tr>
     <tr>
         <td>

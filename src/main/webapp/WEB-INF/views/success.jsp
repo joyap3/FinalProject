@@ -66,40 +66,20 @@
 </head>
 
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top ">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand " href="/">180</a>
-
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#about">About</a></li>
-                <li class="active"><a href="/">Home</a></li>
-
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div>
-</nav>
+<div>
+    <nav>
+        <a class="navbar-brand" href="#">180</a> |
+        <a class="nav-link" href="/">Home</a> |
+        <a class="nav-link" href="/registerEmployer">Register Job</a> |
+        <a class="nav-link" href="/viewJobBoard">View Jobs</a> |
+        <a class="nav-link" href="/login">Profile</a>
+        <a class="nav-link" href="/logout">Log Out</a>
+    </nav>
+</div>
 <div class="container col-lg-12 spacer"></div>
 <div class="container col-lg-12 block">
     <div class="row col-xs-6 block2 bg-primary center">
-
-
         Success! Your job has been posted
-        <p>
-            <a href="/registerJob">Click here</a> to register another job
-        </p>
-
-
     </div>
 </div>
 </form>

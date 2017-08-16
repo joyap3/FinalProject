@@ -5,6 +5,7 @@ package com.team180.controller;
  */
 
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.team180.DAO.HibernateDao;
 import com.team180.Encryption.PasswordMD5Encrypt;
 import com.team180.tables.EmployerListingEntity;
@@ -35,8 +36,17 @@ public class HomeController {
     private int id;
 
     @RequestMapping("/login")
-    public String login() {
-        return "login";
+    public ModelAndView login() {
+        if (UserController.loggedInUser != null){
+            List<UsersEntity> userList = HibernateDao.getUsersEntities(UserController.loggedInUser.getEmail());
+           return new ModelAndView("userprofile", "userProfile", userList.get(0));
+        }
+        if(EmployerController.loggedInEmployer != null){
+            List<EmployerListingEntity> empList = HibernateDao.getEmployerListingEntities(EmployerController.loggedInEmployer.getContactEmail());
+            return new ModelAndView("employerprofile", "employerProfile",empList.get(0));
+        }
+
+        return new ModelAndView("login", "invalid", "Please log in or register");
     }
 
     @RequestMapping("/loginUser")
@@ -95,10 +105,13 @@ public class HomeController {
     }
 
     @RequestMapping("/registerEmployer")//This is removed if it doesnt work.
-
     public String registerEmployer(){
 
         return "employerregistration";
+    }
+    @RequestMapping("/supportpage")
+    public String goToSupportPage(){
+        return "supportpage";
     }
 
 
@@ -146,7 +159,7 @@ public class HomeController {
     public String registerJob(@RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
                               @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
                               @RequestParam("email") String email, @RequestParam("jobDescription") String jDescription,
-                              @RequestParam("crimetype") byte cType) {
+                              @RequestParam("crimetype") String cType) {
 
         Session s = HibernateDao.getSession();
         EmployerListingEntity jobListing = new EmployerListingEntity();
@@ -171,7 +184,7 @@ public class HomeController {
     public ModelAndView registerEmployer(@RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
                                          @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
                                          @RequestParam("contactEmail") String email, @RequestParam("jobDescription") String jDescription,
-                                         @RequestParam("crimetype") byte cType, @RequestParam("password") String password) {
+                                         @RequestParam("crimetype") String cType, @RequestParam("password") String password) {
 
         Session s = HibernateDao.getSession();
 

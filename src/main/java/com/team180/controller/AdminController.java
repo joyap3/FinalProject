@@ -75,6 +75,10 @@ public class AdminController {
 
         return new ModelAndView("adminviewjobs", "jList", jobList);
     }
+    @RequestMapping("/viewcriminalresults")
+    public String viewCriminalResult(){
+        return "criminalresult";
+    }
 
     //this method was extracted to be used again
     //this is a regular method and not a controller method

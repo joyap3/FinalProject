@@ -13,35 +13,6 @@
 </head>
 <body>
 <div>
-    <div class="container col-lg-12 spacer"></div>
-    <div class="container col-lg-12 block">
-        <div class="row col-xs-6 block2 bg-primary center">
-            <form method="post" action="/showAPI"  class="form-horizontal" role="form" align="center">
-                <div class="form-group" >
-                    <font color="gray" align="center"><strong>${message}</strong></font><br><br>
-                    <label class="control-label col-sm-3"  for="first name"><font color="gray">first name</font></label>
-                    <div class="col-sm-8 col-xs-12">
-                        <input type="text" color="black" name="firstName" id="first name" placeholder="first name" required="true" class="form-control"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-3" for="last name"><font color="gray">last name</font></label>
-                    <div class="col-sm-8 col-xs-12">
-                        <input type="text" name="lastName" id="last name" placeholder="last name" required="true" class="form-control"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-8">
-                        <input type="submit" name="search" id="search" value="Search" class="btn btn-default"/>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-    </div><!-- /.container -->
-</div>
-${dbresult}
-<div>
     <form id="updateUser" action="/crimetype" method="post">
         <table>
             <tr>
@@ -110,29 +81,5 @@ ${dbresult}
         </table>
     </form>
 </div>
-
-<table class="table table-bordered">
-    <c:forEach var ="myvar" items = "${cList}" varStatus="status">
-        <tr>
-            <td>${myvar.firstName}</td>
-            <td>${myvar.lastName}</td>
-                <%--<td>${myvar.fullName}</td>--%>
-            <td>${myvar.dob}</td>
-            <td>${myvar.sex}</td>
-            <td>${myvar.race}</td>
-            <td>${myvar.description}</td>
-                <%--<td>--${myvar.category}--</td>--%>
-            <td>${myvar.casenumber}</td>
-            <td>${myvar.jurisdiction}</td>
-            <td>
-                <a href="criminalchoice?id=${status.index}&fName=${myvar.firstName}&lName=${myvar.lastName}&dob=${myvar.dob}&sex=${myvar.sex}&race=${myvar.race}&desc=${myvar.description}&caseNum=${myvar.casenumber}&jurisd=${myvar.jurisdiction}">
-                    <button value="Edit Item">Select</button>
-                </a>
-            </td>
-        </tr>
-    </c:forEach>
-</table>
-
-
 </body>
 </html>

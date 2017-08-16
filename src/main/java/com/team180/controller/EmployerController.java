@@ -65,7 +65,7 @@ public ModelAndView update(Model model, @RequestParam("id") int id) {
     public ModelAndView updateItem(@RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
                                    @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
                                    @RequestParam("contactEmail") String email, @RequestParam("jobDescription") String jDescription,
-                                   @RequestParam("crimetype") byte cType) {
+                                   @RequestParam("crimetype") String cType) {
 
         Session s = HibernateDao.getSession();
 

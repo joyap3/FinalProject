@@ -124,7 +124,7 @@ public class UserController {
             }
         }else{
 
-            return new ModelAndView("login","","");
+            return new ModelAndView("login","Invalid","Must be registered to view jobs");
         }
 
     }

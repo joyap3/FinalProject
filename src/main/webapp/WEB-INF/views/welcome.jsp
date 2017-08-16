@@ -58,6 +58,7 @@ h1{
 <body>
 
 <section id="cover">
+    <br>
     <div id="cover-caption">
         <div class="container">
             <div class="col-sm-10 col-sm-offset-1">
@@ -97,16 +98,19 @@ h1{
     <a class="navbar-brand" href="#">180</a>
     <ul class="nav navbar-nav">
         <li class="nav-item active">
-            <a class="nav-link" href="#what-we-do">Employers <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/registerEmployer">Post A Job <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#what-we-do">Users</a>
+            <a class="nav-link" href="/login">Profile</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/viewJobBoard">Jobs</a>
+            <a class="nav-link" href="/viewJobBoard">Job Listings</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">Log Out</a>
         </li>
     </ul>
     <form class="form-inline pull-xs-right">
@@ -162,38 +166,37 @@ h1{
     <div class="section-content">
         <div class="container">
             <h2>What we do</h2>
-            <p class="lead">180 provides a network in partnership with Companies, Foundations and Out Reach Programs to
-                create lasting change in the lives of convicted felons.</p>
+            <p class="lead">180 provides a network in partnership with Companies, Foundations, and Out Reach Programs to
+                create lasting change in the lives of once convicted perolees.</p>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card-group">
                         <div class="card">
                             <div class="card-block">
                                 <h4 class="card-title">Employers</h4>
-                                <h6 class="card-subtitle">Post your JOBS</h6>
+                                <h6 class="card-subtitle">Post a Job</h6>
                             </div>
                             <img src="${pageContext.request.contextPath}../resource/theme/img/programming.jpg"/>
                             <div class="card-block">
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                <button type="button" class="btn btn-success-outline" data-toggle="modal"
+                                <p class="card-text">Have a position you would like to fill?
+                                    Click the button below to register and immediately post your job!</p>
+                                <a href="/registerEmployer"><button type="button" class="btn btn-success-outline" data-toggle="modal"
                                         data-target="#myModal">Add Job
-                                </button>
+                                </button></a>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-block">
-                                <h4 class="card-title">JOB SEARCH</h4>
+                                <h4 class="card-title">Job Seekers</h4>
                                 <h6 class="card-subtitle">Find work today</h6>
                             </div>
                             <img src="${pageContext.request.contextPath}../resource/theme/img/working.jpg"/>
                             <div class="card-block">
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi
-                                    debitis fugit molestias dignissimos, id hic officiis quam possimus tenetur minima
-                                    voluptatibus accusantium, numquam voluptates velit, dicta maiores dolor quo
-                                    expedita.</p>
-                                <button type="button" class="btn btn-success-outline" data-toggle="modal"
-                                        data-target="#login-modal">Search for work
-                                </button>
+                                <p class="card-text">Looking for work but can't find it? Register with us to find employers
+                                that are looking for potential candidates like you!</p>
+                                <a href="/viewJobBoard"><button type="button" class="btn btn-success-outline" data-toggle="modal"
+                                        data-target="#login-modal">View Jobs
+                                </button></a>
                             </div>
                         </div>
 
@@ -204,12 +207,12 @@ h1{
                             </div>
                             <img src="${pageContext.request.contextPath}../resource/theme/img/chalkboard.jpg"/>
                             <div class="card-block">
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi
-                                    debitis fugit molestias dignissimos, id hic officiis quam possimus tenetur minima
-                                    voluptatibus accusantium.</p>
-                                <button type="button" class="btn btn-success-outline" data-toggle="modal"
-                                        data-target="#myModal">Get Help
-                                </button>
+                                <p class="card-text">Our team at 180 works with several partners in the area to help our candidates
+                                be as career ready as possible. If you are looking to further develop your skills, or to simply seek out
+                                additional help we have the resources to connect you today.</p>
+                                <a href="/supportpage"><button type="button" class="btn btn-success-outline" data-toggle="modal"
+                                        data-target="#myModal">Get Support
+                                </button></a>
                             </div>
                         </div>
                     </div>
@@ -380,10 +383,10 @@ h1{
             </div>
             <div class="col-sm-3">
                 <ul class="list-unstyled">
-                    <li><a href="">facebook</a></li>
-                    <li><a href="">twitter</a></li>
-                    <li><a href="">youtube</a></li>
-                    <li><a href="">linkedin</a></li>
+                    <li><a href="/login">Profile</a></li>
+                    <li><a href="/registerEmployer">Register Job</a></li>
+                    <li><a href="/viewJobBoard">View Jobs</a></li>
+                    <li><a href="/admin">Admin</a></li>
                 </ul>
             </div>
             <div class="col-sm-3">

@@ -12,7 +12,7 @@ public class EmployerListingEntity {
     private String contactPhone;
     private String contactEmail;
     private String jobDescription;
-    private Byte crimetype;
+    private String crimetype;
     private String password;
 
     @Id
@@ -87,11 +87,11 @@ public class EmployerListingEntity {
 
     @Basic
     @Column(name = "crimetype", nullable = true)
-    public Byte getCrimetype() {
+    public String getCrimetype() {
         return crimetype;
     }
 
-    public void setCrimetype(Byte crimetype) {
+    public void setCrimetype(String crimetype) {
         this.crimetype = crimetype;
     }
 

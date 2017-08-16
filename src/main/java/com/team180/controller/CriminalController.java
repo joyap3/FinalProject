@@ -93,7 +93,7 @@ public class CriminalController {
     }
 
 
-    return new ModelAndView("viewapi", "dbresult", firstName + " " + lastName + "" + dob + " " + cat + " " + sex + " " + race + " " + desc);
+    return new ModelAndView("criminalresult", "dbresult", firstName + " " + lastName + "" + dob + " " + cat + " " + sex + " " + race + " " + desc);
   }
 
   @RequestMapping("/criminalchoice")
