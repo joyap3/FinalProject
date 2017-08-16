@@ -61,7 +61,7 @@
 
 
 <nav class="navbar navbar-dark bg-inverse navbar-full" id="nav-main">
-    <a class="navbar-brand" href="#">180</a>
+    <a class="navbar-brand" href="/">180</a>
     <ul class="nav navbar-nav">
         <li class="nav-item active">
         <li><a class="nav-link" href="/">Home</a></li>
