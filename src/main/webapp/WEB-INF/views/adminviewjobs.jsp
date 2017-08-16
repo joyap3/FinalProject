@@ -64,19 +64,19 @@
     <a class="navbar-brand" href="#">180</a>
     <ul class="nav navbar-nav">
         <li class="nav-item active">
-        <li><a class=“nav-link” href=“/”>Home</a></li>
+        <li><a class="nav-link" href="/">Home</a></li>
         </li>
         <li class="nav-item">
-        <li><a class=“nav-link” href=“/admin”>Dashboard</a></li>
+        <li><a class="nav-link" href="/admin">Dashboard</a></li>
         </li>
         <li class="nav-item">
-        <li><a class=“nav-link” href=“/listusers”>View Jobs</a></li>
+        <li><a class="nav-link" href="/listusers">View Users</a></li>
         </li>
         <li class="nav-item">
-        <li><a class=“nav-link” href=“/viewcriminalresults”>Background Search</a></li>
+        <li><a class="nav-link" href="/viewcriminalresults">Background Search</a></li>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/logout">Log Out</a>
+        <li><a class="nav-link" href="/logout">Log Out</a></li>
         </li>
     </ul>
     <form class="form-inline pull-xs-right">
