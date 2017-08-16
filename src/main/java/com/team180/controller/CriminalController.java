@@ -3,6 +3,7 @@ package com.team180.controller;
 import com.team180.criminalmodels.CriminalObjects;
 import com.team180.data.imsas.DataResponse;
 import com.team180.data.imsas.InputRequest;
+import com.team180.util.Secrets;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -28,9 +29,8 @@ import java.util.ArrayList;
 @Controller
 public class CriminalController {
 
+  Secrets secretKeys = new Secrets();
 
-  private String apiKey = "QG03NyTMtuhcbD7a4xTfkb7xpq";
-  private String accountId = "128303";
 
   @RequestMapping("/showAPI")
   public ModelAndView CriminalDB(@RequestParam("firstName") String fname, @RequestParam("lastName") String lname, Model model) {
@@ -46,8 +46,8 @@ public class CriminalController {
     String jurs = "";
 
     InputRequest requestData = new InputRequest();
-    requestData.credentials.account_id = accountId;
-    requestData.credentials.api_key = apiKey;
+    requestData.credentials.account_id = secretKeys.getAccountId();
+    requestData.credentials.api_key = secretKeys.getApiKey();
     requestData.product = "criminal_database";
     requestData.data.FirstName = fname;
     requestData.data.LastName = lname;
@@ -102,8 +102,8 @@ public class CriminalController {
     String lastName = "";
     String hi = "Welcome";
     InputRequest requestData = new InputRequest();
-    requestData.credentials.account_id = accountId;
-    requestData.credentials.api_key = apiKey;
+    requestData.credentials.account_id = secretKeys.getAccountId();
+    requestData.credentials.api_key = secretKeys.getApiKey();
     requestData.product = "criminal_database";
     requestData.data.FirstName = fname;
     requestData.data.LastName = lname;
