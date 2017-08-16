@@ -24,7 +24,7 @@ import java.util.List;
 
 @Controller
 public class AdminController {
-    private AdminUsersEntity loggedInAdmin;
+    public static AdminUsersEntity loggedInAdmin;
     private boolean isLoggedIn = false;
     private int id;
 
@@ -48,6 +48,8 @@ public class AdminController {
         }
         if (adminUsers.get(0).getEmail().equalsIgnoreCase(adminUser)) {
             if (adminUsers.get(0).getPassword().equals(adminPassword)) {
+                UserController.loggedInUser = null;
+                EmployerController.loggedInEmployer = null;
                 loggedInAdmin = adminUsers.get(0);
                 isLoggedIn = true;
                 return new ModelAndView("admin", "adminUser", loggedInAdmin);

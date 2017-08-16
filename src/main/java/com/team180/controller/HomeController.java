@@ -64,6 +64,8 @@ public class HomeController {
             if (listResult.get(0).getContactEmail().equalsIgnoreCase(userName)) {
                 if (listResult.get(0).getPassword().equals(PasswordMD5Encrypt.PasswordMD5Encrypt(password))) {
                     EmployerController.loggedInEmployer = listResult.get(0);
+                    AdminController.loggedInAdmin = null;
+                    UserController.loggedInUser = null;
                     return new ModelAndView("employerprofile", "employerProfile", listResult.get(0));
                 } else {
                     String alert = "Invalid password";
@@ -78,6 +80,8 @@ public class HomeController {
         if (userList.get(0).getEmail().equalsIgnoreCase(userName)) {
             if (userList.get(0).getPassword().equals(PasswordMD5Encrypt.PasswordMD5Encrypt(password))) {
                 UserController.loggedInUser = userList.get(0);
+                EmployerController.loggedInEmployer = null;
+                AdminController.loggedInAdmin = null;
                 return new ModelAndView("userprofile", "userProfile", userList.get(0));
             } else {
                 String alert = "Invalid password";
