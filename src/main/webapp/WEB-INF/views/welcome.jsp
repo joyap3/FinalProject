@@ -62,6 +62,8 @@ h1{
     <div id="cover-caption">
         <div class="container">
             <div class="col-sm-10 col-sm-offset-1">
+                <br>
+                <br>
                 <h1 class="display-3">Welcome to 180</h1>
                 <p>180 provides a digital space find work, offer work and connect with groups and organizations that foster
                     life skills. Seeking to improve the lives of people affected by a felony conviction.</p>
@@ -72,7 +74,6 @@ h1{
                         <div class="loginmodal-container">
                             <h1>Login to Your Account</h1><br><br>
                             <form action="/loginUser" method="post">
-                                ${invalid}
                                 <font color="gray"><input type="text" name="user" placeholder="Username"></font>
                                     <font color="gray"><input type="password" name="pass" placeholder="Password"></font>
                                 <input type="submit" name="login" class="login loginmodal-submit" value="Login">
@@ -94,7 +95,7 @@ h1{
 </section>
 
 
-<nav class="navbar navbar-dark bg-inverse navbar-full" id="nav-main">
+<nav class="navbar navbar-dark bg-inverse navbar-fixed-top navbar-full" id="nav-main">
     <a class="navbar-brand" href="#">180</a>
     <ul class="nav navbar-nav">
         <li class="nav-item active">
@@ -131,8 +132,6 @@ h1{
             <div class="carousel-item active">
                 <img src="${pageContext.request.contextPath}../resource/theme/img/woman-camera.JPG"/>
                 <div class="carousel-caption">
-                    <h3>Site layout</h3>
-                    <p>Steve at the whiteboard</p>
                 </div>
             </div>
             <div class="carousel-item">
