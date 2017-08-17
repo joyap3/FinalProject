@@ -243,7 +243,12 @@ public class HomeController {
 
         return new ModelAndView("employerprofile", "employerProfile", employerList.get(0)) ;
     }
-
+    @RequestMapping("/logout")
+    public void logUserOut(){
+        EmployerController.loggedInEmployer = null;
+        UserController.loggedInUser = null;
+        AdminController.loggedInAdmin = null;
+    }
 }
 
 

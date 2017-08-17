@@ -129,10 +129,6 @@ public class UserController {
 
     }
 
-    @RequestMapping("/logout")
-    public void logUserOut(){
-        loggedInUser = null;
 
-    }
 
 }
