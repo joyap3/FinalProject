@@ -57,7 +57,7 @@ h1{
 </head>
 <body>
 <nav class="navbar navbar-dark bg-inverse navbar-fixed-top navbar-full" id="nav-main">
-    <a class="navbar-brand" href="#">180</a>
+    <a class="navbar-brand" href="#"><img src="${pageContext.request.contextPath}../resource/theme/img/logo.png"/></a>
     <ul class="nav navbar-nav">
         <li class="nav-item active">
             <a class="nav-link" href="/registerEmployer">Post A Job <span class="sr-only">(current)</span></a>
