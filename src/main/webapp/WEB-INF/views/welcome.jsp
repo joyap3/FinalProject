@@ -207,7 +207,7 @@
                                 <h4 class="card-title">Employers</h4>
                                 <h6 class="card-subtitle">Post a Job</h6>
                             </div>
-                            <img src="${pageContext.request.contextPath}../resource/theme/img/programming.jpg"/>
+                            <img src="${pageContext.request.contextPath}../resource/theme/img/programming.jpeg"/>
                             <div class="card-block">
                                 <p class="card-text">Have a position you would like to fill?
                                     Click the button below to register and immediately post your job!</p>
@@ -223,7 +223,7 @@
                                 <h4 class="card-title">Job Seekers</h4>
                                 <h6 class="card-subtitle">Find work today</h6>
                             </div>
-                            <img src="${pageContext.request.contextPath}../resource/theme/img/working.jpg"/>
+                            <img src="${pageContext.request.contextPath}../resource/theme/img/working.jpeg"/>
                             <div class="card-block">
                                 <p class="card-text">Looking for work but can't find it? Register with us to find
                                     employers
@@ -239,7 +239,7 @@
                                 <h4 class="card-title">Training &amp; Support</h4>
                                 <h6 class="card-subtitle">Help is here</h6>
                             </div>
-                            <img src="${pageContext.request.contextPath}../resource/theme/img/chalkboard.jpg"/>
+                            <img src="${pageContext.request.contextPath}../resource/theme/img/chalkboard.jpeg"/>
                             <div class="card-block">
                                 <p class="card-text">Our team at 180 works with several partners in the area to help our
                                     candidates
@@ -284,7 +284,7 @@
                             </div>
                         </div>
                         <div class="card card-block">
-                            <img src="${pageContext.request.contextPath}../resource/theme/img/chalkboard.jpg"/>
+                            <img src="${pageContext.request.contextPath}../resource/theme/img/chalkboard.jpeg"/>
                             <blockquote class="card-blockquote">
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a
                                     ante.</p>
@@ -326,7 +326,7 @@
                             </p>
                         </div>
                         <div class="card">
-                            <img src="${pageContext.request.contextPath}../resource/theme/img/computer.jpg"/>
+                            <img src="${pageContext.request.contextPath}../resource/theme/img/programming.jpeg"/>
 
                         </div>
                         <div class="card card-block text-xs-right card-warning card-inverse">
