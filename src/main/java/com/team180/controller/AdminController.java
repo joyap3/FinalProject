@@ -30,9 +30,10 @@ public class AdminController {
     private int id;
 
     @RequestMapping("/admin")
-    public ModelAndView helloWorld() {
+    public ModelAndView helloWorld(Model model) {
         if (loggedInAdmin != null) {
             isLoggedIn = true;
+            model.addAttribute("user",loggedInAdmin.getFirstName());
             return new
                     ModelAndView("admin", "adminUser", HibernateDao.getAdminEntities(loggedInAdmin.getEmail()).get(0));
         }else
@@ -42,7 +43,7 @@ public class AdminController {
 
 
     @RequestMapping("/loginadmin")
-    public ModelAndView loginAdmin(@RequestParam ("user") String adminUser, @RequestParam("password")String adminPassword) {
+    public ModelAndView loginAdmin(Model model, @RequestParam ("user") String adminUser, @RequestParam("password")String adminPassword) {
         List<AdminUsersEntity> adminUsers = HibernateDao.getAdminEntities(adminUser);
         if (adminUsers.isEmpty()) {
             return new ModelAndView("adminlogin", "invalid", "Not a registered Administrator");
@@ -53,6 +54,7 @@ public class AdminController {
                 EmployerController.loggedInEmployer = null;
                 loggedInAdmin = adminUsers.get(0);
                 isLoggedIn = true;
+                model.addAttribute("user",loggedInAdmin.getFirstName());
                 return new ModelAndView("admin", "adminUser", loggedInAdmin);
             } else {
                 return new ModelAndView("adminlogin", "invalid", "Invalid Password");
@@ -62,8 +64,9 @@ public class AdminController {
     }
 
     @RequestMapping("/listusers")
-    public ModelAndView listusers() {
+    public ModelAndView listusers(Model model) {
         if (isLoggedIn) {
+            model.addAttribute("user",loggedInAdmin.getFirstName());
             ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
 
             return new ModelAndView("adminviewusers", "uList", userList);
@@ -76,8 +79,9 @@ public class AdminController {
     //this is a regular method and not a controller method
 
     @RequestMapping("/listjobs")
-    public ModelAndView listjobs() {
+    public ModelAndView listjobs(Model model) {
         if(isLoggedIn) {
+            model.addAttribute("user", loggedInAdmin.getFirstName());
             ArrayList<EmployerListingEntity> jobList = HibernateDao.displayJobList();
             return new ModelAndView("adminviewjobs", "jList", jobList);
         }
@@ -86,12 +90,12 @@ public class AdminController {
         }
     }
     @RequestMapping("/viewcriminalresults")
-    public String viewCriminalResult(){
+    public ModelAndView viewCriminalResult(){
         if(isLoggedIn) {
-            return "criminalresult";
+            return new ModelAndView("criminalresult","user",loggedInAdmin.getFirstName());
         }
         else{
-            return "adminlogin";
+            return new ModelAndView("adminlogin","invalid","Please Log In");
         }
     }
 
@@ -107,6 +111,7 @@ public class AdminController {
             Session s = HibernateDao.getSession();
             UsersEntity temp = (UsersEntity) s.get(UsersEntity.class, id);
             List<UsersEntity> userList = HibernateDao.getUsersEntities(temp.getEmail());
+            model.addAttribute("user", loggedInAdmin.getFirstName());
 
             return new ModelAndView("viewapi", "userProfile", userList.get(0));
         }else {
@@ -115,7 +120,7 @@ public class AdminController {
     }
 
     @RequestMapping("/crimetype")
-    public ModelAndView editCrimetype(@RequestParam("firstName") String fname, @RequestParam("lastName") String lname,
+    public ModelAndView editCrimetype(Model model,@RequestParam("firstName") String fname, @RequestParam("lastName") String lname,
                                       @RequestParam("middleName") String midName, @RequestParam("birthday") Date bday,
                                       @RequestParam("address") String address, @RequestParam("zip") int zip, @RequestParam("phoneNumber") String phoneNum,
                                       @RequestParam("email") String email, @RequestParam("skillSet") String skillSet, @RequestParam("crimetype") String crime) {
@@ -141,7 +146,7 @@ public class AdminController {
             editCrimetype.close();
 
             ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
-
+            model.addAttribute("user",loggedInAdmin.getFirstName());
 
             return new ModelAndView("adminviewusers", "uList", userList);
         } else{
@@ -149,9 +154,10 @@ public class AdminController {
         }
     }
     @RequestMapping ("/goToRegisterAdmin")
-    public ModelAndView goToRegisterAdmin(){
+    public ModelAndView goToRegisterAdmin(Model model){
         if(isLoggedIn){
-            return new ModelAndView("registeradmin","","");
+            model.addAttribute("user", loggedInAdmin.getFirstName());
+            return new ModelAndView("registeradmin","user",loggedInAdmin.getFirstName());
         }
         else{
             return new ModelAndView("adminlogin","invalid","Please Log In");
@@ -175,9 +181,7 @@ public class AdminController {
             s.getTransaction().commit();
             s.close();
 
-            List<AdminUsersEntity> adminList = HibernateDao.getAdminEntities(loggedInAdmin.getEmail());
-
-            model.addAttribute("user",adminList.get(0).getFirstName());
+            model.addAttribute("user",loggedInAdmin.getFirstName());
 
             String success = "Success! New admin has been created. Please log out to continue as new admin";
 
@@ -188,7 +192,7 @@ public class AdminController {
     }
 
     @RequestMapping("/searchForUser")
-    public ModelAndView searchUser(@RequestParam("firstName") String firstName) {
+    public ModelAndView searchUser(Model model,@RequestParam("firstName") String firstName) {
 //                                   @RequestParam("email") String email,
 //                                   @RequestParam("lastName") String lastName)
         if(isLoggedIn) {
@@ -199,7 +203,7 @@ public class AdminController {
 //        c.add(Restrictions.like("email", "%" + email + "%"));
 
             ArrayList<UsersEntity> userList = (ArrayList<UsersEntity>) c.list();
-
+            model.addAttribute("user",loggedInAdmin.getFirstName());
             return new ModelAndView("admin", "uList", userList);
         }else{
             return new ModelAndView("adminlogin","invalid","Please Log In");
@@ -207,7 +211,7 @@ public class AdminController {
     }
 
     @RequestMapping("/deleteuser")
-    public ModelAndView deleteUser(@RequestParam("id") int id) {
+    public ModelAndView deleteUser(Model model, @RequestParam("id") int id) {
         if (isLoggedIn) {
             //temp object will store infor for the object we want to delete.
             UsersEntity temp = new UsersEntity();
@@ -217,6 +221,7 @@ public class AdminController {
             deleteUsers.getTransaction().commit();//deletes the row from the database table
             ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
 
+            model.addAttribute("user",loggedInAdmin.getFirstName());
             return new ModelAndView("adminviewusers", "uList", userList);
         }
         else{

@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <!-- BOOTSTRAP STYLES-->
     <link href="resource/theme/bs-admin/assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FONTAWESOME STYLES-->
@@ -25,27 +26,64 @@
 
 
 <div id="wrapper">
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="adjust-nav">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">
-                    <img src="assets/img/logo.png" />
-
-                </a>
-
-            </div>
-
-            <span class="logout-spn" >
-                  <a href="/logout" style="color:white;">Logout</a>
-
+    <div>
+        <nav class="navbar navbar-inverse navbar-dark bg-inverse navbar-fixed-top navbar-full">
+            <div align="left">
+            <span style="float:left">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="/"><img src="${pageContext.request.contextPath}../resource/theme/img/logo.png"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/registerEmployer">Post A Job <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/viewJobBoard">Job Listings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="welcome.jsp/#about">About</a>
+                </li>
+            </ul>
                 </span>
-        </div>
+            </div>
+            <div class="nav-item" align="right">
+            <span style="float:right">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" class="text-right" href="/admin">${adminUser.firstName}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Log Out</a>
+                </li>
+            </ul>
+            </span>
+            </div>
+        </nav>
     </div>
+    <%--<div class="navbar navbar-inverse navbar-fixed-top">--%>
+        <%--<div class="adjust-nav">--%>
+            <%--<div class="navbar-header">--%>
+                <%--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">--%>
+                    <%--<span class="icon-bar"></span>--%>
+                    <%--<span class="icon-bar"></span>--%>
+                    <%--<span class="icon-bar"></span>--%>
+                <%--</button>--%>
+                <%--<a class="navbar-brand" href="#">--%>
+                    <%--<img src="assets/img/logo.png" />--%>
+
+                <%--</a>--%>
+
+            <%--</div>--%>
+
+            <%--<span class="logout-spn" >--%>
+                  <%--<a href="/logout" style="color:white;">Logout</a>--%>
+
+                <%--</span>--%>
+        <%--</div>--%>
+    <%--</div>--%>
     <%--<!-- /. NAV TOP  -->--%>
     <%--<nav class="navbar-default navbar-side" role="navigation">--%>
     <%--<div class="sidebar-collapse">--%>

@@ -11,55 +11,55 @@
 <html>
 <head>
     <title>180</title>
-<meta charset="utf-8">
+    <meta charset="utf-8">
 
-<!-- IMPORTANT: this sets the  -->
-<meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- IMPORTANT: this sets the  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <%--${message}<a href = "/registerJob">Register Job</a>--%>
     <%--<br>--%>
     <%--<a href = "/registerUser">Register User</a>--%>
 
-<!-- Bootstrap CSS -->
-<spring:url value="/resource/theme/bower_components/bootstrap/dist/css/bootstrap.min.css" var="bootstrapCss"/>
-<!-- Custom CSS -->
-<spring:url value="/resource/theme/styles.css" var="stylesCss"/>
-<spring:url value="/resource/theme/bower_components/bootstrap/jquery/dist/jquery.js" var="jqueryJs"/>
-<spring:url value="/resource/theme/bower_components/bootstrap/dist/js/bootstrap.js/bootstrap.min.js" var="bootJs"/>
-<spring:url value="/resource/js/main.js" var="mainJs"/>
+    <!-- Bootstrap CSS -->
+    <spring:url value="/resource/theme/bower_components/bootstrap/dist/css/bootstrap.min.css" var="bootstrapCss"/>
+    <!-- Custom CSS -->
+    <spring:url value="/resource/theme/styles.css" var="stylesCss"/>
+    <spring:url value="/resource/theme/bower_components/bootstrap/jquery/dist/jquery.js" var="jqueryJs"/>
+    <spring:url value="/resource/theme/bower_components/bootstrap/dist/js/bootstrap.js/bootstrap.min.js" var="bootJs"/>
+    <spring:url value="/resource/js/main.js" var="mainJs"/>
 
 
-<link href="${bootstrapCss}" rel="stylesheet"/>
-<link href="${stylesCss}" rel="stylesheet"/>
-<script src="${jqueryJs}"></script>
-<script src="${bootJsJs}"></script>
+    <link href="${bootstrapCss}" rel="stylesheet"/>
+    <link href="${stylesCss}" rel="stylesheet"/>
+    <script src="${jqueryJs}"></script>
+    <script src="${bootJsJs}"></script>
 
 
-<!-- Latest compiled and minified JavaScript -->
-<%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"--%>
-        <%--integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"--%>
-        <%--crossorigin="anonymous"></script>--%>
+    <!-- Latest compiled and minified JavaScript -->
+    <%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"--%>
+    <%--integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"--%>
+    <%--crossorigin="anonymous"></script>--%>
 
 
-<%--<!-- Latest compiled and minified CSS -->--%>
-<%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"--%>
-<%--integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--%>
+    <%--<!-- Latest compiled and minified CSS -->--%>
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"--%>
+    <%--integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">--%>
 
 
-<style>
-h1{
-    text-shadow: 2px 2px rgba(107, 105, 106, 0.98);
-}
+    <style>
+        h1 {
+            text-shadow: 2px 2px rgba(107, 105, 106, 0.98);
+        }
 
 
-</style>
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-dark bg-inverse navbar-fixed-top navbar-full" id="nav-main">
     <a class="navbar-brand" href="#"><img src="${pageContext.request.contextPath}../resource/theme/img/logo.png"/></a>
     <ul class="nav navbar-nav">
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="/registerEmployer">Post A Job <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
@@ -71,13 +71,20 @@ h1{
         <li class="nav-item">
             <a class="nav-link" href="#about">About</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/logout">Log Out</a>
-        </li>
+
     </ul>
-    <form class="form-inline pull-xs-right">
-        <a class="nav-link" href="/login">${profile}</a>
-    </form>
+    <div class="nav-item" align="right">
+        <span style="float:right">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">${profile}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Log Out</a>
+                </li>
+            </ul>
+        </span>
+    </div>
 </nav>
 
 
@@ -89,7 +96,8 @@ h1{
                 <br>
                 <br>
                 <h1 class="display-3">Welcome to 180</h1>
-                <p>180 provides a digital space find work, offer work and connect with groups and organizations that foster
+                <p>180 provides a digital space find work, offer work and connect with groups and organizations that
+                    foster
                     life skills. Seeking to improve the lives of people affected by a felony conviction.</p>
                 <a href="#" data-toggle="modal" data-target="#login-modal"><h3><strong>Login</strong></h3></a>
                 <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -99,12 +107,13 @@ h1{
                             <h1>Login to Your Account</h1><br><br>
                             <form action="/loginUser" method="post">
                                 <font color="gray"><input type="text" name="user" placeholder="User Email"></font>
-                                    <font color="gray"><input type="password" name="pass" placeholder="Password"></font>
+                                <font color="gray"><input type="password" name="pass" placeholder="Password"></font>
                                 <input type="submit" name="login" class="login loginmodal-submit" value="Login">
                             </form>
 
                             <div class="login-help">
-                                <a href="/registerUser"><font color="white">Register</font></a> - - <a href="/registerEmployer"><font color="white">Employer Registration</font></a>
+                                <a href="/registerUser"><font color="white">Register</font></a> - - <a
+                                    href="/registerEmployer"><font color="white">Employer Registration</font></a>
                             </div>
                         </div>
                     </div>
@@ -119,45 +128,43 @@ h1{
 </section>
 
 
-
-
 <%--<section id="carousel">--%>
-    <%--<div id="carousel-home" class="carousel slide" data-ride="carousel">--%>
-        <%--<ol class="carousel-indicators">--%>
-            <%--<li data-target="#carousel-home" data-slide-to="0" class="active"></li>--%>
-            <%--<li data-target="#carousel-home" data-slide-to="1"></li>--%>
-            <%--<li data-target="#carousel-home" data-slide-to="2"></li>--%>
-        <%--</ol>--%>
-        <%--<div class="carousel-inner" role="listbox">--%>
-            <%--<div class="carousel-item active">--%>
-                <%--<img src="${pageContext.request.contextPath}../resource/theme/img/woman-camera.JPG"/>--%>
-                <%--<div class="carousel-caption">--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--<div class="carousel-item">--%>
-                <%--<img src="${pageContext.request.contextPath}../resource/theme/mg/spiderweb.JPG"/>--%>
-                <%--<div class="carousel-caption">--%>
-                    <%--<h3>Walkthrough</h3>--%>
-                    <%--<p>Checking the flow</p>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-            <%--<div class="carousel-item">--%>
-                <%--<img src="${pageContext.request.contextPath}../resource/theme/img/hearthand.JPG"/>--%>
-                <%--<div class="carousel-caption">--%>
-                    <%--<h3>Feedback Loop</h3>--%>
-                    <%--<p>Eric notices that...</p>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<a class="left carousel-control" href="#carousel-home" role="button" data-slide="prev">--%>
-            <%--<span class="icon-prev" aria-hidden="true"></span>--%>
-            <%--<span class="sr-only">Previous</span>--%>
-        <%--</a>--%>
-        <%--<a class="right carousel-control" href="#carousel-home" role="button" data-slide="next">--%>
-            <%--<span class="icon-next" aria-hidden="true"></span>--%>
-            <%--<span class="sr-only">Next</span>--%>
-        <%--</a>--%>
-    <%--</div>--%>
+<%--<div id="carousel-home" class="carousel slide" data-ride="carousel">--%>
+<%--<ol class="carousel-indicators">--%>
+<%--<li data-target="#carousel-home" data-slide-to="0" class="active"></li>--%>
+<%--<li data-target="#carousel-home" data-slide-to="1"></li>--%>
+<%--<li data-target="#carousel-home" data-slide-to="2"></li>--%>
+<%--</ol>--%>
+<%--<div class="carousel-inner" role="listbox">--%>
+<%--<div class="carousel-item active">--%>
+<%--<img src="${pageContext.request.contextPath}../resource/theme/img/woman-camera.JPG"/>--%>
+<%--<div class="carousel-caption">--%>
+<%--</div>--%>
+<%--</div>--%>
+<%--<div class="carousel-item">--%>
+<%--<img src="${pageContext.request.contextPath}../resource/theme/mg/spiderweb.JPG"/>--%>
+<%--<div class="carousel-caption">--%>
+<%--<h3>Walkthrough</h3>--%>
+<%--<p>Checking the flow</p>--%>
+<%--</div>--%>
+<%--</div>--%>
+<%--<div class="carousel-item">--%>
+<%--<img src="${pageContext.request.contextPath}../resource/theme/img/hearthand.JPG"/>--%>
+<%--<div class="carousel-caption">--%>
+<%--<h3>Feedback Loop</h3>--%>
+<%--<p>Eric notices that...</p>--%>
+<%--</div>--%>
+<%--</div>--%>
+<%--</div>--%>
+<%--<a class="left carousel-control" href="#carousel-home" role="button" data-slide="prev">--%>
+<%--<span class="icon-prev" aria-hidden="true"></span>--%>
+<%--<span class="sr-only">Previous</span>--%>
+<%--</a>--%>
+<%--<a class="right carousel-control" href="#carousel-home" role="button" data-slide="next">--%>
+<%--<span class="icon-next" aria-hidden="true"></span>--%>
+<%--<span class="sr-only">Next</span>--%>
+<%--</a>--%>
+<%--</div>--%>
 <%--</section>--%>
 <section id="about">
     <div class="section-content">
@@ -166,14 +173,20 @@ h1{
                 <div class="about-text">
                     <h3>About Us</h3>
                     <p class="lead">Our team at OneEighty is comprised of dedicated individuals that work to connect
-                    parolees and re-entry citizens with companies and business who are looking for dedicated workers.</p>
+                        parolees and re-entry citizens with companies and business who are looking for dedicated
+                        workers.</p>
                     <p>Our name stems from the idea that you can turn your life around -- do a complete 180 -- and
-                    it all starts here. We are dedicated to help you find the right job, and provide you with the right support.</p>
+                        it all starts here. We are dedicated to help you find the right job, and provide you with the
+                        right support.</p>
                     <h5>Meet the Team</h5>
-                    <a href="https://www.linkedin.com/in/stevensuzio" class="btn btn-sm btn-secondary-outline">Steve Suzio</a>
-                    <a href="https://www.linkedin.com/in/EricMMackey" class="btn btn-sm btn-secondary-outline">Eric Mackey</a>
-                    <a href="https://www.linkedin.com/in/k-c-wunderlich" class="btn btn-sm btn-secondary-outline">Kurt Wunderlich</a>
-                    <a href="https://www.linkedin.com/in/joyapuryear" class="btn btn-sm btn-secondary-outline">Joya Puryear</a>
+                    <a href="https://www.linkedin.com/in/stevensuzio" class="btn btn-sm btn-secondary-outline">Steve
+                        Suzio</a>
+                    <a href="https://www.linkedin.com/in/EricMMackey" class="btn btn-sm btn-secondary-outline">Eric
+                        Mackey</a>
+                    <a href="https://www.linkedin.com/in/k-c-wunderlich" class="btn btn-sm btn-secondary-outline">Kurt
+                        Wunderlich</a>
+                    <a href="https://www.linkedin.com/in/joyapuryear" class="btn btn-sm btn-secondary-outline">Joya
+                        Puryear</a>
                 </div>
             </div>
         </div>
@@ -198,9 +211,11 @@ h1{
                             <div class="card-block">
                                 <p class="card-text">Have a position you would like to fill?
                                     Click the button below to register and immediately post your job!</p>
-                                <a href="/registerEmployer"><button type="button" class="btn btn-success-outline" data-toggle="modal"
-                                        data-target="#myModal">Add Job
-                                </button></a>
+                                <a href="/registerEmployer">
+                                    <button type="button" class="btn btn-success-outline" data-toggle="modal"
+                                            data-target="#myModal">Add Job
+                                    </button>
+                                </a>
                             </div>
                         </div>
                         <div class="card">
@@ -210,9 +225,12 @@ h1{
                             </div>
                             <img src="${pageContext.request.contextPath}../resource/theme/img/working.jpg"/>
                             <div class="card-block">
-                                <p class="card-text">Looking for work but can't find it? Register with us to find employers
-                                that are looking for potential candidates like you!</p>
-                                <a href="/viewJobBoard"><button type="button" class="btn btn-success-outline">View Jobs</button></a>
+                                <p class="card-text">Looking for work but can't find it? Register with us to find
+                                    employers
+                                    that are looking for potential candidates like you!</p>
+                                <a href="/viewJobBoard">
+                                    <button type="button" class="btn btn-success-outline">View Jobs</button>
+                                </a>
                             </div>
                         </div>
 
@@ -223,12 +241,16 @@ h1{
                             </div>
                             <img src="${pageContext.request.contextPath}../resource/theme/img/chalkboard.jpg"/>
                             <div class="card-block">
-                                <p class="card-text">Our team at 180 works with several partners in the area to help our candidates
-                                be as career ready as possible. If you are looking to further develop your skills, or to simply seek out
-                                additional help we have the resources to connect you today.</p>
-                                <a href="/supportpage"><button type="button" class="btn btn-success-outline" data-toggle="modal"
-                                        data-target="#myModal">Get Support
-                                </button></a>
+                                <p class="card-text">Our team at 180 works with several partners in the area to help our
+                                    candidates
+                                    be as career ready as possible. If you are looking to further develop your skills,
+                                    or to simply seek out
+                                    additional help we have the resources to connect you today.</p>
+                                <a href="/supportpage">
+                                    <button type="button" class="btn btn-success-outline" data-toggle="modal"
+                                            data-target="#myModal">Get Support
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -237,9 +259,6 @@ h1{
         </div>
     </div>
 </section>
-
-
-
 
 
 <section id="news">

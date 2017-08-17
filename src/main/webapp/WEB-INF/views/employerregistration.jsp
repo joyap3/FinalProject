@@ -82,7 +82,7 @@
         <span style="float:left">
         <ul class="nav navbar-nav">
             <li class="nav-item">
-                <a class="navbar-brand" href="#"><img src="${pageContext.request.contextPath}../resource/theme/img/logo.png"/></a>
+                <a class="navbar-brand" href="/"><img src="${pageContext.request.contextPath}../resource/theme/img/logo.png"/></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/registerEmployer">Post A Job <span class="sr-only">(current)</span></a>
@@ -94,7 +94,7 @@
                 <a class="nav-link" href="/viewJobBoard">Job Listings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#about">About</a>
+                <a class="nav-link" href="welcome.jsp/#about">About</a>
             </li>
         </ul>
             </span>

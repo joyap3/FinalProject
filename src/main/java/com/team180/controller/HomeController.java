@@ -120,7 +120,7 @@ public class HomeController {
             return new ModelAndView("userregistration","user",UserController.loggedInUser.getEmail());
         }
         if(EmployerController.loggedInEmployer != null){
-            return new ModelAndView("userregistration", "empuser",EmployerController.loggedInEmployer.getContactEmail());
+            return new ModelAndView("userregistration", "user",EmployerController.loggedInEmployer.getContactEmail());
         }
         else {
             return new ModelAndView("userregistration","user","Sign In");
