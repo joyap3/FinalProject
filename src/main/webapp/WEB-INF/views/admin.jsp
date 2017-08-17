@@ -171,7 +171,7 @@
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
                     <div class="div-square">
                         <a href="/listusers" >
-                            <i class="fa fa-envelope-o fa-5x"></i>
+                            <i class="fa fa-users fa-5x"></i>
                             <h4>View Users</h4>
                         </a>
                     </div>
@@ -191,7 +191,7 @@
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
                     <div class="div-square">
                         <a href="/viewcriminalresults" >
-                            <i class="fa fa-users fa-5x"></i>
+                            <i class="fa fa-user fa-5x"></i>
                             <h4>Background Search</h4>
                         </a>
                     </div>
