@@ -57,27 +57,39 @@
 </head>
 
 <body>
-<nav class="navbar navbar-dark bg-inverse navbar-full navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand " href="/">180</a>
-
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#about">About</a></li>
-                <li class="active"><a href="/">Home</a></li>
-
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div><!--/.nav-collapse -->
+<nav class="navbar navbar-inverse navbar-dark bg-inverse navbar-fixed-top navbar-full">
+    <div align="left">
+        <span style="float:left">
+        <ul class="nav navbar-nav">
+            <li class="nav-item">
+                <a class="navbar-brand" href="/"><img src="${pageContext.request.contextPath}../resource/theme/img/logo.png"/></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/registerEmployer">Post A Job <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/viewJobBoard">Job Listings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="welcome.jsp/#about">About</a>
+            </li>
+        </ul>
+            </span>
+    </div>
+    <div class="nav-item" align="right">
+        <span style="float:right">
+        <ul class="nav navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" class="text-right" href="/admin">${user}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Log Out</a>
+            </li>
+        </ul>
+        </span>
     </div>
 </nav>
 <div class="container col-lg-12 spacer"></div>
