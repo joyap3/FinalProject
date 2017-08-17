@@ -89,37 +89,23 @@
         <td>${employerProfile.company}</td>
     </tr>
     <tr>
-        <td>Job Title:</td>
-        <td>${employerProfile.jobTitle}</td>
-    </tr>
-    <tr>
         <td>Contact Name:</td>
         <td>${employerProfile.contactName}</td>
     </tr>
     <tr>
-        <td>Address:</td>
+        <td>Phone Number:</td>
         <td>${employerProfile.contactPhone}</td>
     </tr>
     <tr>
         <td>Email:</td>
         <td>${employerProfile.contactEmail}</td>
     </tr>
-    <tr>
-        <td>Job Description:</td>
-        <td>${employerProfile.jobDescription}</td>
-    </tr>
-    <tr>
-        <td>Crime Type:</td>
-        <td>${employerProfile.crimetype}</td>
-    </tr>
-    <tr>
-        <td>
-            <a href="updateEmployerInfo?id=${employerProfile.jobId}">
-                <button value="Edit Item">Edit</button>
-            </a>
-        </td>
-    </tr>
+
 </table>
+
+
+
+<a href="/viewjoblistings"><button value="View Jobs">View Job Listings</button></a>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

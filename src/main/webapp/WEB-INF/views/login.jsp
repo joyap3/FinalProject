@@ -24,10 +24,12 @@
             padding-top: 50px;
             background-color: #b9b5b4;
         }
+
         .spacer {
             margin-top: 2%;
             margin-bottom: 2%;
         }
+
         .block {
             height: 260px;
             padding-top: 30px;
@@ -35,11 +37,13 @@
             background-image: url("${pageContext.request.contextPath}../resource/theme/img/login2.jpg");
 
         }
+
         .block2 {
             min-height: 160px;
             padding-top: 15px;
             background: rgba(225, 245, 255, 0.8)
         }
+
         .center {
             position: absolute;
             /*  top: 0;
@@ -56,7 +60,8 @@
 <nav class="navbar navbar-dark bg-inverse navbar-full navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -78,18 +83,20 @@
 <div class="container col-lg-12 spacer"></div>
 <div class="container col-lg-12 block">
     <div class="row col-xs-6 block2 bg-primary center">
-        <form method="post" action="/loginUser"  class="form-horizontal" role="form" align="center">
-            <div class="form-group" >
+        <form method="post" action="/loginUser" class="form-horizontal" role="form" align="center">
+            <div class="form-group">
                 <font color="gray" align="center"><strong>${invalid}</strong></font><br><br>
-                <label class="control-label col-sm-3"  for="user email"><font color="gray">username</font></label>
+                <label class="control-label col-sm-3" for="user email"><font color="gray">username</font></label>
                 <div class="col-sm-8 col-xs-12">
-                    <input type="text" color="black" name="user" id="user email" placeholder="user email" required="true" class="form-control"/>
+                    <input type="text" color="black" name="user" id="user email" placeholder="user email"
+                           required="true" class="form-control"/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-3" for="password"><font color="gray">password</font></label>
                 <div class="col-sm-8 col-xs-12">
-                    <input type="password" name="pass" id="password" placeholder="password" required="true" class="form-control"/>
+                    <input type="password" name="pass" id="password" placeholder="password" required="true"
+                           class="form-control"/>
                 </div>
             </div>
             <div class="form-group">
@@ -98,8 +105,10 @@
                 </div>
             </div>
         </form>
-        <p>Not registered? <a href="/registerUser">Register here!</a></p>
-        <p>Want to post a job? <a href="/registerEmployer">Post a Job!</a></p>
+        <font color="gray">
+            <p>Not a registered user? <a href="/registerUser">Sign up here!</a></p>
+            <p>Not a registered employer? <a href="/registerEmployer">Get started with us here!</a></p>
+        </font>
     </div>
 
 </div><!-- /.container -->

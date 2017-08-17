@@ -212,9 +212,7 @@ h1{
                             <div class="card-block">
                                 <p class="card-text">Looking for work but can't find it? Register with us to find employers
                                 that are looking for potential candidates like you!</p>
-                                <a href="/viewJobBoard"><button type="button" class="btn btn-success-outline" data-toggle="modal"
-                                        data-target="#login-modal">View Jobs
-                                </button></a>
+                                <a href="/viewJobBoard"><button type="button" class="btn btn-success-outline">View Jobs</button></a>
                             </div>
                         </div>
 

@@ -1,5 +1,6 @@
 package com.team180.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.team180.DAO.HibernateDao;
 import com.team180.Encryption.PasswordMD5Encrypt;
 import com.team180.tables.EmployerListingEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,5 +61,45 @@ public ModelAndView update(Model model, @RequestParam("id") int id) {
 
 
         return new ModelAndView("employerprofile", "employerProfile", listResult.get(0));
+    }
+
+    @RequestMapping("/makenewjob")
+    public String makeNewJob(){
+    return "addnewjob";
+    }
+
+    @RequestMapping("/addajob")
+    public ModelAndView addAjob(Model model, @RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
+                                @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
+                                @RequestParam("jobDescription") String jDescription,
+                                @RequestParam("crimetype") String cType){
+    Session s = HibernateDao.getSession();
+
+    EmployerListingEntity addJob = new EmployerListingEntity();
+    addJob.setCompany(company);
+    addJob.setJobTitle(jTitle);
+    addJob.setContactName(cName);
+    addJob.setContactEmail(loggedInEmployer.getContactEmail());
+    addJob.setContactPhone(cPhone);
+    addJob.setJobDescription(jDescription);
+    addJob.setPassword(PasswordMD5Encrypt.PasswordMD5Encrypt(loggedInEmployer.getPassword()));
+    addJob.setCrimetype(cType);
+
+    s.save(addJob);
+    s.getTransaction().commit();
+    s.close();
+
+    model.addAttribute("empuser",loggedInEmployer.getContactEmail());
+
+        List<EmployerListingEntity> jobList = HibernateDao.getEmployerListingEntities(loggedInEmployer.getContactEmail());
+        return new ModelAndView("success", "successMessage", "Success! Your job has been posted!");
+    }
+
+
+    @RequestMapping("/viewjoblistings")
+    public ModelAndView viewJobListings(){
+        List<EmployerListingEntity> jobList = HibernateDao.getEmployerListingEntities(loggedInEmployer.getContactEmail());
+
+        return new ModelAndView("employerjoblistings","jobList",jobList);
     }
 }

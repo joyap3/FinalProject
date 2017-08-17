@@ -71,7 +71,7 @@
         <a class="nav-link" href="#">180</a> |
         <a class="nav-link" href="/">Home</a> |
         <a class="nav-link" href="/registerEmployer">Register Job</a> |
-        <a class="nav-link" href="/viewJobBoard">View Jobs</a> |
+        <a class="nav-link" href="/viewjoblistings">View Jobs</a> |
         <a class="nav-link" href="/login">Profile</a>
         <a class="nav-link" href="/logout">Log Out</a>
         <form class="form-inline text-right">
@@ -83,7 +83,7 @@
 <div class="container col-lg-12 spacer"></div>
 <div class="container col-lg-12 block">
     <div class="row col-xs-6 block2 bg-primary center">
-        <h4>${successMessage}</h4>
+        <font color="gray"><h4>${successMessage}</h4></font>
     </div>
 </div>
 </form>

@@ -115,22 +115,35 @@ public class HomeController {
 
     @RequestMapping("/registerUser")
 
-    public String registerUser() {
-
-        return "userregistration";
+    public ModelAndView registerUser() {
+        if(UserController.loggedInUser != null){
+            return new ModelAndView("userregistration","user",UserController.loggedInUser.getEmail());
+        }
+        if(EmployerController.loggedInEmployer != null){
+            return new ModelAndView("userregistration", "empuser",EmployerController.loggedInEmployer.getContactEmail());
+        }
+        else {
+            return new ModelAndView("userregistration","user","Sign In");
+        }
     }
 
-    @RequestMapping("/registerJob")
-
-    public String registerJob() {
-
-        return "registerjob";
-    }
+//    @RequestMapping("/registerJob")
+//
+//    public String registerJob() {
+//
+//        return "registerjob";
+//    }
 
     @RequestMapping("/registerEmployer")//This is removed if it doesnt work.
-    public String registerEmployer(){
+    public ModelAndView registerEmployer(){
 
-        return "employerregistration";
+        if(EmployerController.loggedInEmployer != null) {
+            return new ModelAndView("employerregistration", "user", EmployerController.loggedInEmployer.getContactEmail());
+        }if(UserController.loggedInUser != null){
+            return new ModelAndView("employerregistration","user",UserController.loggedInUser.getEmail());
+        }else{
+            return new ModelAndView("employerregistration","user","Sign In");
+        }
     }
     @RequestMapping("/supportpage")
     public String goToSupportPage(){
@@ -177,35 +190,35 @@ public class HomeController {
                 ModelAndView("userprofile", "userProfile", userList.get(0));
     }
 
-    @RequestMapping("/insertJob")
-
-    public ModelAndView registerJob(Model model, @RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
-                                    @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
-                                    @RequestParam("email") String email, @RequestParam("jobDescription") String jDescription,
-                                    @RequestParam("crimetype") String cType) {
-
-        Session s = HibernateDao.getSession();
-        EmployerListingEntity jobListing = new EmployerListingEntity();
-
-        jobListing.setCompany(company);
-        jobListing.setJobTitle(jTitle);
-        jobListing.setContactName(cName);
-        jobListing.setContactPhone(cPhone);
-        jobListing.setContactEmail(email);
-        jobListing.setJobDescription(jDescription);
-        jobListing.setCrimetype(cType);
-
-        s.save(jobListing);
-        s.getTransaction().commit();
-        s.close();
-
-        List<EmployerListingEntity> empList = HibernateDao.getEmployerListingEntities(EmployerController.loggedInEmployer.getContactEmail());
-
-        model.addAttribute("empuser",empList.get(0).getContactEmail());
-
-
-        return new ModelAndView("success","successMessage","Success! Your job has been posted!");
-    }
+//    @RequestMapping("/insertJob")
+//
+//    public ModelAndView registerJob(Model model, @RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
+//                                    @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
+//                                    @RequestParam("email") String email, @RequestParam("jobDescription") String jDescription,
+//                                    @RequestParam("crimetype") String cType) {
+//
+//        Session s = HibernateDao.getSession();
+//        EmployerListingEntity jobListing = new EmployerListingEntity();
+//
+//        jobListing.setCompany(company);
+//        jobListing.setJobTitle(jTitle);
+//        jobListing.setContactName(cName);
+//        jobListing.setContactPhone(cPhone);
+//        jobListing.setContactEmail(email);
+//        jobListing.setJobDescription(jDescription);
+//        jobListing.setCrimetype(cType);
+//
+//        s.save(jobListing);
+//        s.getTransaction().commit();
+//        s.close();
+//
+//        List<EmployerListingEntity> empList = HibernateDao.getEmployerListingEntities(EmployerController.loggedInEmployer.getContactEmail());
+//
+//        model.addAttribute("empuser",EmployerController.loggedInEmployer.getContactEmail());
+//
+//
+//        return new ModelAndView("success","successMessage","Success! Your job has been posted!");
+//    }
 
     @RequestMapping("/insertEmployer")//this was also added and might need to be removed
 
