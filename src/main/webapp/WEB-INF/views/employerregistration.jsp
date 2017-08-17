@@ -9,9 +9,19 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Admin Page</title>
+    <!-- BOOTSTRAP STYLES-->
+    <link href="resource/theme/bs-admin/assets/css/bootstrap.css" rel="stylesheet"/>
+    <!-- FONTAWESOME STYLES-->
+    <link href="resource/theme/bs-admin/assets/css/custom.css" rel="stylesheet"/>
+    <!-- CUSTOM STYLES-->
+    <link href="resource/theme/bs-admin/assets/css/font-awesome.css" rel="stylesheet"/>
+    <!-- GOOGLE FONTS-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
     <title>180 Login</title>
@@ -57,37 +67,51 @@
             right: 0;
             margin: auto;
         }
-        input[type=checkbox] {width:15px; height:15px;}
+
+        input[type=checkbox] {
+            width: 15px;
+            height: 15px;
+        }
     </style>
 
 </head>
 
 <body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top ">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">180</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="/">Home</a></li>
-                <!-- <li><a href="#about">About</a></li> -->
-                <li><a href="#contact">Contact</a></li>
-                <li><a class="nav-link" href="/login">Login</a></li>
-                <li><a href="/login">${user}</a></li>
-            </ul>
-        </div><!--/.nav-collapse -->
+<nav class="navbar navbar-inverse navbar-dark bg-inverse navbar-fixed-top navbar-full">
+    <div align="left">
+        <span style="float:left">
+        <ul class="nav navbar-nav">
+            <li class="nav-item">
+                <a class="navbar-brand" href="#"><img src="${pageContext.request.contextPath}../resource/theme/img/logo.png"/></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/registerEmployer">Post A Job <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/viewJobBoard">Job Listings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#about">About</a>
+            </li>
+        </ul>
+            </span>
+    </div>
+    <div class="nav-item" align="right">
+        <span style="float:right">
+        <ul class="nav navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/login">${user}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Log Out</a>
+            </li>
+        </ul>
+        </span>
     </div>
 </nav>
-
 <div class="container col-lg-12 spacer"></div>
 
 
@@ -135,7 +159,8 @@
                 <label class="control-label col-sm-3" for="jobdescript"><font color="gray">job
                     description</font></label>
                 <div class="col-sm-8 col-xs-12">
-                    <input type="text" name="jobDescription" id="jobdescript" placeholder="job description" required="true"
+                    <input type="text" name="jobDescription" id="jobdescript" placeholder="job description"
+                           required="true"
                            class="form-control"/>
                 </div>
             </div>
@@ -147,21 +172,25 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-3" for="cfPassword"><font color="gray">confirm password</font></label>
+                <label class="control-label col-sm-3" for="cfPassword"><font color="gray">confirm
+                    password</font></label>
                 <div class="col-sm-8 col-xs-12">
-                    <input type="password" name="cfPassword" id="cfPassword" placeholder="confirm password" required="true"
+                    <input type="password" name="cfPassword" id="cfPassword" placeholder="confirm password"
+                           required="true"
                            class="form-control"/>
                 </div>
             </div>
             <div>
-                <td><font color="gray">Are you willing to hire a Job Seeker with a violent criminal background?</font></td>
+                <td><font color="gray">Are you willing to hire a Job Seeker with a violent criminal background?</font>
+                </td>
                 <td>
                     <font color="gray"><select name="crimetype" required="true"></font>
                     <option value="Violent">Yes</option>
                     <option value="Non-Violent">No</option>
                     </select>
                 </td>
-            </div><br>
+            </div>
+            <br>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-8">
                     <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-default"/>
