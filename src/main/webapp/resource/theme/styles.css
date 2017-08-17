@@ -21,8 +21,8 @@ img {
     background: #222 url('img/stars.jpg') center center no-repeat;
     background-size: cover;
     color: white;
-    height: 93%;
-    padding-top: 40px;
+    height: 100%;
+    padding-top: 80px;
     text-align: center;
     display: flex;
 
