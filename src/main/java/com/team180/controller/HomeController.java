@@ -13,6 +13,7 @@ import com.team180.tables.EmployerListingEntity;
 import com.team180.tables.UsersEntity;
 import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -178,10 +179,10 @@ public class HomeController {
 
     @RequestMapping("/insertJob")
 
-    public String registerJob(@RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
-                              @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
-                              @RequestParam("email") String email, @RequestParam("jobDescription") String jDescription,
-                              @RequestParam("crimetype") String cType) {
+    public ModelAndView registerJob(Model model, @RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
+                                    @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
+                                    @RequestParam("email") String email, @RequestParam("jobDescription") String jDescription,
+                                    @RequestParam("crimetype") String cType) {
 
         Session s = HibernateDao.getSession();
         EmployerListingEntity jobListing = new EmployerListingEntity();
@@ -198,7 +199,12 @@ public class HomeController {
         s.getTransaction().commit();
         s.close();
 
-        return "success";
+        List<EmployerListingEntity> empList = HibernateDao.getEmployerListingEntities(EmployerController.loggedInEmployer.getContactEmail());
+
+        model.addAttribute("empuser",empList.get(0).getContactEmail());
+
+
+        return new ModelAndView("success","successMessage","Success! Your job has been posted!");
     }
 
     @RequestMapping("/insertEmployer")//this was also added and might need to be removed

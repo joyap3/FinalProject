@@ -170,10 +170,10 @@ h1{
                     <p>Our name stems from the idea that you can turn your life around -- do a complete 180 -- and
                     it all starts here. We are dedicated to help you find the right job, and provide you with the right support.</p>
                     <h5>Meet the Team</h5>
-                    <a href="https://www.linkedin.com/in/stevensuzio" class="btn btn-sm btn-secondary-outline">Steve</a>
-                    <a href="https://www.linkedin.com/in/EricMMackey" class="btn btn-sm btn-secondary-outline">Eric</a>
-                    <a href="https://www.linkedin.com/in/k-c-wunderlich" class="btn btn-sm btn-secondary-outline">Kurt</a>
-                    <a href="https://www.linkedin.com/in/joyapuryear" class="btn btn-sm btn-secondary-outline">Joya</a>
+                    <a href="https://www.linkedin.com/in/stevensuzio" class="btn btn-sm btn-secondary-outline">Steve Suzio</a>
+                    <a href="https://www.linkedin.com/in/EricMMackey" class="btn btn-sm btn-secondary-outline">Eric Mackey</a>
+                    <a href="https://www.linkedin.com/in/k-c-wunderlich" class="btn btn-sm btn-secondary-outline">Kurt Wunderlich</a>
+                    <a href="https://www.linkedin.com/in/joyapuryear" class="btn btn-sm btn-secondary-outline">Joya Puryear</a>
                 </div>
             </div>
         </div>

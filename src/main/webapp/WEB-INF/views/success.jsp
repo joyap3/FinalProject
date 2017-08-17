@@ -68,18 +68,22 @@
 <body>
 <div>
     <nav>
-        <a class="navbar-brand" href="#">180</a> |
+        <a class="nav-link" href="#">180</a> |
         <a class="nav-link" href="/">Home</a> |
         <a class="nav-link" href="/registerEmployer">Register Job</a> |
         <a class="nav-link" href="/viewJobBoard">View Jobs</a> |
         <a class="nav-link" href="/login">Profile</a>
         <a class="nav-link" href="/logout">Log Out</a>
+        <form class="form-inline text-right">
+            <a class="nav-link" class="text-right" href="/login">${empuser}</a>
+            <a class="nav-link" class="text-right" href="/admin">${user}</a>
+        </form>
     </nav>
 </div>
 <div class="container col-lg-12 spacer"></div>
 <div class="container col-lg-12 block">
     <div class="row col-xs-6 block2 bg-primary center">
-        Success! Your job has been posted
+        <h4>${successMessage}</h4>
     </div>
 </div>
 </form>

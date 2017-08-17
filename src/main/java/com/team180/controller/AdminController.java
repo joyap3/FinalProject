@@ -1,5 +1,6 @@
 package com.team180.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.team180.DAO.HibernateDao;
 import com.team180.Encryption.PasswordMD5Encrypt;
 import com.team180.tables.AdminUsersEntity;
@@ -47,7 +48,7 @@ public class AdminController {
             return new ModelAndView("adminlogin", "invalid", "Not a registered Administrator");
         }
         if (adminUsers.get(0).getEmail().equalsIgnoreCase(adminUser)) {
-            if (adminUsers.get(0).getPassword().equals(adminPassword)) {
+            if (adminUsers.get(0).getPassword().equals(PasswordMD5Encrypt.PasswordMD5Encrypt(adminPassword))) {
                 UserController.loggedInUser = null;
                 EmployerController.loggedInEmployer = null;
                 loggedInAdmin = adminUsers.get(0);
@@ -104,9 +105,7 @@ public class AdminController {
             this.id = id;
 
             Session s = HibernateDao.getSession();
-
             UsersEntity temp = (UsersEntity) s.get(UsersEntity.class, id);
-
             List<UsersEntity> userList = HibernateDao.getUsersEntities(temp.getEmail());
 
             return new ModelAndView("viewapi", "userProfile", userList.get(0));
@@ -149,6 +148,44 @@ public class AdminController {
             return new ModelAndView("adminlogin","invalid","Please Log In");
         }
     }
+    @RequestMapping ("/goToRegisterAdmin")
+    public ModelAndView goToRegisterAdmin(){
+        if(isLoggedIn){
+            return new ModelAndView("registeradmin","","");
+        }
+        else{
+            return new ModelAndView("adminlogin","invalid","Please Log In");
+        }
+    }
+
+    @RequestMapping ("/registerAdmin")
+    public ModelAndView registerAdmin(Model model,@RequestParam("firstName")String firstName, @RequestParam("lastName")String lastName,
+                                      @RequestParam("email")String email,@RequestParam("password")String password){
+        if (isLoggedIn) {
+            Session s = HibernateDao.getSession();
+
+            AdminUsersEntity adminUser = new AdminUsersEntity();
+
+            adminUser.setFirstName(firstName);
+            adminUser.setLastName(lastName);
+            adminUser.setEmail(email);
+            adminUser.setPassword(PasswordMD5Encrypt.PasswordMD5Encrypt(password));
+
+            s.save(adminUser);
+            s.getTransaction().commit();
+            s.close();
+
+            List<AdminUsersEntity> adminList = HibernateDao.getAdminEntities(loggedInAdmin.getEmail());
+
+            model.addAttribute("user",adminList.get(0).getFirstName());
+
+            String success = "Success! New admin has been created. Please log out to continue as new admin";
+
+            return new ModelAndView("success", "successMessage", success);
+        }else{
+            return new ModelAndView("adminlogin", "invalid","Please Log In");
+        }
+    }
 
     @RequestMapping("/searchForUser")
     public ModelAndView searchUser(@RequestParam("firstName") String firstName) {
@@ -156,9 +193,7 @@ public class AdminController {
 //                                   @RequestParam("lastName") String lastName)
         if(isLoggedIn) {
             Session selectUsers = HibernateDao.getSession();
-
             Criteria c = selectUsers.createCriteria(UsersEntity.class);
-
             c.add(Restrictions.like("firstName", "%" + firstName + "%"));
 //        c.add(Restrictions.like("lastName", "%" + lastName + "%"));
 //        c.add(Restrictions.like("email", "%" + email + "%"));
@@ -177,14 +212,10 @@ public class AdminController {
             //temp object will store infor for the object we want to delete.
             UsersEntity temp = new UsersEntity();
             temp.setIdUsers(id);
-
             Session deleteUsers = HibernateDao.getSession();
-
             deleteUsers.delete(temp);//delete the object from the list
             deleteUsers.getTransaction().commit();//deletes the row from the database table
-
             ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
-
 
             return new ModelAndView("adminviewusers", "uList", userList);
         }
@@ -197,17 +228,13 @@ public class AdminController {
     @RequestMapping("/deletejob")
     public ModelAndView deleteJob(@RequestParam("id") int id) {
         if (isLoggedIn) {
-            //temp object will store infor for the object we want to delete.
+
             EmployerListingEntity temp = new EmployerListingEntity();
             temp.setJobId(id);
-
             Session deleteJob = HibernateDao.getSession();
-
             deleteJob.delete(temp);//delete the object from the list
             deleteJob.getTransaction().commit();//deletes the row from the database table
-
             ArrayList<EmployerListingEntity> jobList = HibernateDao.displayJobList();
-
 
             return new ModelAndView("adminviewjobs", "jList", jobList);
         }else{

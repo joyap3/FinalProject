@@ -40,6 +40,12 @@ public class HibernateDao {
         return (ArrayList<EmployerListingEntity>) j.list();
     }
 
+    public static ArrayList<AdminUsersEntity> displayAdminList(){
+        Session s = getSession();
+        Criteria c = s.createCriteria(AdminUsersEntity.class);
+        return (ArrayList<AdminUsersEntity>) c.list();
+    }
+
     public static List<UsersEntity> getUsersEntities(@RequestParam("user") String userName) {
         Session session = getSession();
 

@@ -147,14 +147,14 @@
                     </div>
 
 
-                    <%--</div>--%>
-                    <%--<div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">--%>
-                    <%--<div class="div-square">--%>
-                    <%--<a href="blank.html" >--%>
-                    <%--<i class="fa fa-key fa-5x"></i>--%>
-                    <%--<h4> </h4>--%>
-                    <%--</a>--%>
-                    <%--</div>--%>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                    <div class="div-square">
+                    <a href="/goToRegisterAdmin" >
+                    <i class="fa fa-key fa-5x"></i>
+                    <h4>Create New Administrator</h4>
+                    </a>
+                    </div>
 
 
                     <%--</div>--%>
