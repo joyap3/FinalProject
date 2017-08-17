@@ -146,8 +146,21 @@ public class HomeController {
         }
     }
     @RequestMapping("/supportpage")
-    public String goToSupportPage(){
-        return "supportpage";
+    public ModelAndView goToSupportPage(Model model){
+
+        if(UserController.loggedInUser != null){
+            model.addAttribute("user", UserController.loggedInUser.getEmail());
+            return new ModelAndView("supportpage", "","");
+        }
+        if(EmployerController.loggedInEmployer != null){
+            model.addAttribute("user", EmployerController.loggedInEmployer.getContactEmail());
+            return new ModelAndView("supportpage", "","");
+        }
+        if(AdminController.loggedInAdmin != null){
+            model.addAttribute("user", AdminController.loggedInAdmin.getEmail());
+            return new ModelAndView("supportpage", "","");
+        }
+        return new ModelAndView( "supportpage","user","Sign In");
     }
 
 

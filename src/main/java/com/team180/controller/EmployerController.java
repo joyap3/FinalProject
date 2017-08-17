@@ -32,11 +32,13 @@ public ModelAndView update(Model model, @RequestParam("id") int id) {
 
     List<EmployerListingEntity> userList = HibernateDao.getEmployerListingEntities(temp.getContactEmail());
 
+    model.addAttribute("user",loggedInEmployer.getContactEmail());
+
     return new ModelAndView("updateemployerinfo", "employerProfile", userList.get(0));
 }
 
     @RequestMapping("/updateemployer")
-    public ModelAndView updateItem(@RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
+    public ModelAndView updateItem(Model model, @RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
                                    @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
                                    @RequestParam("contactEmail") String email, @RequestParam("jobDescription") String jDescription,
                                    @RequestParam("crimetype") String cType) {
@@ -58,7 +60,7 @@ public ModelAndView update(Model model, @RequestParam("id") int id) {
         s.close();
 
         List<EmployerListingEntity> listResult = HibernateDao.getEmployerListingEntities(email);
-
+        model.addAttribute("user",loggedInEmployer.getContactEmail());
 
         return new ModelAndView("employerprofile", "employerProfile", listResult.get(0));
     }
@@ -89,7 +91,7 @@ public ModelAndView update(Model model, @RequestParam("id") int id) {
     s.getTransaction().commit();
     s.close();
 
-    model.addAttribute("empuser",loggedInEmployer.getContactEmail());
+    model.addAttribute("user",loggedInEmployer.getContactEmail());
 
         List<EmployerListingEntity> jobList = HibernateDao.getEmployerListingEntities(loggedInEmployer.getContactEmail());
         return new ModelAndView("success", "successMessage", "Success! Your job has been posted!");
@@ -97,8 +99,10 @@ public ModelAndView update(Model model, @RequestParam("id") int id) {
 
 
     @RequestMapping("/viewjoblistings")
-    public ModelAndView viewJobListings(){
+    public ModelAndView viewJobListings(Model model){
         List<EmployerListingEntity> jobList = HibernateDao.getEmployerListingEntities(loggedInEmployer.getContactEmail());
+
+        model.addAttribute("user",loggedInEmployer.getContactEmail());
 
         return new ModelAndView("employerjoblistings","jobList",jobList);
     }
