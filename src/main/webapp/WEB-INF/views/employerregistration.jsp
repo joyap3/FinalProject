@@ -94,7 +94,7 @@
                 <a class="nav-link" href="/viewJobBoard">Job Listings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="welcome.jsp/#about">About</a>
+                <a class="nav-link" href="/">Home</a>
             </li>
         </ul>
             </span>

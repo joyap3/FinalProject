@@ -53,7 +53,7 @@ public class HomeController {
     @RequestMapping("/login")
     public ModelAndView login(Model model) {
         if (AdminController.loggedInAdmin != null){
-            List<AdminUsersEntity> adminList = HibernateDao.getAdminEntities(AdminController.loggedInAdmin.getEmail());
+            List<AdminUsersEntity> adminList = HibernateDao.getAdminEntities(AdminController.loggedInAdmin.getFirstName());
             return new ModelAndView("admin","adminUser",adminList.get(0));
         }
         if (UserController.loggedInUser != null){
@@ -72,6 +72,11 @@ public class HomeController {
 
     @RequestMapping("/loginUser")
     public ModelAndView loginUser(Model model, @RequestParam("user") String userName, @RequestParam("pass") String password) {
+
+        if(AdminController.loggedInAdmin != null){
+            model.addAttribute("user",AdminController.loggedInAdmin.getFirstName());
+            return new ModelAndView("admin","adminUser",HibernateDao.getAdminEntities(AdminController.loggedInAdmin.getEmail()).get(0));
+        }
 
         List<UsersEntity> userList = HibernateDao.getUsersEntities(userName);
 
@@ -277,12 +282,13 @@ public class HomeController {
         return new ModelAndView("employerprofile", "employerProfile", employerList.get(0)) ;
     }
     @RequestMapping("/logout")
-    public void logUserOut(Model model){
+    public ModelAndView logUserOut(Model model){
         EmployerController.loggedInEmployer = null;
         UserController.loggedInUser = null;
         AdminController.loggedInAdmin = null;
 
         model.addAttribute("user","Sign In");
+        return new ModelAndView("logout","","");
     }
 }
 
