@@ -121,7 +121,7 @@
 
                 <br>
 
-                <a href="#nav-main" class="btn btn-secondary-outline btn-sm" role="button">&darr;</a>
+                <a href="/#what-we-do" class="btn btn-secondary-outline btn-sm" role="button">&darr;</a>
             </div>
         </div>
     </div>
