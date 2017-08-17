@@ -39,21 +39,18 @@ public class HomeController {
         if (AdminController.loggedInAdmin != null) {
             List<AdminUsersEntity> getAdmin = HibernateDao.getAdminEntities(AdminController.loggedInAdmin.getEmail());
             return new ModelAndView("welcome","profile",getAdmin.get(0).getEmail());
+        }else {
+            return new
+                    ModelAndView("welcome", "profile", "Sign In");
         }
-        return new
-                ModelAndView("welcome", "profile", "Sign In");
-
     }
 
-
-
-    //public static EmployerListingEntity loggedInEmployer;
     private int id;
 
     @RequestMapping("/login")
     public ModelAndView login(Model model) {
         if (AdminController.loggedInAdmin != null){
-            List<AdminUsersEntity> adminList = HibernateDao.getAdminEntities(AdminController.loggedInAdmin.getFirstName());
+            List<AdminUsersEntity> adminList = HibernateDao.getAdminEntities(AdminController.loggedInAdmin.getEmail());
             return new ModelAndView("admin","adminUser",adminList.get(0));
         }
         if (UserController.loggedInUser != null){
@@ -81,19 +78,21 @@ public class HomeController {
         List<UsersEntity> userList = HibernateDao.getUsersEntities(userName);
 
         if(userList.isEmpty()){
+
             List<EmployerListingEntity> employerList = HibernateDao.getEmployerListingEntities(userName);
 
             if(employerList.isEmpty()){
                 return new ModelAndView("login","invalid","User does not exist, please register");
             }
-
             if (employerList.get(0).getContactEmail().equalsIgnoreCase(userName)) {
                 if (employerList.get(0).getPassword().equals(PasswordMD5Encrypt.PasswordMD5Encrypt(password))) {
+
+
                     EmployerController.loggedInEmployer = employerList.get(0);
-                    model.addAttribute("user",EmployerController.loggedInEmployer.getContactEmail());
                     AdminController.loggedInAdmin = null;
                     UserController.loggedInUser = null;
-                    return new ModelAndView("employerprofile", "employerProfile", employerList.get(0));
+                    model.addAttribute("user",EmployerController.loggedInEmployer.getContactEmail());
+                    return new ModelAndView("employerprofile", "employerProfile", EmployerController.loggedInEmployer);
                 } else {
                     String alert = "Invalid password";
                     return new ModelAndView("login", "invalid", alert);
@@ -103,57 +102,24 @@ public class HomeController {
 
             return new ModelAndView("login","invalid",alert);
         }
-
         if (userList.get(0).getEmail().equalsIgnoreCase(userName)) {
             if (userList.get(0).getPassword().equals(PasswordMD5Encrypt.PasswordMD5Encrypt(password))) {
+
+
                 UserController.loggedInUser = userList.get(0);
-                model.addAttribute("user",UserController.loggedInUser.getEmail());
                 EmployerController.loggedInEmployer = null;
                 AdminController.loggedInAdmin = null;
-                return new ModelAndView("userprofile", "userProfile", userList.get(0));
+
+                model.addAttribute("user",UserController.loggedInUser.getEmail());
+                return new ModelAndView("userprofile", "userProfile", UserController.loggedInUser);
             } else {
-                String alert = "Invalid password";
-                return new ModelAndView("login", "invalid", alert);
+
+                return new ModelAndView("login", "invalid", "Invalid password");
             }
         }
-        String alert = "Invalid user name";
-        return new ModelAndView("login", "invalid", alert);
+        return new ModelAndView("login", "invalid", "Invalid user name");
     }
 
-
-
-    @RequestMapping("/registerUser")
-
-    public ModelAndView registerUser() {
-        if(UserController.loggedInUser != null){
-            return new ModelAndView("userregistration","user",UserController.loggedInUser.getEmail());
-        }
-        if(EmployerController.loggedInEmployer != null){
-            return new ModelAndView("userregistration", "user",EmployerController.loggedInEmployer.getContactEmail());
-        }
-        else {
-            return new ModelAndView("userregistration","user","Sign In");
-        }
-    }
-
-//    @RequestMapping("/registerJob")
-//
-//    public String registerJob() {
-//
-//        return "registerjob";
-//    }
-
-    @RequestMapping("/registerEmployer")//This is removed if it doesnt work.
-    public ModelAndView registerEmployer(){
-
-        if(EmployerController.loggedInEmployer != null) {
-            return new ModelAndView("employerregistration", "user", EmployerController.loggedInEmployer.getContactEmail());
-        }if(UserController.loggedInUser != null){
-            return new ModelAndView("employerregistration","user",UserController.loggedInUser.getEmail());
-        }else{
-            return new ModelAndView("employerregistration","user","Sign In");
-        }
-    }
     @RequestMapping("/supportpage")
     public ModelAndView goToSupportPage(Model model){
 
@@ -172,115 +138,6 @@ public class HomeController {
         return new ModelAndView( "supportpage","user","Sign In");
     }
 
-
-    @RequestMapping("/insertUser")
-
-    public ModelAndView registerUser(Model model, @RequestParam("firstName") String fname, @RequestParam("lastName") String lname,
-                                     @RequestParam("middleName") String midName, @RequestParam("birthday") Date bday,
-                                     @RequestParam("address") String address, @RequestParam("zip") int zip, @RequestParam("phoneNumber") String phoneNum,
-                                     @RequestParam("email") String email, @RequestParam("password") String password,
-                                     @RequestParam("skillSet") String skillSet) {
-
-        Session s = HibernateDao.getSession();
-
-        UsersEntity newUser = new UsersEntity();
-
-        newUser.setFirstName(fname);
-        newUser.setMiddleName(midName);
-        newUser.setLastName(lname);
-        newUser.setBirthday(bday);
-        newUser.setAddress(address);
-        newUser.setZip(zip);
-        newUser.setPhoneNumber(phoneNum);
-
-        ModelAndView alert = HibernateDao.validateEmail(email);
-            if (alert != null) {
-                return alert;
-            }
-
-        newUser.setEmail(email);
-        newUser.setPassword(PasswordMD5Encrypt.PasswordMD5Encrypt(password));
-        newUser.setSkillset(skillSet);
-
-        s.save(newUser);
-        s.getTransaction().commit();
-        s.close();
-
-        List<UsersEntity> userList = HibernateDao.getUsersEntities(email);
-        UserController.loggedInUser = userList.get(0);
-        model.addAttribute("user",UserController.loggedInUser.getEmail());
-        return new
-                ModelAndView("userprofile", "userProfile", userList.get(0));
-    }
-
-//    @RequestMapping("/insertJob")
-//
-//    public ModelAndView registerJob(Model model, @RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
-//                                    @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
-//                                    @RequestParam("email") String email, @RequestParam("jobDescription") String jDescription,
-//                                    @RequestParam("crimetype") String cType) {
-//
-//        Session s = HibernateDao.getSession();
-//        EmployerListingEntity jobListing = new EmployerListingEntity();
-//
-//        jobListing.setCompany(company);
-//        jobListing.setJobTitle(jTitle);
-//        jobListing.setContactName(cName);
-//        jobListing.setContactPhone(cPhone);
-//        jobListing.setContactEmail(email);
-//        jobListing.setJobDescription(jDescription);
-//        jobListing.setCrimetype(cType);
-//
-//        s.save(jobListing);
-//        s.getTransaction().commit();
-//        s.close();
-//
-//        List<EmployerListingEntity> empList = HibernateDao.getEmployerListingEntities(EmployerController.loggedInEmployer.getContactEmail());
-//
-//        model.addAttribute("empuser",EmployerController.loggedInEmployer.getContactEmail());
-//
-//
-//        return new ModelAndView("success","successMessage","Success! Your job has been posted!");
-//    }
-
-    @RequestMapping("/insertEmployer")//this was also added and might need to be removed
-
-    public ModelAndView registerEmployer(Model model, @RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
-                                         @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
-                                         @RequestParam("contactEmail") String email, @RequestParam("jobDescription") String jDescription,
-                                         @RequestParam("crimetype") String cType, @RequestParam("password") String password) {
-
-        Session s = HibernateDao.getSession();
-
-        EmployerListingEntity newEmployer = new EmployerListingEntity();
-
-        newEmployer.setCompany(company);
-        newEmployer.setJobTitle(jTitle);
-        newEmployer.setContactName(cName);
-        newEmployer.setContactPhone(cPhone);
-        newEmployer.setJobDescription(jDescription);
-        newEmployer.setCrimetype(cType);
-
-
-        ModelAndView alert = HibernateDao.validateEmail(email);
-        if (alert != null) {
-            return alert;
-        }
-
-        newEmployer.setContactEmail(email);
-        newEmployer.setPassword(PasswordMD5Encrypt.PasswordMD5Encrypt(password));
-
-        s.save(newEmployer);
-        s.getTransaction().commit();
-        s.close();
-
-        List<EmployerListingEntity> employerList = HibernateDao.getEmployerListingEntities(email);
-        EmployerController.loggedInEmployer = employerList.get(0);
-
-        model.addAttribute(EmployerController.loggedInEmployer.getContactEmail());
-
-        return new ModelAndView("employerprofile", "employerProfile", employerList.get(0)) ;
-    }
     @RequestMapping("/logout")
     public ModelAndView logUserOut(Model model){
         EmployerController.loggedInEmployer = null;

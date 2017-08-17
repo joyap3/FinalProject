@@ -22,6 +22,58 @@ public class EmployerController {
     public static EmployerListingEntity loggedInEmployer;
     private int id;
 
+
+    @RequestMapping("/registerEmployer")
+    public ModelAndView registerEmployer(){
+
+        if(loggedInEmployer != null) {
+            return new ModelAndView("employerregistration", "user", loggedInEmployer.getContactEmail());
+        }if(UserController.loggedInUser != null){
+            return new ModelAndView("employerregistration","user",UserController.loggedInUser.getEmail());
+        }else{
+            return new ModelAndView("employerregistration","user","Sign In");
+        }
+    }
+
+    @RequestMapping("/insertEmployer")//this was also added and might need to be removed
+
+    public ModelAndView registerEmployer(Model model, @RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
+                                         @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
+                                         @RequestParam("contactEmail") String email, @RequestParam("jobDescription") String jDescription,
+                                         @RequestParam("crimetype") String cType, @RequestParam("password") String password) {
+
+        Session s = HibernateDao.getSession();
+
+        EmployerListingEntity newEmployer = new EmployerListingEntity();
+
+        newEmployer.setCompany(company);
+        newEmployer.setJobTitle(jTitle);
+        newEmployer.setContactName(cName);
+        newEmployer.setContactPhone(cPhone);
+        newEmployer.setJobDescription(jDescription);
+        newEmployer.setCrimetype(cType);
+
+
+        ModelAndView alert = HibernateDao.validateEmail(email);
+        if (alert != null) {
+            return alert;
+        }
+
+        newEmployer.setContactEmail(email);
+        newEmployer.setPassword(PasswordMD5Encrypt.PasswordMD5Encrypt(password));
+
+        s.save(newEmployer);
+        s.getTransaction().commit();
+        s.close();
+
+        List<EmployerListingEntity> employerList = HibernateDao.getEmployerListingEntities(email);
+        loggedInEmployer = employerList.get(0);
+
+        model.addAttribute(loggedInEmployer.getContactEmail());
+
+        return new ModelAndView("employerprofile", "employerProfile", employerList.get(0)) ;
+    }
+
 @RequestMapping("/updateEmployerInfo")
 public ModelAndView update(Model model, @RequestParam("id") int id) {
     this.id = id;
@@ -68,7 +120,7 @@ public ModelAndView update(Model model, @RequestParam("id") int id) {
     @RequestMapping("/makenewjob")
     public ModelAndView makeNewJob(Model model){
 
-    model.addAttribute("user",EmployerController.loggedInEmployer.getContactEmail());
+    model.addAttribute("user",loggedInEmployer.getContactEmail());
 
     return new ModelAndView("addnewjob","","");
     }

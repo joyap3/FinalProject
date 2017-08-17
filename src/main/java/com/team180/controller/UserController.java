@@ -21,15 +21,66 @@ public class UserController {
 
     private int id;
 
+    @RequestMapping("/registerUser")
+
+    public ModelAndView registerUser() {
+        if(loggedInUser != null){
+            return new ModelAndView("userregistration","user",loggedInUser.getEmail());
+        }
+        if(EmployerController.loggedInEmployer != null){
+            return new ModelAndView("userregistration", "user",EmployerController.loggedInEmployer.getContactEmail());
+        }
+        else {
+            return new ModelAndView("userregistration","user","Sign In");
+        }
+    }
+
+    @RequestMapping("/insertUser")
+
+    public ModelAndView registerUser(Model model, @RequestParam("firstName") String fname, @RequestParam("lastName") String lname,
+                                     @RequestParam("middleName") String midName, @RequestParam("birthday") Date bday,
+                                     @RequestParam("address") String address, @RequestParam("zip") int zip, @RequestParam("phoneNumber") String phoneNum,
+                                     @RequestParam("email") String email, @RequestParam("password") String password,
+                                     @RequestParam("skillSet") String skillSet) {
+
+        Session s = HibernateDao.getSession();
+
+        UsersEntity newUser = new UsersEntity();
+
+        newUser.setFirstName(fname);
+        newUser.setMiddleName(midName);
+        newUser.setLastName(lname);
+        newUser.setBirthday(bday);
+        newUser.setAddress(address);
+        newUser.setZip(zip);
+        newUser.setPhoneNumber(phoneNum);
+
+        ModelAndView alert = HibernateDao.validateEmail(email);
+        if (alert != null) {
+            return alert;
+        }
+
+        newUser.setEmail(email);
+        newUser.setPassword(PasswordMD5Encrypt.PasswordMD5Encrypt(password));
+        newUser.setSkillset(skillSet);
+
+        s.save(newUser);
+        s.getTransaction().commit();
+        s.close();
+
+        List<UsersEntity> userList = HibernateDao.getUsersEntities(email);
+        loggedInUser = userList.get(0);
+        model.addAttribute("user",loggedInUser.getEmail());
+        return new
+                ModelAndView("userprofile", "userProfile", userList.get(0));
+    }
 
     @RequestMapping("/updateUserInfo")
     public ModelAndView update(Model model, @RequestParam ("id")int id){
         this.id = id;
 
         Session s = HibernateDao.getSession();
-
         UsersEntity temp = (UsersEntity) s.get(UsersEntity.class,id);
-
         List<UsersEntity> userList = HibernateDao.getUsersEntities(temp.getEmail());
 
         model.addAttribute("user",loggedInUser.getEmail());
@@ -69,6 +120,8 @@ public class UserController {
     @RequestMapping("/viewJobBoard")
     public ModelAndView viewJobBoard(Model model){
 
+        List<EmployerListingEntity> unrestrictedJobs = HibernateDao.displayJobList();
+
         if(loggedInUser != null){
 
             model.addAttribute("user",loggedInUser.getEmail());
@@ -79,16 +132,42 @@ public class UserController {
                 return new ModelAndView("viewjobboard","message",message);
             }
             if(loggedInUser.getCrimetype().equalsIgnoreCase("violent")){
+
                 List<EmployerListingEntity> restrictedJobs = HibernateDao.displayRestrictedList();
-                return new ModelAndView("viewjobboard","restricted",restrictedJobs);
+
+                String tableHeader = "<tr>\n<th>Company</th>\n<th>Job Title</th>\n<th>Job Description</th>\n<th>Contact Name</th>\n<th>Contact Email</th>\n</tr>";
+
+                model.addAttribute("restricted", restrictedJobs);
+
+                return new ModelAndView("viewjobboard","tableHeader",tableHeader);
             }
             else{
-                List<EmployerListingEntity> unrestrictedJobs = HibernateDao.displayJobList();
-                return new ModelAndView("viewjobboard","unrestricted",unrestrictedJobs);
-            }
-        }else{
 
-            return new ModelAndView("login","Invalid","Must be registered to view jobs");
+                String tableHeader = "<tr>\n<th>Company</th>\n<th>Job Title</th>\n<th>Job Description</th>\n<th>Contact Name</th>\n<th>Contact Email</th>\n</tr>";
+
+                model.addAttribute("unrestricted",unrestrictedJobs);
+
+                return new ModelAndView("viewjobboard","tableHeader",tableHeader);
+            }
+        }else if (EmployerController.loggedInEmployer != null) {
+
+            model.addAttribute("user", EmployerController.loggedInEmployer.getContactEmail());
+            model.addAttribute("unrestricted", unrestrictedJobs);
+
+            String tableHeader = "<tr>\n<th>Company</th>\n<th>Job Title</th>\n<th>Job Description</th>\n<th>Contact Name</th>\n<th>Contact Email</th>\n</tr>";
+
+            return new ModelAndView("viewjobboard", "tableHeader", tableHeader);
+        }
+        else if (AdminController.loggedInAdmin != null){
+
+                model.addAttribute("user",AdminController.loggedInAdmin.getFirstName());
+                model.addAttribute("unrestricted",unrestrictedJobs);
+
+                String tableHeader = "<tr>\n<th>Company</th>\n<th>Job Title</th>\n<th>Job Description</th>\n<th>Contact Name</th>\n<th>Contact Email</th>\n</tr>";
+
+                return new ModelAndView("viewjobboard","tableHeader",tableHeader);
+        }else{
+            return new ModelAndView("login","invalid","Must be registered user to view jobs");
         }
 
     }

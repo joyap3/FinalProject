@@ -25,9 +25,11 @@ import java.util.List;
 
 @Controller
 public class AdminController {
+
     public static AdminUsersEntity loggedInAdmin;
     private boolean isLoggedIn = false;
     private int id;
+
 
     @RequestMapping("/admin")
     public ModelAndView helloWorld(Model model) {
@@ -39,8 +41,6 @@ public class AdminController {
         }else
             return new ModelAndView("adminlogin","invalid","Please Log In");
     }
-
-
 
     @RequestMapping("/loginadmin")
     public ModelAndView loginAdmin(Model model, @RequestParam ("user") String adminUser, @RequestParam("password")String adminPassword) {
@@ -75,13 +75,12 @@ public class AdminController {
         }
     }
 
-    //this method was extracted to be used again
-    //this is a regular method and not a controller method
-
     @RequestMapping("/listjobs")
     public ModelAndView listjobs(Model model) {
         if(isLoggedIn) {
+
             model.addAttribute("user", loggedInAdmin.getFirstName());
+
             ArrayList<EmployerListingEntity> jobList = HibernateDao.displayJobList();
             return new ModelAndView("adminviewjobs", "jList", jobList);
         }
@@ -99,10 +98,6 @@ public class AdminController {
         }
     }
 
-    //this method was extracted to be used again
-    //this is a regular method and not a controller method
-
-
     @RequestMapping("/updatecrimetype")
     public ModelAndView updateUserAdmin(Model model, @RequestParam("id") int id) {
         if (isLoggedIn) {
@@ -111,6 +106,7 @@ public class AdminController {
             Session s = HibernateDao.getSession();
             UsersEntity temp = (UsersEntity) s.get(UsersEntity.class, id);
             List<UsersEntity> userList = HibernateDao.getUsersEntities(temp.getEmail());
+
             model.addAttribute("user", loggedInAdmin.getFirstName());
 
             return new ModelAndView("viewapi", "userProfile", userList.get(0));
@@ -146,6 +142,7 @@ public class AdminController {
             editCrimetype.close();
 
             ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
+
             model.addAttribute("user",loggedInAdmin.getFirstName());
 
             return new ModelAndView("adminviewusers", "uList", userList);
@@ -193,8 +190,7 @@ public class AdminController {
 
     @RequestMapping("/searchForUser")
     public ModelAndView searchUser(Model model,@RequestParam("firstName") String firstName) {
-//                                   @RequestParam("email") String email,
-//                                   @RequestParam("lastName") String lastName)
+
         if(isLoggedIn) {
             Session selectUsers = HibernateDao.getSession();
             Criteria c = selectUsers.createCriteria(UsersEntity.class);
@@ -203,7 +199,9 @@ public class AdminController {
 //        c.add(Restrictions.like("email", "%" + email + "%"));
 
             ArrayList<UsersEntity> userList = (ArrayList<UsersEntity>) c.list();
+
             model.addAttribute("user",loggedInAdmin.getFirstName());
+
             return new ModelAndView("admin", "uList", userList);
         }else{
             return new ModelAndView("adminlogin","invalid","Please Log In");
@@ -213,15 +211,16 @@ public class AdminController {
     @RequestMapping("/deleteuser")
     public ModelAndView deleteUser(Model model, @RequestParam("id") int id) {
         if (isLoggedIn) {
-            //temp object will store infor for the object we want to delete.
+
             UsersEntity temp = new UsersEntity();
             temp.setIdUsers(id);
             Session deleteUsers = HibernateDao.getSession();
-            deleteUsers.delete(temp);//delete the object from the list
-            deleteUsers.getTransaction().commit();//deletes the row from the database table
+            deleteUsers.delete(temp);
+            deleteUsers.getTransaction().commit();
             ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
 
             model.addAttribute("user",loggedInAdmin.getFirstName());
+
             return new ModelAndView("adminviewusers", "uList", userList);
         }
         else{
@@ -237,8 +236,9 @@ public class AdminController {
             EmployerListingEntity temp = new EmployerListingEntity();
             temp.setJobId(id);
             Session deleteJob = HibernateDao.getSession();
-            deleteJob.delete(temp);//delete the object from the list
-            deleteJob.getTransaction().commit();//deletes the row from the database table
+            deleteJob.delete(temp);
+            deleteJob.getTransaction().commit();
+
             ArrayList<EmployerListingEntity> jobList = HibernateDao.displayJobList();
 
             return new ModelAndView("adminviewjobs", "jList", jobList);

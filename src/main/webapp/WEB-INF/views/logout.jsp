@@ -35,19 +35,7 @@
             background-image: url("${pageContext.request.contextPath}../resource/theme/img/login2.jpg");
 
         }
-        .block2 {
-            min-height: 160px;
-            padding-top: 15px;
-            background: rgba(225, 245, 255, 0.8)
-        }
-        .center {
-            position: absolute;
-            /*  top: 0;
-              bottom: 0; */
-            left: 0;
-            right: 0;
-            margin: auto;
-        }
+
     </style>
 
 </head>

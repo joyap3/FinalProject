@@ -10,7 +10,12 @@
 <head>
     <title>Register Admin</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
+    <style>
+        body {
+            padding-top: 50px;
+            background-color: #b9b5b4;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-dark bg-inverse navbar-fixed-top navbar-full">
@@ -52,7 +57,7 @@
 <br>
 <br>
 <form name="registerAdmin" action="/registerAdmin" method="post">
-    <table border="1">
+    <table class="table table-bordered">
         <tr>
             <td>First Name:</td>
             <td><input name="firstName" required></td>

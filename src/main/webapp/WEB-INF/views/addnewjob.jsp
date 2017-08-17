@@ -29,10 +29,6 @@
             margin-bottom: 2%;
         }
 
-        .text-nowrap {
-            white-space: nowrap;
-        }
-
         .block {
             height: 460px;
             padding-top: 15px;
@@ -50,8 +46,6 @@
 
         .center {
             position: absolute;
-            /*  top: 0;
-              bottom: 0; */
             left: 0;
             right: 0;
             margin: auto;

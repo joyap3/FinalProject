@@ -49,16 +49,6 @@
 
 </head>
 <body>
-<%--<div>--%>
-<%--<nav>--%>
-<%--<a class="nav-link" href="/">Home</a> |--%>
-<%--<a class="nav-link" href="/admin">Dashboard</a> |--%>
-<%--<a class="nav-link" href="/listusers">View Users</a> |--%>
-<%--<a class="nav-link" href="/viewcriminalresults">Background Search</a> |--%>
-<%--<a class="nav-link" href="/logout">Log Out</a>--%>
-<%--</nav>--%>
-<%--</div>--%>
-
 
 <nav class="navbar navbar-inverse navbar-dark bg-inverse navbar-fixed-top navbar-full">
     <div align="left">

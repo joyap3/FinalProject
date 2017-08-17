@@ -29,10 +29,6 @@
             margin-bottom: 2%;
         }
 
-        .text-nowrap {
-            white-space: nowrap;
-        }
-
         .block {
             height: 460px;
             padding-top: 15px;

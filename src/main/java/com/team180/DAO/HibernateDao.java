@@ -30,11 +30,7 @@ public class HibernateDao {
         return (ArrayList<UsersEntity>) c.list();
     }
     public static ArrayList<EmployerListingEntity> displayJobList() {
-        //Configuration allows app to specify properties & mapping documents
-        //to use when creating the SessionFactory
-
         Session s = getSession();
-
         Criteria j = s.createCriteria(EmployerListingEntity.class);
 
         return (ArrayList<EmployerListingEntity>) j.list();
