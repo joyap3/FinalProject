@@ -20,6 +20,18 @@
     <link href="resource/theme/bs-admin/assets/css/font-awesome.css" rel="stylesheet" />
     <!-- GOOGLE FONTS-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
+    <style>
+
+        body {
+            padding-top: 50px;
+            background-color: #c8b897;
+        }
+
+
+    </style>
+
+
 </head>
 <body>
 
@@ -27,7 +39,7 @@
 
 <div id="wrapper">
     <div>
-        <nav class="navbar navbar-inverse navbar-dark bg-inverse navbar-fixed-top navbar-full">
+        <nav class="navbar navbar-light navbar-fixed-top  navbar-full"  style="background-color:black;">
             <div align="left">
             <span style="float:left">
             <ul class="nav navbar-nav">
@@ -472,12 +484,11 @@
     </div>
     <!-- /. PAGE WRAPPER  -->
 </div>
-<div class="footer">
+<div class="footer" style="background-color:black;">
 
-
+    <footer style="background-color:black;"></footer>
     <div class="row">
         <div class="col-lg-12" >
-            &copy;  2014 yourdomain.com | Design by: <a href="http://binarytheme.com" style="color:#fff;" target="_blank">www.binarytheme.com</a>
         </div>
     </div>
 </div>

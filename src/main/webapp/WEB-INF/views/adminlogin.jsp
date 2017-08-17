@@ -22,7 +22,7 @@
     <style>
         body {
             padding-top: 50px;
-            background-color: #b9b5b4;
+            background-color: #c8b897;
         }
         .spacer {
             margin-top: 2%;
