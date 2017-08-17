@@ -66,8 +66,11 @@ public ModelAndView update(Model model, @RequestParam("id") int id) {
     }
 
     @RequestMapping("/makenewjob")
-    public String makeNewJob(){
-    return "addnewjob";
+    public ModelAndView makeNewJob(Model model){
+
+    model.addAttribute("user",EmployerController.loggedInEmployer.getContactEmail());
+
+    return new ModelAndView("addnewjob","","");
     }
 
     @RequestMapping("/addajob")

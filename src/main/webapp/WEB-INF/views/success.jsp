@@ -93,7 +93,7 @@
         <span style="float:right">
         <ul class="nav navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" class="text-right" href="/admin">${user}</a>
+                <a class="nav-link" class="text-right" href="/login">${user}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Log Out</a>
