@@ -5,14 +5,14 @@ package com.team180.util;
  */
 public class Secrets {
 
-   // private String apiKey = "QG03NyTMtuhcbD7a4xTfkb7xpq";
-    //private String accountId = "128303";
+    private String apiKey = "MFwU4zvNoJzATolgaVrtsnggiu"; //uOofwSDD7zD6oxHlEyiemA62hH
+    private String accountId = "128324"; //128325
 
     public String getApiKey() {
-        return System.getProperty("API_KEY");
+        return apiKey;
     }
 
     public String getAccountId() {
-        return System.getProperty("API_ID");
+        return accountId;
     }
 }

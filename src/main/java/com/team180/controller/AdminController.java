@@ -1,6 +1,5 @@
 package com.team180.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.team180.DAO.HibernateDao;
 import com.team180.Encryption.PasswordMD5Encrypt;
 import com.team180.tables.AdminUsersEntity;
@@ -29,7 +28,7 @@ public class AdminController {
     public static AdminUsersEntity loggedInAdmin;
     private boolean isLoggedIn = false;
     private int id;
-
+    HibernateDao hd = new HibernateDao();
 
     @RequestMapping("/admin")
     public ModelAndView helloWorld(Model model) {
@@ -37,14 +36,14 @@ public class AdminController {
             isLoggedIn = true;
             model.addAttribute("user",loggedInAdmin.getFirstName());
             return new
-                    ModelAndView("admin", "adminUser", HibernateDao.getAdminEntities(loggedInAdmin.getEmail()).get(0));
+                    ModelAndView("admin", "adminUser", hd.getAdminEntities(loggedInAdmin.getEmail()).get(0));
         }else
             return new ModelAndView("adminlogin","invalid","Please Log In");
     }
 
     @RequestMapping("/loginadmin")
     public ModelAndView loginAdmin(Model model, @RequestParam ("user") String adminUser, @RequestParam("password")String adminPassword) {
-        List<AdminUsersEntity> adminUsers = HibernateDao.getAdminEntities(adminUser);
+        List<AdminUsersEntity> adminUsers = hd.getAdminEntities(adminUser);
         if (adminUsers.isEmpty()) {
             return new ModelAndView("adminlogin", "invalid", "Not a registered Administrator");
         }
@@ -67,7 +66,7 @@ public class AdminController {
     public ModelAndView listusers(Model model) {
         if (isLoggedIn) {
             model.addAttribute("user",loggedInAdmin.getFirstName());
-            ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
+            ArrayList<UsersEntity> userList = hd.displayUserList();
 
             return new ModelAndView("adminviewusers", "uList", userList);
         }else{
@@ -81,7 +80,7 @@ public class AdminController {
 
             model.addAttribute("user", loggedInAdmin.getFirstName());
 
-            ArrayList<EmployerListingEntity> jobList = HibernateDao.displayJobList();
+            ArrayList<EmployerListingEntity> jobList = hd.displayJobList();
             return new ModelAndView("adminviewjobs", "jList", jobList);
         }
         else{
@@ -105,7 +104,7 @@ public class AdminController {
 
             Session s = HibernateDao.getSession();
             UsersEntity temp = (UsersEntity) s.get(UsersEntity.class, id);
-            List<UsersEntity> userList = HibernateDao.getUsersEntities(temp.getEmail());
+            List<UsersEntity> userList = hd.getUsersEntities(temp.getEmail());
 
             model.addAttribute("user", loggedInAdmin.getFirstName());
 
@@ -141,7 +140,7 @@ public class AdminController {
             editCrimetype.getTransaction().commit();
             editCrimetype.close();
 
-            ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
+            ArrayList<UsersEntity> userList = hd.displayUserList();
 
             model.addAttribute("user",loggedInAdmin.getFirstName());
 
@@ -217,7 +216,7 @@ public class AdminController {
             Session deleteUsers = HibernateDao.getSession();
             deleteUsers.delete(temp);
             deleteUsers.getTransaction().commit();
-            ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
+            ArrayList<UsersEntity> userList = hd.displayUserList();
 
             model.addAttribute("user",loggedInAdmin.getFirstName());
 
@@ -239,7 +238,7 @@ public class AdminController {
             deleteJob.delete(temp);
             deleteJob.getTransaction().commit();
 
-            ArrayList<EmployerListingEntity> jobList = HibernateDao.displayJobList();
+            ArrayList<EmployerListingEntity> jobList = hd.displayJobList();
 
             return new ModelAndView("adminviewjobs", "jList", jobList);
         }else{

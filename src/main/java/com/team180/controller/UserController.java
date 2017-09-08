@@ -21,6 +21,8 @@ public class UserController {
 
     private int id;
 
+    HibernateDao hd = new HibernateDao();
+
     @RequestMapping("/registerUser")
 
     public ModelAndView registerUser() {
@@ -55,7 +57,7 @@ public class UserController {
         newUser.setZip(zip);
         newUser.setPhoneNumber(phoneNum);
 
-        ModelAndView alert = HibernateDao.validateEmail(email);
+        ModelAndView alert = hd.validateEmail(email);
         if (alert != null) {
             return alert;
         }
@@ -68,7 +70,7 @@ public class UserController {
         s.getTransaction().commit();
         s.close();
 
-        List<UsersEntity> userList = HibernateDao.getUsersEntities(email);
+        List<UsersEntity> userList = hd.getUsersEntities(email);
         loggedInUser = userList.get(0);
         model.addAttribute("user",loggedInUser.getEmail());
         return new
@@ -81,7 +83,7 @@ public class UserController {
 
         Session s = HibernateDao.getSession();
         UsersEntity temp = (UsersEntity) s.get(UsersEntity.class,id);
-        List<UsersEntity> userList = HibernateDao.getUsersEntities(temp.getEmail());
+        List<UsersEntity> userList = hd.getUsersEntities(temp.getEmail());
 
         model.addAttribute("user",loggedInUser.getEmail());
 
@@ -110,7 +112,7 @@ public class UserController {
         s.getTransaction().commit();
         s.close();
 
-        List<UsersEntity> listResult = HibernateDao.getUsersEntities(email);
+        List<UsersEntity> listResult = hd.getUsersEntities(email);
 
         model.addAttribute("user",loggedInUser.getEmail());
 
@@ -120,7 +122,7 @@ public class UserController {
     @RequestMapping("/viewJobBoard")
     public ModelAndView viewJobBoard(Model model){
 
-        List<EmployerListingEntity> unrestrictedJobs = HibernateDao.displayJobList();
+        List<EmployerListingEntity> unrestrictedJobs = hd.displayJobList();
 
         if(loggedInUser != null){
 
@@ -133,7 +135,7 @@ public class UserController {
             }
             if(loggedInUser.getCrimetype().equalsIgnoreCase("violent")){
 
-                List<EmployerListingEntity> restrictedJobs = HibernateDao.displayRestrictedList();
+                List<EmployerListingEntity> restrictedJobs = hd.displayRestrictedList();
 
                 String tableHeader = "<tr>\n<th>Company</th>\n<th>Job Title</th>\n<th>Job Description</th>\n<th>Contact Name</th>\n<th>Contact Email</th>\n</tr>";
 

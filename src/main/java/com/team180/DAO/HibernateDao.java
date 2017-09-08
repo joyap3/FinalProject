@@ -3,6 +3,7 @@ package com.team180.DAO;
 import com.team180.tables.AdminUsersEntity;
 import com.team180.tables.EmployerListingEntity;
 import com.team180.tables.UsersEntity;
+import com.team180.util.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HibernateDao {
+public class HibernateDao implements Dao {
 
     public static Session getSession() {
         Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
@@ -23,26 +24,28 @@ public class HibernateDao {
         return s;
     }
 
-    public static ArrayList<UsersEntity> displayUserList() {
-        Session s = getSession();
+    public ArrayList<UsersEntity> displayUserList() {
+//        Session s = getSession();
+        Session s = HibernateUtil.getSession();
+
         Criteria c = s.createCriteria(UsersEntity.class);
 
         return (ArrayList<UsersEntity>) c.list();
     }
-    public static ArrayList<EmployerListingEntity> displayJobList() {
+    public ArrayList<EmployerListingEntity> displayJobList() {
         Session s = getSession();
         Criteria j = s.createCriteria(EmployerListingEntity.class);
 
         return (ArrayList<EmployerListingEntity>) j.list();
     }
 
-    public static ArrayList<AdminUsersEntity> displayAdminList(){
+    public ArrayList<AdminUsersEntity> displayAdminList(){
         Session s = getSession();
         Criteria c = s.createCriteria(AdminUsersEntity.class);
         return (ArrayList<AdminUsersEntity>) c.list();
     }
 
-    public static List<UsersEntity> getUsersEntities(@RequestParam("user") String userName) {
+    public List<UsersEntity> getUsersEntities(@RequestParam("user") String userName) {
         Session session = getSession();
 
         String hql = "FROM UsersEntity WHERE email= :username";
@@ -52,7 +55,7 @@ public class HibernateDao {
 
         return (List<UsersEntity>) getUserInfo.getResultList();
     }
-    public static List<AdminUsersEntity> getAdminEntities(@RequestParam("adminuser") String userName){
+    public List<AdminUsersEntity> getAdminEntities(@RequestParam("adminuser") String userName){
         Session session = getSession();
 
         String hql = "FROM AdminUsersEntity WHERE email= :username";
@@ -63,7 +66,7 @@ public class HibernateDao {
         return (List<AdminUsersEntity>) getAdminInfo.getResultList();
     }
 
-    public static List<EmployerListingEntity> getEmployerListingEntities(@RequestParam("user") String userName) {
+    public List<EmployerListingEntity> getEmployerListingEntities(@RequestParam("user") String userName) {
         Session session = getSession();
 
         String hql = "FROM EmployerListingEntity WHERE contactEmail= :username";
@@ -74,16 +77,18 @@ public class HibernateDao {
         return (List<EmployerListingEntity>) getUserInfo.getResultList();
     }
 
-    public static List<EmployerListingEntity> displayRestrictedList(){
+    public List<EmployerListingEntity> displayRestrictedList(){
 
         String hql = "FROM EmployerListingEntity WHERE crimetype = 'violent'";
         Query getListing = getSession().createQuery(hql);
         return (List<EmployerListingEntity>) getListing.getResultList();
     }
 
-    public static ModelAndView validateEmail(@RequestParam("email") String email) {
+    public ModelAndView validateEmail(@RequestParam("email") String email) {
 
-        ArrayList<UsersEntity> userList = HibernateDao.displayUserList();
+        HibernateDao hd = new HibernateDao();
+
+        ArrayList<UsersEntity> userList = hd.displayUserList();
 
         for (int i = 0; i < userList.size(); i++) {
             if (userList.get(i).getEmail().equalsIgnoreCase(email)) {

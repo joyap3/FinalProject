@@ -5,39 +5,39 @@ package com.team180.controller;
  */
 
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.team180.DAO.HibernateDao;
 import com.team180.Encryption.PasswordMD5Encrypt;
 import com.team180.tables.AdminUsersEntity;
 import com.team180.tables.EmployerListingEntity;
 import com.team180.tables.UsersEntity;
-import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import java.sql.Date;
+
 import java.util.List;
 
 @Controller
 public class HomeController {
 
-
+HibernateDao hd = new HibernateDao();
 
     @RequestMapping("/")
-
+/**
+ * This function does
+ */
     public ModelAndView helloWorld() {
         if(UserController.loggedInUser != null){
-            List<UsersEntity> getUser = HibernateDao.getUsersEntities(UserController.loggedInUser.getEmail());
+            List<UsersEntity> getUser = hd.getUsersEntities(UserController.loggedInUser.getEmail());
             return new ModelAndView("welcome","profile",getUser.get(0).getEmail());
         }
         if(EmployerController.loggedInEmployer != null){
-            List<EmployerListingEntity> getEmployer = HibernateDao.getEmployerListingEntities(EmployerController.loggedInEmployer.getContactEmail());
+            List<EmployerListingEntity> getEmployer = hd.getEmployerListingEntities(EmployerController.loggedInEmployer.getContactEmail());
             return new ModelAndView("welcome", "profile",getEmployer.get(0).getContactEmail());
         }
         if (AdminController.loggedInAdmin != null) {
-            List<AdminUsersEntity> getAdmin = HibernateDao.getAdminEntities(AdminController.loggedInAdmin.getEmail());
+            List<AdminUsersEntity> getAdmin = hd.getAdminEntities(AdminController.loggedInAdmin.getEmail());
             return new ModelAndView("welcome","profile",getAdmin.get(0).getEmail());
         }else {
             return new
@@ -50,16 +50,16 @@ public class HomeController {
     @RequestMapping("/login")
     public ModelAndView login(Model model) {
         if (AdminController.loggedInAdmin != null){
-            List<AdminUsersEntity> adminList = HibernateDao.getAdminEntities(AdminController.loggedInAdmin.getEmail());
+            List<AdminUsersEntity> adminList = hd.getAdminEntities(AdminController.loggedInAdmin.getEmail());
             return new ModelAndView("admin","adminUser",adminList.get(0));
         }
         if (UserController.loggedInUser != null){
-            List<UsersEntity> userList = HibernateDao.getUsersEntities(UserController.loggedInUser.getEmail());
+            List<UsersEntity> userList = hd.getUsersEntities(UserController.loggedInUser.getEmail());
             model.addAttribute("user",UserController.loggedInUser.getEmail());
            return new ModelAndView("userprofile", "userProfile", userList.get(0));
         }
         if(EmployerController.loggedInEmployer != null){
-            List<EmployerListingEntity> empList = HibernateDao.getEmployerListingEntities(EmployerController.loggedInEmployer.getContactEmail());
+            List<EmployerListingEntity> empList = hd.getEmployerListingEntities(EmployerController.loggedInEmployer.getContactEmail());
             model.addAttribute("user",EmployerController.loggedInEmployer.getContactEmail());
             return new ModelAndView("employerprofile", "employerProfile",empList.get(0));
         }
@@ -72,14 +72,14 @@ public class HomeController {
 
         if(AdminController.loggedInAdmin != null){
             model.addAttribute("user",AdminController.loggedInAdmin.getFirstName());
-            return new ModelAndView("admin","adminUser",HibernateDao.getAdminEntities(AdminController.loggedInAdmin.getEmail()).get(0));
+            return new ModelAndView("admin","adminUser", hd.getAdminEntities(AdminController.loggedInAdmin.getEmail()).get(0));
         }
 
-        List<UsersEntity> userList = HibernateDao.getUsersEntities(userName);
+        List<UsersEntity> userList = hd.getUsersEntities(userName);
 
         if(userList.isEmpty()){
 
-            List<EmployerListingEntity> employerList = HibernateDao.getEmployerListingEntities(userName);
+            List<EmployerListingEntity> employerList = hd.getEmployerListingEntities(userName);
 
             if(employerList.isEmpty()){
                 return new ModelAndView("login","invalid","User does not exist, please register");
