@@ -16,13 +16,13 @@ import java.util.List;
 
 public class HibernateDao implements Dao {
 
-    public static Session getSession() {
-        Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
-        SessionFactory sessionFact = cfg.buildSessionFactory();
-        Session s = sessionFact.openSession();
-        s.beginTransaction();
-        return s;
-    }
+//    public static Session getSession() {
+//        Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
+//        SessionFactory sessionFact = cfg.buildSessionFactory();
+//        Session s = sessionFact.openSession();
+//        s.beginTransaction();
+//        return s;
+//    }
 
     public ArrayList<UsersEntity> displayUserList() {
 //        Session s = getSession();
@@ -33,20 +33,20 @@ public class HibernateDao implements Dao {
         return (ArrayList<UsersEntity>) c.list();
     }
     public ArrayList<EmployerListingEntity> displayJobList() {
-        Session s = getSession();
+        Session s = HibernateUtil.getSession();
         Criteria j = s.createCriteria(EmployerListingEntity.class);
 
         return (ArrayList<EmployerListingEntity>) j.list();
     }
 
     public ArrayList<AdminUsersEntity> displayAdminList(){
-        Session s = getSession();
+        Session s = HibernateUtil.getSession();
         Criteria c = s.createCriteria(AdminUsersEntity.class);
         return (ArrayList<AdminUsersEntity>) c.list();
     }
 
     public List<UsersEntity> getUsersEntities(@RequestParam("user") String userName) {
-        Session session = getSession();
+        Session session = HibernateUtil.getSession();
 
         String hql = "FROM UsersEntity WHERE email= :username";
 
@@ -56,7 +56,7 @@ public class HibernateDao implements Dao {
         return (List<UsersEntity>) getUserInfo.getResultList();
     }
     public List<AdminUsersEntity> getAdminEntities(@RequestParam("adminuser") String userName){
-        Session session = getSession();
+        Session session = HibernateUtil.getSession();
 
         String hql = "FROM AdminUsersEntity WHERE email= :username";
 
@@ -67,7 +67,7 @@ public class HibernateDao implements Dao {
     }
 
     public List<EmployerListingEntity> getEmployerListingEntities(@RequestParam("user") String userName) {
-        Session session = getSession();
+        Session session = HibernateUtil.getSession();
 
         String hql = "FROM EmployerListingEntity WHERE contactEmail= :username";
 
@@ -80,7 +80,7 @@ public class HibernateDao implements Dao {
     public List<EmployerListingEntity> displayRestrictedList(){
 
         String hql = "FROM EmployerListingEntity WHERE crimetype = 'violent'";
-        Query getListing = getSession().createQuery(hql);
+        Query getListing = HibernateUtil.getSession().createQuery(hql);
         return (List<EmployerListingEntity>) getListing.getResultList();
     }
 
