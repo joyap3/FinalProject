@@ -90,7 +90,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "phone_number", nullable = true, length = 20)
+    @Column(name = "phone_number", nullable = true, length = 10)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -130,7 +130,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "crimetype", nullable = true)
+    @Column(name = "crimetype", nullable = true, length = 45)
     public String getCrimetype() {
         return crimetype;
     }

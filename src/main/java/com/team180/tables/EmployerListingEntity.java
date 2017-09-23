@@ -86,7 +86,7 @@ public class EmployerListingEntity {
     }
 
     @Basic
-    @Column(name = "crimetype", nullable = true)
+    @Column(name = "crimetype", nullable = false, length = 45)
     public String getCrimetype() {
         return crimetype;
     }

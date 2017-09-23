@@ -27,7 +27,7 @@
             <column name="job_description" sql-type="mediumtext"/>
         </property>
         <property name="crimetype">
-            <column name="crimetype" sql-type="tinyint(4)" not-null="true"/>
+            <column name="crimetype" sql-type="varchar(45)" length="45"/>
         </property>
         <property name="password">
             <column name="password" sql-type="varchar(45)" length="45"/>

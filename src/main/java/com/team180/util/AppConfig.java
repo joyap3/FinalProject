@@ -1,8 +1,9 @@
 package com.team180.util;
 
 /**
- * Created by joyapuryear on 8/7/17.
+ * Created by Steve Suzio, Joya Puryear, Kurt Wunderlich, and Eric Mackey on 8/9/17.
  */
+
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -5,6 +5,7 @@ import com.team180.DAO.HibernateDao;
 import com.team180.Encryption.PasswordMD5Encrypt;
 import com.team180.tables.EmployerListingEntity;
 import com.team180.tables.UsersEntity;
+import com.team180.util.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,7 +46,7 @@ public class UserController {
                                      @RequestParam("email") String email, @RequestParam("password") String password,
                                      @RequestParam("skillSet") String skillSet) {
 
-        Session s = HibernateDao.getSession();
+        Session s = HibernateUtil.getSession();
 
         UsersEntity newUser = new UsersEntity();
 
@@ -81,7 +82,7 @@ public class UserController {
     public ModelAndView update(Model model, @RequestParam ("id")int id){
         this.id = id;
 
-        Session s = HibernateDao.getSession();
+        Session s = HibernateUtil.getSession();
         UsersEntity temp = (UsersEntity) s.get(UsersEntity.class,id);
         List<UsersEntity> userList = hd.getUsersEntities(temp.getEmail());
 
@@ -95,7 +96,7 @@ public class UserController {
                                    @RequestParam("address") String address, @RequestParam("zip") int zip, @RequestParam("phoneNumber") String phoneNum,
                                    @RequestParam("email") String email, @RequestParam("skillSet") String skillSet){
 
-        Session s = HibernateDao.getSession();
+        Session s = HibernateUtil.getSession();
 
         UsersEntity temp = (UsersEntity) s.get(UsersEntity.class,id);
         temp.setFirstName(fname);

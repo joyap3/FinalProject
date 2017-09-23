@@ -3,6 +3,7 @@ package com.team180.controller;
 import com.team180.DAO.HibernateDao;
 import com.team180.Encryption.PasswordMD5Encrypt;
 import com.team180.tables.EmployerListingEntity;
+import com.team180.util.HibernateUtil;
 import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +42,7 @@ public class EmployerController {
                                          @RequestParam("contactEmail") String email, @RequestParam("jobDescription") String jDescription,
                                          @RequestParam("crimetype") String cType, @RequestParam("password") String password) {
 
-        Session s = HibernateDao.getSession();
+        Session s = HibernateUtil.getSession();
 
         EmployerListingEntity newEmployer = new EmployerListingEntity();
 
@@ -77,7 +78,7 @@ public class EmployerController {
 public ModelAndView update(Model model, @RequestParam("id") int id) {
     this.id = id;
 
-    Session s = HibernateDao.getSession();
+    Session s = HibernateUtil.getSession();
 
     EmployerListingEntity temp = (EmployerListingEntity) s.get(EmployerListingEntity.class, id);
 
@@ -94,7 +95,7 @@ public ModelAndView update(Model model, @RequestParam("id") int id) {
                                    @RequestParam("contactEmail") String email, @RequestParam("jobDescription") String jDescription,
                                    @RequestParam("crimetype") String cType) {
 
-        Session s = HibernateDao.getSession();
+        Session s = HibernateUtil.getSession();
 
         EmployerListingEntity temp = (EmployerListingEntity) s.get(EmployerListingEntity.class, id);
         temp.setCompany(company);
@@ -129,7 +130,7 @@ public ModelAndView update(Model model, @RequestParam("id") int id) {
                                 @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
                                 @RequestParam("jobDescription") String jDescription,
                                 @RequestParam("crimetype") String cType){
-    Session s = HibernateDao.getSession();
+    Session s = HibernateUtil.getSession();
 
     EmployerListingEntity addJob = new EmployerListingEntity();
     addJob.setCompany(company);
