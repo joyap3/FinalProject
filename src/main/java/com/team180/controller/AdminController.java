@@ -32,6 +32,7 @@ public class AdminController {
     HibernateDao hd = new HibernateDao();
 
     @RequestMapping("/admin")
+    //shows the admin dashboard with the specified admin information
     public ModelAndView helloWorld(Model model) {
         if (loggedInAdmin != null) {
             isLoggedIn = true;
@@ -43,6 +44,7 @@ public class AdminController {
     }
 
     @RequestMapping("/listusers")
+    //displays the entire list of users in a table format  from the user table in the DB
     public ModelAndView listusers(Model model) {
         if (isLoggedIn) {
             model.addAttribute("user",loggedInAdmin.getFirstName());
@@ -55,6 +57,7 @@ public class AdminController {
     }
 
     @RequestMapping("/listjobs")
+    //displays the entire list of jobs available on the job board in a table format from the employer table in the DB
     public ModelAndView listjobs(Model model) {
         if(isLoggedIn) {
 
@@ -78,6 +81,7 @@ public class AdminController {
     }
 
     @RequestMapping("/updatecrimetype")
+    //When updating the users crimetype from the admin dashboard this method pre-populates the input fields
     public ModelAndView updateUserAdmin(Model model, @RequestParam("id") int id) {
         if (isLoggedIn) {
             this.id = id;
@@ -95,6 +99,7 @@ public class AdminController {
     }
 
     @RequestMapping("/crimetype")
+    //Updates the users information and includes setting the crimetype when updating from the admin dashboard.
     public ModelAndView editCrimetype(Model model,@RequestParam("firstName") String fname, @RequestParam("lastName") String lname,
                                       @RequestParam("middleName") String midName, @RequestParam("birthday") Date bday,
                                       @RequestParam("address") String address, @RequestParam("zip") int zip, @RequestParam("phoneNumber") String phoneNum,
@@ -102,7 +107,7 @@ public class AdminController {
         if (isLoggedIn) {
             Session editCrimetype = HibernateUtil.getSession();
 
-            //temp object will store infor for the object we want to delete.
+            //temp object will store info for the object we want to update.
             UsersEntity temp = editCrimetype.get(UsersEntity.class, id);
 
             temp.setFirstName(fname);
@@ -122,7 +127,7 @@ public class AdminController {
 
             ArrayList<UsersEntity> userList = hd.displayUserList();
 
-            model.addAttribute("user",loggedInAdmin.getFirstName());
+            model.addAttribute("user",loggedInAdmin.getFirstName()); //displays admins first name in nav bar
 
             return new ModelAndView("adminviewusers", "uList", userList);
         } else{
@@ -130,9 +135,10 @@ public class AdminController {
         }
     }
     @RequestMapping ("/goToRegisterAdmin")
+    //directs user to the register admin page
     public ModelAndView goToRegisterAdmin(Model model){
         if(isLoggedIn){
-            model.addAttribute("user", loggedInAdmin.getFirstName());
+            model.addAttribute("user", loggedInAdmin.getFirstName()); //displays admins first name in nav bar
             return new ModelAndView("registeradmin","user",loggedInAdmin.getFirstName());
         }
         else{
@@ -141,6 +147,7 @@ public class AdminController {
     }
 
     @RequestMapping ("/registerAdmin")
+    //registers a new admin from the admin dashboard
     public ModelAndView registerAdmin(Model model,@RequestParam("firstName")String firstName, @RequestParam("lastName")String lastName,
                                       @RequestParam("email")String email,@RequestParam("password")String password){
         if (isLoggedIn) {
@@ -168,6 +175,7 @@ public class AdminController {
     }
 
     @RequestMapping("/searchForUser")
+    //This method still needs to be updated and implemented -- Currently not being used
     public ModelAndView searchUser(Model model,@RequestParam("firstName") String firstName) {
 
         if(isLoggedIn) {
@@ -188,6 +196,7 @@ public class AdminController {
     }
 
     @RequestMapping("/deleteuser")
+    //Allows the admin to delete any user from the table
     public ModelAndView deleteUser(Model model, @RequestParam("id") int id) {
         if (isLoggedIn) {
 
@@ -209,6 +218,7 @@ public class AdminController {
 
 
     @RequestMapping("/deletejob")
+    //Allows the admin to delete any job from the table
     public ModelAndView deleteJob(@RequestParam("id") int id) {
         if (isLoggedIn) {
 

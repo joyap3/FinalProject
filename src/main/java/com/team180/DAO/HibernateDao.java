@@ -25,7 +25,7 @@ public class HibernateDao implements Dao {
     }
 
     public ArrayList<UsersEntity> displayUserList() {
-//        Session s = getSession();
+
         Session s = getSession();
 
         Criteria c = s.createCriteria(UsersEntity.class);
@@ -45,6 +45,7 @@ public class HibernateDao implements Dao {
         return (ArrayList<AdminUsersEntity>) c.list();
     }
 
+    //Finds specified user from the table by matching the entered username from the form to the usernames in the table
     public List<UsersEntity> getUsersEntities(@RequestParam("user") String userName) {
         Session session = getSession();
 
@@ -55,6 +56,7 @@ public class HibernateDao implements Dao {
 
         return (List<UsersEntity>) getUserInfo.getResultList();
     }
+    //Finds specified user from the table by matching the entered username from the form to the usernames in the table
     public List<AdminUsersEntity> getAdminEntities(@RequestParam("adminuser") String userName){
         Session session = getSession();
 
@@ -65,7 +67,7 @@ public class HibernateDao implements Dao {
 
         return (List<AdminUsersEntity>) getAdminInfo.getResultList();
     }
-
+    //Finds specified user from the table by matching the entered username from the form to the usernames in the table
     public List<EmployerListingEntity> getEmployerListingEntities(@RequestParam("user") String userName) {
         Session session = getSession();
 
@@ -77,6 +79,7 @@ public class HibernateDao implements Dao {
         return (List<EmployerListingEntity>) getUserInfo.getResultList();
     }
 
+    //If the crimetype is set to 'violent' the method will return all jobs matching that listing
     public List<EmployerListingEntity> displayRestrictedList(){
 
         String hql = "FROM EmployerListingEntity WHERE crimetype = 'violent'";
@@ -84,6 +87,7 @@ public class HibernateDao implements Dao {
         return (List<EmployerListingEntity>) getListing.getResultList();
     }
 
+    //validates email to check if already registered when users are registering
     public ModelAndView validateEmail(@RequestParam("email") String email) {
 
         HibernateDao hd = new HibernateDao();

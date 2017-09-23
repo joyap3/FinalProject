@@ -25,7 +25,7 @@ public class UserController {
     HibernateDao hd = new HibernateDao();
 
     @RequestMapping("/registerUser")
-
+    //redirects the user to the registration page
     public ModelAndView registerUser() {
         if(loggedInUser != null){
             return new ModelAndView("userregistration","user",loggedInUser.getEmail());
@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @RequestMapping("/insertUser")
-
+    //creates a new user and registers them to the user table in the DB
     public ModelAndView registerUser(Model model, @RequestParam("firstName") String fname, @RequestParam("lastName") String lname,
                                      @RequestParam("middleName") String midName, @RequestParam("birthday") Date bday,
                                      @RequestParam("address") String address, @RequestParam("zip") int zip, @RequestParam("phoneNumber") String phoneNum,
@@ -57,12 +57,10 @@ public class UserController {
         newUser.setAddress(address);
         newUser.setZip(zip);
         newUser.setPhoneNumber(phoneNum);
-
-        ModelAndView alert = hd.validateEmail(email);
+        ModelAndView alert = hd.validateEmail(email); //checks to see if email has already been registered
         if (alert != null) {
             return alert;
         }
-
         newUser.setEmail(email);
         newUser.setPassword(PasswordMD5Encrypt.PasswordMD5Encrypt(password));
         newUser.setSkillset(skillSet);
@@ -79,6 +77,7 @@ public class UserController {
     }
 
     @RequestMapping("/updateUserInfo")
+    //gets the current user info and displays them in the input forms on the update user page
     public ModelAndView update(Model model, @RequestParam ("id")int id){
         this.id = id;
 
@@ -91,6 +90,7 @@ public class UserController {
         return new ModelAndView("updateuserinfo","userProfile",userList.get(0));
     }
     @RequestMapping("/update")
+    //writes the updated information from the user to the user table to update user information
     public ModelAndView updateItem(Model model, @RequestParam("firstName") String fname, @RequestParam("lastName") String lname,
                                    @RequestParam("middleName") String midName, @RequestParam("birthday") Date bday,
                                    @RequestParam("address") String address, @RequestParam("zip") int zip, @RequestParam("phoneNumber") String phoneNum,
@@ -121,7 +121,11 @@ public class UserController {
     }
 
     @RequestMapping("/viewJobBoard")
+    /*Depending on what the administrator set the users crime type to, the viewJobBoard method will display specific jobs
+      if no crime type has been set, no jobs will be displayed. if violent crime type is set, a restricted job board is displayed.
+    */
     public ModelAndView viewJobBoard(Model model){
+        String tableHeader = "<tr>\n<th>Company</th>\n<th>Job Title</th>\n<th>Job Description</th>\n<th>Contact Name</th>\n<th>Contact Email</th>\n</tr>";
 
         List<EmployerListingEntity> unrestrictedJobs = hd.displayJobList();
 
@@ -129,44 +133,41 @@ public class UserController {
 
             model.addAttribute("user",loggedInUser.getEmail());
 
+            //Until the crime type has been set by Admin, the user cannot view available jobs
             if (loggedInUser.getCrimetype() == null){
-                String message = "Your profile is under review, please check back in 24-48 hours";
+                String message = "Your profile needs to be reviewed by an Administrator before you are able to view available jobs. This process usually takes 24-48 hours to complete, please check back soon!";
 
                 return new ModelAndView("viewjobboard","message",message);
             }
+            //shows only jobs that are willing to hire "violent" background types
             if(loggedInUser.getCrimetype().equalsIgnoreCase("violent")){
 
                 List<EmployerListingEntity> restrictedJobs = hd.displayRestrictedList();
 
-                String tableHeader = "<tr>\n<th>Company</th>\n<th>Job Title</th>\n<th>Job Description</th>\n<th>Contact Name</th>\n<th>Contact Email</th>\n</tr>";
-
                 model.addAttribute("restricted", restrictedJobs);
 
-                return new ModelAndView("viewjobboard","tableHeader",tableHeader);
+                return new ModelAndView("viewjobboard","tableHeader", tableHeader);
             }
             else{
 
-                String tableHeader = "<tr>\n<th>Company</th>\n<th>Job Title</th>\n<th>Job Description</th>\n<th>Contact Name</th>\n<th>Contact Email</th>\n</tr>";
-
                 model.addAttribute("unrestricted",unrestrictedJobs);
 
-                return new ModelAndView("viewjobboard","tableHeader",tableHeader);
+                return new ModelAndView("viewjobboard","tableHeader", tableHeader);
             }
-        }else if (EmployerController.loggedInEmployer != null) {
+        }
+        //registered employers can view all jobs available
+        else if (EmployerController.loggedInEmployer != null) {
 
             model.addAttribute("user", EmployerController.loggedInEmployer.getContactEmail());
             model.addAttribute("unrestricted", unrestrictedJobs);
 
-            String tableHeader = "<tr>\n<th>Company</th>\n<th>Job Title</th>\n<th>Job Description</th>\n<th>Contact Name</th>\n<th>Contact Email</th>\n</tr>";
-
             return new ModelAndView("viewjobboard", "tableHeader", tableHeader);
         }
+        //admin users can view all jobs available
         else if (AdminController.loggedInAdmin != null){
 
                 model.addAttribute("user",AdminController.loggedInAdmin.getFirstName());
                 model.addAttribute("unrestricted",unrestrictedJobs);
-
-                String tableHeader = "<tr>\n<th>Company</th>\n<th>Job Title</th>\n<th>Job Description</th>\n<th>Contact Name</th>\n<th>Contact Email</th>\n</tr>";
 
                 return new ModelAndView("viewjobboard","tableHeader",tableHeader);
         }else{

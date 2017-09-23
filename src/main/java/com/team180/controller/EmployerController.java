@@ -24,6 +24,7 @@ public class EmployerController {
 
 
     @RequestMapping("/registerEmployer")
+    //redirects the user to the register employer view page
     public ModelAndView registerEmployer(){
 
         if(loggedInEmployer != null) {
@@ -35,8 +36,8 @@ public class EmployerController {
         }
     }
 
-    @RequestMapping("/insertEmployer")//this was also added and might need to be removed
-
+    @RequestMapping("/insertEmployer")
+    //Creates a new employer in the employer table in the DB
     public ModelAndView registerEmployer(Model model, @RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
                                          @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
                                          @RequestParam("contactEmail") String email, @RequestParam("jobDescription") String jDescription,
@@ -52,13 +53,10 @@ public class EmployerController {
         newEmployer.setContactPhone(cPhone);
         newEmployer.setJobDescription(jDescription);
         newEmployer.setCrimetype(cType);
-
-
-        ModelAndView alert = hd.validateEmail(email);
+        ModelAndView alert = hd.validateEmail(email); //checks to see if email is already taken
         if (alert != null) {
             return alert;
         }
-
         newEmployer.setContactEmail(email);
         newEmployer.setPassword(PasswordMD5Encrypt.PasswordMD5Encrypt(password));
 
@@ -75,6 +73,7 @@ public class EmployerController {
     }
 
 @RequestMapping("/updateEmployerInfo")
+//gets the employer information that matches the current logged in employer and directs them to the update page
 public ModelAndView update(Model model, @RequestParam("id") int id) {
     this.id = id;
 
@@ -90,6 +89,7 @@ public ModelAndView update(Model model, @RequestParam("id") int id) {
 }
 
     @RequestMapping("/updateemployer")
+    //user can edit their registered information to update their current information
     public ModelAndView updateItem(Model model, @RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
                                    @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
                                    @RequestParam("contactEmail") String email, @RequestParam("jobDescription") String jDescription,
@@ -126,6 +126,7 @@ public ModelAndView update(Model model, @RequestParam("id") int id) {
     }
 
     @RequestMapping("/addajob")
+    //Employer can create a new job posting where the system will automatically set the current email and password for the logged in user.
     public ModelAndView addAjob(Model model, @RequestParam("company") String company, @RequestParam("jobTitle") String jTitle,
                                 @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
                                 @RequestParam("jobDescription") String jDescription,
@@ -136,10 +137,10 @@ public ModelAndView update(Model model, @RequestParam("id") int id) {
     addJob.setCompany(company);
     addJob.setJobTitle(jTitle);
     addJob.setContactName(cName);
-    addJob.setContactEmail(loggedInEmployer.getContactEmail());
+    addJob.setContactEmail(loggedInEmployer.getContactEmail()); //already registered in DB so auto sets to current logged in user.
     addJob.setContactPhone(cPhone);
     addJob.setJobDescription(jDescription);
-    addJob.setPassword(PasswordMD5Encrypt.PasswordMD5Encrypt(loggedInEmployer.getPassword()));
+    addJob.setPassword(PasswordMD5Encrypt.PasswordMD5Encrypt(loggedInEmployer.getPassword())); //sets to current logged in users password
     addJob.setCrimetype(cType);
 
     s.save(addJob);
@@ -154,6 +155,7 @@ public ModelAndView update(Model model, @RequestParam("id") int id) {
 
 
     @RequestMapping("/viewjoblistings")
+    //the query will get all jobs listed by the employer and display them in a formatted table
     public ModelAndView viewJobListings(Model model){
         List<EmployerListingEntity> jobList = hd.getEmployerListingEntities(loggedInEmployer.getContactEmail());
 

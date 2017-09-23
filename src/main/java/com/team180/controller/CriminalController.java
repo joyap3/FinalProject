@@ -26,15 +26,17 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
+//API URL http://www.imsasllc.com/docs/api/criminal
+
 @Controller
 public class CriminalController {
 
-  Secrets secretKeys = new Secrets();
+  Secrets secretKeys = new Secrets(); //Secrets class added to gitIgnore to hide API keys and account ID
 
 
   @RequestMapping("/showAPI")
   public ModelAndView CriminalDB(@RequestParam("firstName") String fname, @RequestParam("lastName") String lname, Model model) {
-    String hi = "Welcome";
+    String queryResult;
     String firstName = "";
     String lastName = "";
     String dob = "";
@@ -55,10 +57,11 @@ public class CriminalController {
 
     try {
       String criminalDBUrl = "https://api.imsasllc.com/v3/";
-      hi = queryCriminalDB(criminalDBUrl, requestData);
-      JSONObject json = null;
 
-      json = new JSONObject(hi);
+      queryResult = queryCriminalDB(criminalDBUrl, requestData);
+      JSONObject json;
+
+      json = new JSONObject(queryResult);
 
       JSONArray records = json.getJSONObject("Results").getJSONArray("Records");
       ArrayList<CriminalObjects> criminal = new ArrayList<CriminalObjects>();
@@ -70,6 +73,8 @@ public class CriminalController {
         criminal.add(new CriminalObjects());
         criminal.get(i).setFirstName(json.getJSONObject("Results").getJSONObject("Inputs").getString("FirstName"));
         criminal.get(i).setLastName(json.getJSONObject("Results").getJSONObject("Inputs").getString("LastName"));
+
+        //if statements check through json objects and arrays to see if specified record exists (i.e. DOB, Sex, Race, etc.)
 
         if (json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).has("DOB"))
           criminal.get(i).setDob(json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).get("DOB").toString());
@@ -85,14 +90,14 @@ public class CriminalController {
           criminal.get(i).setRace(json.getJSONObject("Results").getJSONArray("Records").getJSONObject(i).getJSONArray("Offenses").getJSONObject(0).getString("Jurisdiction"));
 
       }
-//      System.out.println(criminal);
-      model.addAttribute("cList", criminal);
-      model.addAttribute("allthejson", hi);
+
+      model.addAttribute("cList", criminal); //This is used to get the info for all users matching first and last name and displaying it in a table
+      model.addAttribute("allthejson", queryResult);
     } catch (JSONException e) {
       e.printStackTrace();
     }
 
-
+    //The model dbresult is not used in the criminalresult page...model attribute of cList is used instead
     return new ModelAndView("criminalresult", "dbresult", firstName + " " + lastName + "" + dob + " " + cat + " " + sex + " " + race + " " + desc);
   }
 
@@ -100,7 +105,7 @@ public class CriminalController {
   public String criminalChoice(Model model, @RequestParam("id") int index, @RequestParam("fName") String fname, @RequestParam("lName") String lname, @RequestParam("dob") String dob, @RequestParam("sex") String sex, @RequestParam("race") String race, @RequestParam("desc") String desc, @RequestParam("caseNum") String caseNum, @RequestParam("jurisd") String jurisd) {
     String firstName = "";
     String lastName = "";
-    String hi = "Welcome";
+    String queryResult;
     InputRequest requestData = new InputRequest();
     requestData.credentials.account_id = secretKeys.getAccountId();
     requestData.credentials.api_key = secretKeys.getApiKey();
@@ -119,11 +124,11 @@ public class CriminalController {
     model.addAttribute("jurisd", jurisd);
     try {
       String criminalDBUrl = "https://api.imsasllc.com/v3/";
-      hi = queryCriminalDB(criminalDBUrl, requestData);
-      JSONObject json = null;
+      queryResult = queryCriminalDB(criminalDBUrl, requestData);
+      JSONObject json;
 
 
-      json = new JSONObject(hi);
+      json = new JSONObject(queryResult);
 
 
       fname = json.getJSONObject("Results").getJSONObject("Inputs").getString("FirstName");
@@ -158,27 +163,6 @@ public class CriminalController {
     return "criminalresult";
   }
 
-
-  // reading from a saved JSON file on local machine
-//  private String queryCriminalDB(String pathFilename) {
-//    String result = "";
-//    String line;
-//
-//    try {
-//
-//      BufferedReader br = new BufferedReader(new FileReader(pathFilename));
-//      while ((line = br.readLine()) != null) {
-//        result += line;
-//      }
-//
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
-//
-//    return result;
-//  }
-
-  // reading form the API
   private String queryCriminalDB(String requestUrl, InputRequest requestData) {
     String result = "";
 

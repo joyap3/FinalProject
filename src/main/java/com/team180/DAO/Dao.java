@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface Dao {
 
+    //Basic CRUD methods used
+
     ArrayList<UsersEntity> displayUserList();
 
     ArrayList<EmployerListingEntity> displayJobList();

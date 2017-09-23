@@ -25,9 +25,7 @@ public class HomeController {
     HibernateDao hd = new HibernateDao();
 
     @RequestMapping("/")
-/**
- * This function does
- */
+//Homepage called and displays the user in the nav bar if logged in
     public ModelAndView helloWorld() {
         if (UserController.loggedInUser != null) {
             List<UsersEntity> getUser = hd.getUsersEntities(UserController.loggedInUser.getEmail());
@@ -46,10 +44,11 @@ public class HomeController {
         }
     }
 
-    private int id;
-
     @RequestMapping("/login")
+    /*If a specified user is already logged in it will return them to the profile page,
+    otherwise it will return the login page and prompt them to log in*/
     public ModelAndView login(Model model) {
+
         if (AdminController.loggedInAdmin != null) {
             List<AdminUsersEntity> adminList = hd.getAdminEntities(AdminController.loggedInAdmin.getEmail());
             return new ModelAndView("admin", "adminUser", adminList.get(0));
@@ -69,21 +68,21 @@ public class HomeController {
     }
 
     @RequestMapping("/loginUser")
+    /*
+    When a user logs in the method will check through each list and match the entered username with the registered usernames
+    in the database. If it is a match it checks passwords and returns the user to the specified profile.
+     */
     public ModelAndView loginUser(Model model, @RequestParam("user") String userName, @RequestParam("pass") String password) {
 
-        if (AdminController.loggedInAdmin != null) {
-            model.addAttribute("user", AdminController.loggedInAdmin.getFirstName());
-            return new ModelAndView("admin", "adminUser", hd.getAdminEntities(AdminController.loggedInAdmin.getEmail()).get(0));
-        }
-
+        //checks if entered username is in the user table
         List<UsersEntity> userList = hd.getUsersEntities(userName);
 
         if (!userList.isEmpty() && userList.get(0).getEmail().equalsIgnoreCase(userName)) {
             if (userList.get(0).getPassword().equals(PasswordMD5Encrypt.PasswordMD5Encrypt(password))) {
 
-                UserController.loggedInUser = userList.get(0);
-                EmployerController.loggedInEmployer = null;
-                AdminController.loggedInAdmin = null;
+                UserController.loggedInUser = userList.get(0); //assigns the specified user from the query to loggedInUser
+                EmployerController.loggedInEmployer = null; //logs out employer user if logged in previously
+                AdminController.loggedInAdmin = null; //logs out admin user if logged in previously
 
                 model.addAttribute("user", UserController.loggedInUser.getEmail());
                 return new ModelAndView("userprofile", "userProfile", UserController.loggedInUser);
@@ -92,6 +91,7 @@ public class HomeController {
             }
         }
 
+        //checks if entered employer is in the employer table
         List<EmployerListingEntity> employerList = hd.getEmployerListingEntities(userName);
 
         if (!employerList.isEmpty() && employerList.get(0).getContactEmail().equalsIgnoreCase(userName)) {
@@ -108,6 +108,7 @@ public class HomeController {
             }
         }
 
+        //checks if entered admin is in the admin table
         List<AdminUsersEntity> adminList = hd.getAdminEntities(userName);
 
         if (!adminList.isEmpty() && adminList.get(0).getEmail().equalsIgnoreCase(userName)) {
@@ -116,7 +117,7 @@ public class HomeController {
                 UserController.loggedInUser = null;
                 EmployerController.loggedInEmployer = null;
                 AdminController.loggedInAdmin = adminList.get(0);
-                AdminController.isLoggedIn = true;
+                AdminController.isLoggedIn = true; //used in the admin controller so admin pages cannot be manually navigated to
 
                 return new ModelAndView("admin", "adminUser", AdminController.loggedInAdmin);
             } else {
@@ -129,6 +130,9 @@ public class HomeController {
     }
 
     @RequestMapping("/supportpage")
+    /*
+    Need to still build this page out but the goal is to connect users to outside resources to help them.
+     */
     public ModelAndView goToSupportPage(Model model) {
 
         if (UserController.loggedInUser != null) {
@@ -147,6 +151,7 @@ public class HomeController {
     }
 
     @RequestMapping("/logout")
+    //sets any user to null and logs them out
     public ModelAndView logUserOut(Model model) {
         EmployerController.loggedInEmployer = null;
         UserController.loggedInUser = null;
