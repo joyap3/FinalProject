@@ -86,7 +86,7 @@ public class AdminController {
         if (isLoggedIn) {
             this.id = id;
 
-            Session s = HibernateUtil.getSession();
+            Session s = HibernateDao.getSession();
             UsersEntity temp = (UsersEntity) s.get(UsersEntity.class, id);
             List<UsersEntity> userList = hd.getUsersEntities(temp.getEmail());
 
@@ -105,7 +105,7 @@ public class AdminController {
                                       @RequestParam("address") String address, @RequestParam("zip") int zip, @RequestParam("phoneNumber") String phoneNum,
                                       @RequestParam("email") String email, @RequestParam("skillSet") String skillSet, @RequestParam("crimetype") String crime) {
         if (isLoggedIn) {
-            Session editCrimetype = HibernateUtil.getSession();
+            Session editCrimetype = HibernateDao.getSession();
 
             //temp object will store info for the object we want to update.
             UsersEntity temp = editCrimetype.get(UsersEntity.class, id);
@@ -151,7 +151,7 @@ public class AdminController {
     public ModelAndView registerAdmin(Model model,@RequestParam("firstName")String firstName, @RequestParam("lastName")String lastName,
                                       @RequestParam("email")String email,@RequestParam("password")String password){
         if (isLoggedIn) {
-            Session s = HibernateUtil.getSession();
+            Session s = HibernateDao.getSession();
 
             AdminUsersEntity adminUser = new AdminUsersEntity();
 
@@ -179,7 +179,7 @@ public class AdminController {
     public ModelAndView searchUser(Model model,@RequestParam("firstName") String firstName) {
 
         if(isLoggedIn) {
-            Session selectUsers = HibernateUtil.getSession();
+            Session selectUsers = HibernateDao.getSession();
             Criteria c = selectUsers.createCriteria(UsersEntity.class);
             c.add(Restrictions.like("firstName", "%" + firstName + "%"));
 //        c.add(Restrictions.like("lastName", "%" + lastName + "%"));
@@ -202,7 +202,7 @@ public class AdminController {
 
             UsersEntity temp = new UsersEntity();
             temp.setIdUsers(id);
-            Session deleteUsers = HibernateUtil.getSession();
+            Session deleteUsers = HibernateDao.getSession();
             deleteUsers.delete(temp);
             deleteUsers.getTransaction().commit();
             ArrayList<UsersEntity> userList = hd.displayUserList();
@@ -224,7 +224,7 @@ public class AdminController {
 
             EmployerListingEntity temp = new EmployerListingEntity();
             temp.setJobId(id);
-            Session deleteJob = HibernateUtil.getSession();
+            Session deleteJob = HibernateDao.getSession();
             deleteJob.delete(temp);
             deleteJob.getTransaction().commit();
 

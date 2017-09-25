@@ -43,7 +43,7 @@ public class EmployerController {
                                          @RequestParam("contactEmail") String email, @RequestParam("jobDescription") String jDescription,
                                          @RequestParam("crimetype") String cType, @RequestParam("password") String password) {
 
-        Session s = HibernateUtil.getSession();
+        Session s = HibernateDao.getSession();
 
         EmployerListingEntity newEmployer = new EmployerListingEntity();
 
@@ -77,7 +77,7 @@ public class EmployerController {
 public ModelAndView update(Model model, @RequestParam("id") int id) {
     this.id = id;
 
-    Session s = HibernateUtil.getSession();
+    Session s = HibernateDao.getSession();
 
     EmployerListingEntity temp = (EmployerListingEntity) s.get(EmployerListingEntity.class, id);
 
@@ -95,7 +95,7 @@ public ModelAndView update(Model model, @RequestParam("id") int id) {
                                    @RequestParam("contactEmail") String email, @RequestParam("jobDescription") String jDescription,
                                    @RequestParam("crimetype") String cType) {
 
-        Session s = HibernateUtil.getSession();
+        Session s = HibernateDao.getSession();
 
         EmployerListingEntity temp = (EmployerListingEntity) s.get(EmployerListingEntity.class, id);
         temp.setCompany(company);
@@ -131,7 +131,7 @@ public ModelAndView update(Model model, @RequestParam("id") int id) {
                                 @RequestParam("contactName") String cName, @RequestParam("contactPhone") String cPhone,
                                 @RequestParam("jobDescription") String jDescription,
                                 @RequestParam("crimetype") String cType){
-    Session s = HibernateUtil.getSession();
+    Session s = HibernateDao.getSession();
 
     EmployerListingEntity addJob = new EmployerListingEntity();
     addJob.setCompany(company);
